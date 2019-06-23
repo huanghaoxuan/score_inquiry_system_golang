@@ -1,7 +1,225 @@
 {
+    "swagger": "2.0",
     "info": {
-        "contact": {},
-        "license": {}
+        "description": "东南大学成贤学院学生成绩录入及学生进行查询系统的标准API接口文档",
+        "title": "成绩录入及查询系统标准接口文档",
+        "termsOfService": "暂缺",
+        "contact": {
+            "name": "黄浩轩",
+            "url": "https://github.com/huanghaoxuan",
+            "email": "huanghaoxuan1998@outlook.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "0.0.1"
     },
-    "paths": {}
+    "host": "localhost:5201",
+    "basePath": "/api",
+    "paths": {
+        "/user/insert": {
+            "post": {
+                "description": "增加学生信息记录",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "基本信息"
+                ],
+                "summary": "增加学生信息记录",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "学生学号",
+                        "name": "student_id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "姓名",
+                        "name": "name",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "所在学院或部门",
+                        "name": "department",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "所在班级",
+                        "name": "class",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "入校时间",
+                        "name": "entering_time",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"status\": 1}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/login": {
+            "post": {
+                "description": "用于用户登录",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户"
+                ],
+                "summary": "登录",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "学生学号",
+                        "name": "student_id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "密码",
+                        "name": "password",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "  \"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjEyNjczNDIsImlhdCI6MTU2MTI2Mzc0MiwiaXNzIjoi5Lic5Y2X5aSn5a2m5oiQ6LSk5a2m6Zmi5oiQ57up5p-l6K-i57O757ufLS3pu4TmtanovakifQ.juqOf-lEq8bmWRBg1KHbmaqQK7vJMXJ-R5_tYrJAJs4",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/reset/{student_id}": {
+            "get": {
+                "description": "将密码重置为身份证后六位",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "用户"
+                ],
+                "summary": "重置密码",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "学生学号",
+                        "name": "student_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"status\": 1}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/update": {
+            "post": {
+                "description": "更新学生信息记录",
+                "consumes": [
+                    "multipart/form-data"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "基本信息"
+                ],
+                "summary": "更新学生信息记录",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "学生学号",
+                        "name": "student_id",
+                        "in": "formData",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "姓名",
+                        "name": "name",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "所在学院或部门",
+                        "name": "department",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "所在班级",
+                        "name": "class",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "入校时间",
+                        "name": "entering_time",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "权限",
+                        "name": "permissions",
+                        "in": "formData"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"status\": 1}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

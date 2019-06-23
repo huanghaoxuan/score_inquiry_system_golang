@@ -1,4 +1,151 @@
+basePath: /api
+host: localhost:5201
 info:
-  contact: {}
-  license: {}
-paths: {}
+  contact:
+    email: huanghaoxuan1998@outlook.com
+    name: 黄浩轩
+    url: https://github.com/huanghaoxuan
+  description: 东南大学成贤学院学生成绩录入及学生进行查询系统的标准API接口文档
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: 暂缺
+  title: 成绩录入及查询系统标准接口文档
+  version: 0.0.1
+paths:
+  /user/insert:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 增加学生信息记录
+      parameters:
+      - description: Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 学生学号
+        in: formData
+        name: student_id
+        required: true
+        type: string
+      - description: 姓名
+        in: formData
+        name: name
+        type: string
+      - description: 所在学院或部门
+        in: formData
+        name: department
+        type: string
+      - description: 所在班级
+        in: formData
+        name: class
+        type: string
+      - description: 入校时间
+        in: formData
+        name: entering_time
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"status": 1}'
+          schema:
+            type: string
+      summary: 增加学生信息记录
+      tags:
+      - 基本信息
+  /user/login:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 用于用户登录
+      parameters:
+      - description: 学生学号
+        in: formData
+        name: student_id
+        required: true
+        type: string
+      - description: 密码
+        in: formData
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjEyNjczNDIsImlhdCI6MTU2MTI2Mzc0MiwiaXNzIjoi5Lic5Y2X5aSn5a2m5oiQ6LSk5a2m6Zmi5oiQ57up5p-l6K-i57O757ufLS3pu4TmtanovakifQ.juqOf-lEq8bmWRBg1KHbmaqQK7vJMXJ-R5_tYrJAJs4'
+          schema:
+            type: string
+      summary: 登录
+      tags:
+      - 用户
+  /user/reset/{student_id}:
+    get:
+      consumes:
+      - application/json
+      description: 将密码重置为身份证后六位
+      parameters:
+      - description: 学生学号
+        in: path
+        name: student_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"status": 1}'
+          schema:
+            type: string
+      summary: 重置密码
+      tags:
+      - 用户
+  /user/update:
+    post:
+      consumes:
+      - multipart/form-data
+      description: 更新学生信息记录
+      parameters:
+      - description: Token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 学生学号
+        in: formData
+        name: student_id
+        required: true
+        type: string
+      - description: 姓名
+        in: formData
+        name: name
+        type: string
+      - description: 所在学院或部门
+        in: formData
+        name: department
+        type: string
+      - description: 所在班级
+        in: formData
+        name: class
+        type: string
+      - description: 入校时间
+        in: formData
+        name: entering_time
+        type: string
+      - description: 权限
+        in: formData
+        name: permissions
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{"status": 1}'
+          schema:
+            type: string
+      summary: 更新学生信息记录
+      tags:
+      - 基本信息
+swagger: "2.0"
