@@ -42,7 +42,7 @@
                     {
                         "type": "string",
                         "description": "学生学号",
-                        "name": "student_id",
+                      "name": "studentId",
                         "in": "formData",
                         "required": true
                     },
@@ -55,37 +55,37 @@
                     {
                         "type": "string",
                         "description": "原所在学院或部门",
-                        "name": "department_old",
+                      "name": "departmentOld",
                         "in": "formData"
                     },
                     {
                         "type": "string",
                         "description": "原所在班级",
-                        "name": "class_old",
+                      "name": "classOld",
                         "in": "formData"
                     },
                     {
                         "type": "string",
                         "description": "原所在年级",
-                        "name": "grade_old",
+                      "name": "gradeOld",
                         "in": "formData"
                     },
                     {
                         "type": "string",
                         "description": "现所在学院或部门",
-                        "name": "department_new",
+                      "name": "departmentNew",
                         "in": "formData"
                     },
                     {
                         "type": "string",
                         "description": "现所在班级",
-                        "name": "class_new",
+                      "name": "classNew",
                         "in": "formData"
                     },
                     {
                         "type": "string",
                         "description": "现所在年级",
-                        "name": "grade_new",
+                      "name": "gradeNew",
                         "in": "formData"
                     }
                 ],
@@ -116,7 +116,7 @@
                     {
                         "type": "string",
                         "description": "学生学号",
-                        "name": "student_id",
+                      "name": "studentId",
                         "in": "formData",
                         "required": true
                     },
@@ -155,7 +155,7 @@
                     {
                         "type": "string",
                         "description": "学生学号",
-                        "name": "student_id",
+                      "name": "studentId",
                         "in": "path",
                         "required": true
                     }
@@ -194,7 +194,7 @@
                     {
                         "type": "string",
                         "description": "学生学号",
-                        "name": "student_id",
+                      "name": "studentId",
                         "in": "formData",
                         "required": true
                     },
@@ -207,37 +207,37 @@
                     {
                         "type": "string",
                         "description": "原所在学院或部门",
-                        "name": "department_old",
+                      "name": "departmentOld",
                         "in": "formData"
                     },
                     {
                         "type": "string",
                         "description": "原所在班级",
-                        "name": "class_old",
+                      "name": "classOld",
                         "in": "formData"
                     },
                     {
                         "type": "string",
                         "description": "原所在年级",
-                        "name": "grade_old",
+                      "name": "gradeOld",
                         "in": "formData"
                     },
                     {
                         "type": "string",
                         "description": "现所在学院或部门",
-                        "name": "department_new",
+                      "name": "departmentNew",
                         "in": "formData"
                     },
                     {
                         "type": "string",
                         "description": "现所在班级",
-                        "name": "class_new",
+                      "name": "classNew",
                         "in": "formData"
                     },
                     {
                         "type": "string",
                         "description": "现所在年级",
-                        "name": "grade_new",
+                      "name": "gradeNew",
                         "in": "formData"
                     },
                     {

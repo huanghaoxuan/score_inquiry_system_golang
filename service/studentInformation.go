@@ -16,11 +16,11 @@ import (
 
 //插入
 func Insert(information *model.StudentInformation) int64 {
-	if information.SelectByStudentID(information.StudentID).ID != "" {
+	if information.SelectByStudentId(information.StudentId).Id != "" {
 		return 0
 	}
 	//设置uuid为主键
-	information.ID = uuid.NewV4().String()
+	information.Id = uuid.NewV4().String()
 	//默认权限为1
 	information.Permissions = 1
 	return information.Insert()
@@ -28,9 +28,9 @@ func Insert(information *model.StudentInformation) int64 {
 
 //更新相关记录权限
 func Update(information *model.StudentInformation) int64 {
-	informationOld := information.SelectByStudentID(information.StudentID)
+	informationOld := information.SelectByStudentId(information.StudentId)
 	fmt.Println(informationOld)
-	information.ID = informationOld.ID
+	information.Id = informationOld.Id
 	fmt.Println(information)
 	return information.Update()
 }

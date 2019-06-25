@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"score_inquiry_system/model"
+	"score_inquiry_system/service"
 	"score_inquiry_system/util/middleware"
 )
 
@@ -20,12 +22,20 @@ import (
 // @Tags 用户
 // @Accept mpfd
 // @Produce json
-// @Param student_id formData string true "学生学号"
+// @Param studentId formData string true "学生学号"
 // @Param password formData string true "密码"
 // @Success 200 {string} json "  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NjEyNjczNDIsImlhdCI6MTU2MTI2Mzc0MiwiaXNzIjoi5Lic5Y2X5aSn5a2m5oiQ6LSk5a2m6Zmi5oiQ57up5p-l6K-i57O757ufLS3pu4TmtanovakifQ.juqOf-lEq8bmWRBg1KHbmaqQK7vJMXJ-R5_tYrJAJs4""
 // @Router /user/login [post]
 func Login(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{"status": 1, "token": middleware.GeneratedToken()})
+	var student model.Student
+	_ = c.ShouldBind(&student)
+	fmt.Println(student)
+	status := service.Login(&student)
+	if status == 0 {
+		c.JSON(http.StatusForbidden, gin.H{"status": status})
+	} else {
+		c.JSON(http.StatusOK, gin.H{"status": status, "token": middleware.GeneratedToken()})
+	}
 }
 
 // @Summary 重置密码
@@ -34,7 +44,7 @@ func Login(c *gin.Context) {
 // @Accept json
 // @Produce json
 // Param Authorization header string true "Token"
-// @Param student_id path string true "学生学号"
+// @Param studentId path string true "学生学号"
 // @Success 200 {string} json "{"status": 1}"
 // @Router /user/reset/{student_id} [get]
 func Reset(c *gin.Context) {

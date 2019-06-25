@@ -26,7 +26,7 @@ paths:
         type: string
       - description: 学生学号
         in: formData
-        name: student_id
+        name: studentId
         required: true
         type: string
       - description: 姓名
@@ -35,27 +35,27 @@ paths:
         type: string
       - description: 原所在学院或部门
         in: formData
-        name: department_old
+        name: departmentOld
         type: string
       - description: 原所在班级
         in: formData
-        name: class_old
+        name: classOld
         type: string
       - description: 原所在年级
         in: formData
-        name: grade_old
+        name: gradeOld
         type: string
       - description: 现所在学院或部门
         in: formData
-        name: department_new
+        name: departmentNew
         type: string
       - description: 现所在班级
         in: formData
-        name: class_new
+        name: classNew
         type: string
       - description: 现所在年级
         in: formData
-        name: grade_new
+        name: gradeNew
         type: string
       produces:
       - application/json
@@ -75,7 +75,7 @@ paths:
       parameters:
       - description: 学生学号
         in: formData
-        name: student_id
+        name: studentId
         required: true
         type: string
       - description: 密码
@@ -101,7 +101,7 @@ paths:
       parameters:
       - description: 学生学号
         in: path
-        name: student_id
+        name: studentId
         required: true
         type: string
       produces:
@@ -127,7 +127,7 @@ paths:
         type: string
       - description: 学生学号
         in: formData
-        name: student_id
+        name: studentId
         required: true
         type: string
       - description: 姓名
@@ -136,27 +136,27 @@ paths:
         type: string
       - description: 原所在学院或部门
         in: formData
-        name: department_old
+        name: departmentOld
         type: string
       - description: 原所在班级
         in: formData
-        name: class_old
+        name: classOld
         type: string
       - description: 原所在年级
         in: formData
-        name: grade_old
+        name: gradeOld
         type: string
       - description: 现所在学院或部门
         in: formData
-        name: department_new
+        name: departmentNew
         type: string
       - description: 现所在班级
         in: formData
-        name: class_new
+        name: classNew
         type: string
       - description: 现所在年级
         in: formData
-        name: grade_new
+        name: gradeNew
         type: string
       - description: 权限
         in: formData
