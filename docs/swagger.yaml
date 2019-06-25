@@ -33,17 +33,29 @@ paths:
         in: formData
         name: name
         type: string
-      - description: 所在学院或部门
+      - description: 原所在学院或部门
         in: formData
-        name: department
+        name: department_old
         type: string
-      - description: 所在班级
+      - description: 原所在班级
         in: formData
-        name: class
+        name: class_old
         type: string
-      - description: 入校时间
+      - description: 原所在年级
         in: formData
-        name: entering_time
+        name: grade_old
+        type: string
+      - description: 现所在学院或部门
+        in: formData
+        name: department_new
+        type: string
+      - description: 现所在班级
+        in: formData
+        name: class_new
+        type: string
+      - description: 现所在年级
+        in: formData
+        name: grade_new
         type: string
       produces:
       - application/json
@@ -122,17 +134,29 @@ paths:
         in: formData
         name: name
         type: string
-      - description: 所在学院或部门
+      - description: 原所在学院或部门
         in: formData
-        name: department
+        name: department_old
         type: string
-      - description: 所在班级
+      - description: 原所在班级
         in: formData
-        name: class
+        name: class_old
         type: string
-      - description: 入校时间
+      - description: 原所在年级
         in: formData
-        name: entering_time
+        name: grade_old
+        type: string
+      - description: 现所在学院或部门
+        in: formData
+        name: department_new
+        type: string
+      - description: 现所在班级
+        in: formData
+        name: class_new
+        type: string
+      - description: 现所在年级
+        in: formData
+        name: grade_new
         type: string
       - description: 权限
         in: formData

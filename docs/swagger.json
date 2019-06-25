@@ -54,20 +54,38 @@
                     },
                     {
                         "type": "string",
-                        "description": "所在学院或部门",
-                        "name": "department",
+                        "description": "原所在学院或部门",
+                        "name": "department_old",
                         "in": "formData"
                     },
                     {
                         "type": "string",
-                        "description": "所在班级",
-                        "name": "class",
+                        "description": "原所在班级",
+                        "name": "class_old",
                         "in": "formData"
                     },
                     {
                         "type": "string",
-                        "description": "入校时间",
-                        "name": "entering_time",
+                        "description": "原所在年级",
+                        "name": "grade_old",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "现所在学院或部门",
+                        "name": "department_new",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "现所在班级",
+                        "name": "class_new",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "现所在年级",
+                        "name": "grade_new",
                         "in": "formData"
                     }
                 ],
@@ -188,20 +206,38 @@
                     },
                     {
                         "type": "string",
-                        "description": "所在学院或部门",
-                        "name": "department",
+                        "description": "原所在学院或部门",
+                        "name": "department_old",
                         "in": "formData"
                     },
                     {
                         "type": "string",
-                        "description": "所在班级",
-                        "name": "class",
+                        "description": "原所在班级",
+                        "name": "class_old",
                         "in": "formData"
                     },
                     {
                         "type": "string",
-                        "description": "入校时间",
-                        "name": "entering_time",
+                        "description": "原所在年级",
+                        "name": "grade_old",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "现所在学院或部门",
+                        "name": "department_new",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "现所在班级",
+                        "name": "class_new",
+                        "in": "formData"
+                    },
+                    {
+                        "type": "string",
+                        "description": "现所在年级",
+                        "name": "grade_new",
                         "in": "formData"
                     },
                     {

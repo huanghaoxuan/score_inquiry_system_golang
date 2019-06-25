@@ -14,7 +14,6 @@ import (
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"score_inquiry_system/api"
 	_ "score_inquiry_system/docs"
-	"score_inquiry_system/util/middleware"
 )
 
 // @title 成绩录入及查询系统标准接口文档
@@ -47,7 +46,7 @@ func main() {
 	//除登录外全部分组全部加入"/api"前缀
 	basePath := r.Group("/api")
 	//除登录与文档链接外使用JWT中间件
-	basePath.Use(middleware.ValidateToken)
+	//basePath.Use(middleware.ValidateToken)
 	{
 		api.StudentInformation(basePath)
 	}
