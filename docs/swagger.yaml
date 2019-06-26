@@ -172,4 +172,30 @@ paths:
       summary: 更新学生信息记录
       tags:
       - 基本信息
+  /user/upload:
+    post:
+      consumes:
+        - multipart/form-data
+      description: 上传学生信息表格文件，批量添加学生信息
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 文件
+          in: formData
+          name: file
+          required: true
+          type: file
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: '{"status": 1}'
+          schema:
+            type: string
+      summary: 上传学生信息表格文件
+      tags:
+        - 基本信息
 swagger: "2.0"

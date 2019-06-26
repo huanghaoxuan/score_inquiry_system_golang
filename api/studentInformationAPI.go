@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"score_inquiry_system/model"
@@ -18,6 +19,7 @@ import (
 func StudentInformation(basePath *gin.RouterGroup) {
 	basePath.POST("/user/insert", InsertStudentInformation)
 	basePath.POST("/user/update", UpdateStudentInformation)
+	basePath.POST("/user/upload", UploadStudentInformation)
 }
 
 // @Summary 增加学生信息记录
@@ -71,4 +73,30 @@ func UpdateStudentInformation(c *gin.Context) {
 	status := service.Update(&studentInformation)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"status": status})
+}
+
+// @Summary 上传学生信息表格文件
+// @Description 上传学生信息表格文件，批量添加学生信息
+// @Tags 基本信息
+// @Accept mpfd
+// @Produce json
+// @Param Authorization header string true "Token"
+// @Param file formData file true "文件"
+// @Success 200 {string} json "{"status": 1}"
+// @Router /user/upload [post]
+func UploadStudentInformation(c *gin.Context) {
+	// 单文件
+	fileHeader, _ := c.FormFile("file")
+	fmt.Println("./../public/studentInformation" + fileHeader.Filename)
+	_ = c.SaveUploadedFile(fileHeader, "public/studentInformation/"+fileHeader.Filename)
+	//file, _ := excelize.OpenFile("test.xlsx")
+	//rows := file.GetRows("Sheet1")
+	//for _, row := range rows {
+	//	for _, colCell := range row {
+	//		fmt.Print(colCell, "\t")
+	//	}
+	//	fmt.Println()
+	//}
+	//service.ProcessingExcelFile(file)
+
 }

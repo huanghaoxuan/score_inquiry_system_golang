@@ -32,7 +32,6 @@ import (
 // @BasePath /api
 func main() {
 	//gin.SetMode(gin.ReleaseMode)
-	//r := gin.Default()//默认配置
 
 	r := gin.New()
 	r.Use(gin.Logger())   //使用Logger中间件

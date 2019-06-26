@@ -3,6 +3,7 @@ package service
 import (
 	"fmt"
 	uuid "github.com/satori/go.uuid"
+	"os"
 	"score_inquiry_system/model"
 )
 
@@ -33,4 +34,9 @@ func Update(information *model.StudentInformation) int64 {
 	information.Id = informationOld.Id
 	fmt.Println(information)
 	return information.Update()
+}
+
+//处理上传的学生信息表格
+func ProcessingExcelFile(file os.File) {
+
 }
