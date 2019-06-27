@@ -2,9 +2,10 @@ package service
 
 import (
 	"fmt"
+	"github.com/360EntSecGroup-Skylar/excelize"
 	uuid "github.com/satori/go.uuid"
-	"os"
 	"score_inquiry_system/model"
+	"strconv"
 )
 
 /**
@@ -37,6 +38,41 @@ func Update(information *model.StudentInformation) int64 {
 }
 
 //处理上传的学生信息表格
-func ProcessingExcelFile(file os.File) {
+func ProcessingExcelFile(s string) {
+	file, _ := excelize.OpenFile(s)
+	rows := file.GetRows("Sheet1")
+	for i, row := range rows {
+		if i != 0 {
+			studentInformation := model.StudentInformation{}
+			studentInformation.Id = uuid.NewV4().String()
+			for j, colCell := range row {
+				switch j {
+				case 0:
+					studentInformation.StudentId = colCell
+				case 1:
+					studentInformation.Name = colCell
+				case 2:
+					{
+						gradeOld, _ := strconv.Atoi(colCell)
+						studentInformation.GradeOld = gradeOld
+					}
+				case 3:
+					studentInformation.DepartmentOld = colCell
+				case 4:
+					studentInformation.ClassOld = colCell
+				case 5:
+					{
+						gradeNew, _ := strconv.Atoi(colCell)
+						studentInformation.GradeNew = gradeNew
+					}
+				case 6:
+					studentInformation.DepartmentNew = colCell
+				case 7:
+					studentInformation.ClassNew = colCell
+				}
+			}
+			fmt.Println(studentInformation)
+		}
 
+	}
 }

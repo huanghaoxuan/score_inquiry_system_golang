@@ -3,6 +3,7 @@ package api
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	uuid "github.com/satori/go.uuid"
 	"net/http"
 	"score_inquiry_system/model"
 	"score_inquiry_system/service"
@@ -88,15 +89,9 @@ func UploadStudentInformation(c *gin.Context) {
 	// 单文件
 	fileHeader, _ := c.FormFile("file")
 	fmt.Println("./../public/studentInformation" + fileHeader.Filename)
-	_ = c.SaveUploadedFile(fileHeader, "public/studentInformation/"+fileHeader.Filename)
-	//file, _ := excelize.OpenFile("test.xlsx")
-	//rows := file.GetRows("Sheet1")
-	//for _, row := range rows {
-	//	for _, colCell := range row {
-	//		fmt.Print(colCell, "\t")
-	//	}
-	//	fmt.Println()
-	//}
-	//service.ProcessingExcelFile(file)
+	s := "public/studentInformation/" + uuid.NewV4().String() + fileHeader.Filename
+	_ = c.SaveUploadedFile(fileHeader, s)
+
+	service.ProcessingExcelFile(s)
 
 }

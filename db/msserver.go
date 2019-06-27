@@ -2,7 +2,6 @@ package db
 
 import (
 	"bufio"
-	"fmt"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mssql"
 	"io"
@@ -32,10 +31,10 @@ func read() map[string]string {
 		properties[n[0]] = n[1]
 		if err != nil {
 			if err == io.EOF {
-				fmt.Println("File read ok!")
+				//fmt.Println("File read ok!")
 				break
 			} else {
-				fmt.Println("Read file error!", err)
+				//fmt.Println("Read file error!", err)
 			}
 		}
 	}
@@ -49,7 +48,7 @@ func Init() *gorm.DB {
 	properties := read()
 	userName := properties["userName"]
 	userPassword := properties["userPassword"]
-	fmt.Println(userName, userPassword)
+	//fmt.Println(userName, userPassword)
 	db, err := gorm.Open("mssql", "sqlserver://"+userName+":"+userPassword+"@localhost:1433?database=score_inquiry_system")
 	if err != nil {
 		panic("failed to connect database")
