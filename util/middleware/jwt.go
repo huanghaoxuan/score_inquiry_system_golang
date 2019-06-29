@@ -28,7 +28,7 @@ func GeneratedToken() string {
 	token := jwt.New(jwt.SigningMethodHS256)
 	claims := make(jwt.MapClaims)
 	//加入Token过期时间
-	claims["exp"] = time.Now().Add(time.Hour * time.Duration(1)).Unix()
+	claims["exp"] = time.Now().Add(time.Hour * time.Duration(24)).Unix()
 	//加入签发时间
 	claims["iat"] = time.Now().Unix()
 	//加入签发者

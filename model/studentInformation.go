@@ -37,6 +37,22 @@ func (information *StudentInformation) SelectByStudentId(StudentId string) *Stud
 	return &studentInformation
 }
 
+//分页查询
+func (information *StudentInformation) SelectByPage(pageNum int, pageSize int) []StudentInformation {
+	studentInformations := make([]StudentInformation, 10)
+	if pageNum > 0 && pageSize > 0 {
+		db.DB.Where(&information).Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&studentInformations)
+	}
+	return studentInformations
+}
+
+//查询总记录
+func (information *StudentInformation) Count() int {
+	count := 0
+	db.DB.Model(&information).Count(&count)
+	return count
+}
+
 //插入记录
 func (information *StudentInformation) Insert() int64 {
 	create := db.DB.Create(&information)
@@ -48,4 +64,14 @@ func (information *StudentInformation) Insert() int64 {
 func (information *StudentInformation) Update() int64 {
 	updates := db.DB.Model(&information).Where("id = ?", information.Id).Updates(information)
 	return updates.RowsAffected
+}
+
+//删除记录
+func (information *StudentInformation) Delete() int64 {
+	//防止记录被全部删除
+	if information.Id != "" {
+		i := db.DB.Delete(&information)
+		return i.RowsAffected
+	}
+	return 0
 }

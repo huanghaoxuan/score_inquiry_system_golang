@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"score_inquiry_system/model"
-	"score_inquiry_system/service"
+	"score_inquiry_system/service/loginService"
 	"score_inquiry_system/util/middleware"
 )
 
@@ -30,7 +30,7 @@ func Login(c *gin.Context) {
 	var student model.Student
 	_ = c.ShouldBind(&student)
 	fmt.Println(student)
-	status := service.Login(&student)
+	status := loginService.Login(&student)
 	if status == 0 {
 		c.JSON(http.StatusForbidden, gin.H{"status": status})
 	} else {

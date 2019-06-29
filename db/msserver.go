@@ -2,8 +2,9 @@ package db
 
 import (
 	"bufio"
+	"fmt"
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/mssql"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"io"
 	"os"
 	"strings"
@@ -48,9 +49,10 @@ func Init() *gorm.DB {
 	properties := read()
 	userName := properties["userName"]
 	userPassword := properties["userPassword"]
-	//fmt.Println(userName, userPassword)
-	db, err := gorm.Open("mssql", "sqlserver://"+userName+":"+userPassword+"@localhost:1433?database=score_inquiry_system")
+	fmt.Println(userName, userPassword)
+	db, err := gorm.Open("mysql", userName+":"+userPassword+"@/score_inquiry_system?charset=utf8&parseTime=True&loc=Local")
 	if err != nil {
+		fmt.Println("数据库连接错误:", err)
 		panic("failed to connect database")
 	}
 	// 关闭复数表名
@@ -58,7 +60,6 @@ func Init() *gorm.DB {
 	db.LogMode(true)
 	db.DB().SetMaxIdleConns(10)
 	db.DB().SetMaxOpenConns(100)
-	db.AutoMigrate()
 	return db
 }
 

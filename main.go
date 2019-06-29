@@ -13,7 +13,10 @@ import (
 	ginSwagger "github.com/swaggo/gin-swagger"
 	"github.com/swaggo/gin-swagger/swaggerFiles"
 	"score_inquiry_system/api"
+	"score_inquiry_system/db"
 	_ "score_inquiry_system/docs"
+	"score_inquiry_system/model"
+	"score_inquiry_system/util/middleware"
 )
 
 // @title 成绩录入及查询系统标准接口文档
@@ -30,8 +33,10 @@ import (
 
 // @host localhost:5201
 // @BasePath /api
+
 func main() {
 	//gin.SetMode(gin.ReleaseMode)
+	//service.InsertStudent("123456", "123456")
 
 	r := gin.New()
 	r.Use(gin.Logger())   //使用Logger中间件
@@ -45,10 +50,12 @@ func main() {
 	//除登录外全部分组全部加入"/api"前缀
 	basePath := r.Group("/api")
 	//除登录与文档链接外使用JWT中间件
-	//basePath.Use(middleware.ValidateToken)
+	basePath.Use(middleware.ValidateToken)
 	{
 		api.StudentInformation(basePath)
 	}
+	//数据库结构自动更新
+	db.DB.AutoMigrate(&model.Student{}, &model.StudentInformation{}, &model.TeachingClass{})
 	_ = r.Run(":5201")
 
 }

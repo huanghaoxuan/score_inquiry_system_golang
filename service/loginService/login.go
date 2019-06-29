@@ -1,4 +1,4 @@
-package service
+package loginService
 
 import (
 	uuid "github.com/satori/go.uuid"

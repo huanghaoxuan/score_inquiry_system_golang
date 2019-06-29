@@ -1,10 +1,10 @@
-package service
+package studentInformationService
 
 import (
-	"fmt"
 	"github.com/360EntSecGroup-Skylar/excelize"
 	uuid "github.com/satori/go.uuid"
 	"score_inquiry_system/model"
+	"score_inquiry_system/service/loginService"
 	"strconv"
 )
 
@@ -15,6 +15,16 @@ import (
  * @Date: 2019/6/23 20:32
  * @Version 1.0
  */
+
+//获取页数
+func Count(information *model.StudentInformation) int {
+	return information.Count()
+}
+
+//分页查询
+func SelectByPage(pageNum int, pageSize int, information *model.StudentInformation) []model.StudentInformation {
+	return information.SelectByPage(pageNum, pageSize)
+}
 
 //插入
 func Insert(information *model.StudentInformation) int64 {
@@ -30,10 +40,7 @@ func Insert(information *model.StudentInformation) int64 {
 
 //更新相关记录权限
 func Update(information *model.StudentInformation) int64 {
-	informationOld := information.SelectByStudentId(information.StudentId)
-	fmt.Println(informationOld)
-	information.Id = informationOld.Id
-	fmt.Println(information)
+
 	return information.Update()
 }
 
@@ -71,8 +78,17 @@ func ProcessingExcelFile(s string) {
 					studentInformation.ClassNew = colCell
 				}
 			}
-			fmt.Println(studentInformation)
+			//插入登录信息
+			loginService.InsertStudent(studentInformation.StudentId, studentInformation.StudentId)
+			//插入基本信息
+			studentInformation.Insert()
 		}
 
 	}
+}
+
+//删除一条记录
+func Delete(id string) int64 {
+	information := model.StudentInformation{Id: id}
+	return information.Delete()
 }
