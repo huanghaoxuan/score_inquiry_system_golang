@@ -28,7 +28,7 @@ func StudentInformation(basePath *gin.RouterGroup) {
 
 // @Summary 增加学生信息记录
 // @Description 增加学生信息记录
-// @Tags 基本信息
+// @Tags 学籍信息
 // @Accept mpfd
 // @Produce json
 // @Param Authorization header string true "Token"
@@ -54,7 +54,7 @@ func InsertStudentInformation(c *gin.Context) {
 
 // @Summary 更新学生信息记录
 // @Description 更新学生信息记录
-// @Tags 基本信息
+// @Tags 学籍信息
 // @Accept mpfd
 // @Produce json
 // @Param Authorization header string true "Token"
@@ -81,7 +81,7 @@ func UpdateStudentInformation(c *gin.Context) {
 
 // @Summary 上传学生信息表格文件
 // @Description 上传学生信息表格文件，批量添加学生信息
-// @Tags 基本信息
+// @Tags 学籍信息
 // @Accept mpfd
 // @Produce json
 // @Param Authorization header string true "Token"
@@ -101,7 +101,7 @@ func UploadStudentInformation(c *gin.Context) {
 
 // @Summary 分页查询学生信息
 // @Description 分页查询学生信息，如果查询第一页，返回总条数，条件非必需
-// @Tags 基本信息
+// @Tags 学籍信息
 // @Accept json
 // @Produce json
 // @Param Authorization header string true "Token"
@@ -128,7 +128,7 @@ func SelectStudentInformationByPage(c *gin.Context) {
 
 // @Summary 删除一条学生信息
 // @Description 删除一条学生信息
-// @Tags 基本信息
+// @Tags 学籍信息
 // @Accept json
 // @Produce json
 // @Param Authorization header string true "Token"

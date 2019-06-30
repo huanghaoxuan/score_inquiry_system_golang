@@ -5,7 +5,6 @@ import (
 	uuid "github.com/satori/go.uuid"
 	"score_inquiry_system/model"
 	"score_inquiry_system/service/loginService"
-	"strconv"
 )
 
 /**
@@ -28,9 +27,6 @@ func SelectByPage(pageNum int, pageSize int, information *model.StudentInformati
 
 //插入
 func Insert(information *model.StudentInformation) int64 {
-	if information.SelectByStudentId(information.StudentId).Id != "" {
-		return 0
-	}
 	//设置uuid为主键
 	information.Id = uuid.NewV4().String()
 	//默认权限为1
@@ -40,7 +36,6 @@ func Insert(information *model.StudentInformation) int64 {
 
 //更新相关记录权限
 func Update(information *model.StudentInformation) int64 {
-
 	return information.Update()
 }
 
@@ -51,7 +46,6 @@ func ProcessingExcelFile(s string) {
 	for i, row := range rows {
 		if i != 0 {
 			studentInformation := model.StudentInformation{}
-			studentInformation.Id = uuid.NewV4().String()
 			for j, colCell := range row {
 				switch j {
 				case 0:
@@ -59,19 +53,13 @@ func ProcessingExcelFile(s string) {
 				case 1:
 					studentInformation.Name = colCell
 				case 2:
-					{
-						gradeOld, _ := strconv.Atoi(colCell)
-						studentInformation.GradeOld = gradeOld
-					}
+					studentInformation.GradeOld = colCell
 				case 3:
 					studentInformation.DepartmentOld = colCell
 				case 4:
 					studentInformation.ClassOld = colCell
 				case 5:
-					{
-						gradeNew, _ := strconv.Atoi(colCell)
-						studentInformation.GradeNew = gradeNew
-					}
+					studentInformation.GradeNew = colCell
 				case 6:
 					studentInformation.DepartmentNew = colCell
 				case 7:
@@ -81,7 +69,7 @@ func ProcessingExcelFile(s string) {
 			//插入登录信息
 			loginService.InsertStudent(studentInformation.StudentId, studentInformation.StudentId)
 			//插入基本信息
-			studentInformation.Insert()
+			Insert(&studentInformation)
 		}
 
 	}

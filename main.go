@@ -53,6 +53,7 @@ func main() {
 	basePath.Use(middleware.ValidateToken)
 	{
 		api.StudentInformation(basePath)
+		api.TeachingClass(basePath)
 	}
 	//数据库结构自动更新
 	db.DB.AutoMigrate(&model.Student{}, &model.StudentInformation{}, &model.TeachingClass{})

@@ -13,6 +13,27 @@ info:
   title: 成绩录入及查询系统标准接口文档
   version: 0.0.1
 paths:
+  /studentInformation/delete/{id}:
+    get:
+      consumes:
+        - application/json
+      description: 删除一条学生信息
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 主键
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      summary: 删除一条学生信息
+      tags:
+        - 学籍信息
   /studentInformation/insert:
     post:
       consumes:
@@ -66,12 +87,12 @@ paths:
             type: string
       summary: 增加学生信息记录
       tags:
-      - 基本信息
-  /studentInformation/selectByPage/{pageNum}/{pageSize}:
-    get:
+        - 学籍信息
+  /studentInformation/selectByPage:
+    post:
       consumes:
         - application/json
-      description: 分页查询学生信息，如果查询第一页，返回总条数
+      description: 分页查询学生信息，如果查询第一页，返回总条数，条件非必需
       parameters:
         - description: Token
           in: header
@@ -79,20 +100,40 @@ paths:
         required: true
         type: string
         - description: 查询页码
-          in: path
+          in: formData
           name: pageNum
         required: true
         type: string
         - description: 每页条数
-        in: path
+          in: formData
           name: pageSize
         required: true
         type: string
+        - description: 学生学号
+          in: formData
+          name: studentId
+          type: string
+        - description: 姓名
+          in: formData
+          name: name
+          type: string
+        - description: 现所在学院或部门
+          in: formData
+          name: departmentNew
+          type: string
+        - description: 现所在班级
+          in: formData
+          name: classNew
+          type: string
+        - description: 现所在年级
+          in: formData
+          name: gradeNew
+          type: string
       produces:
       - application/json
       summary: 分页查询学生信息
       tags:
-        - 基本信息
+        - 学籍信息
   /studentInformation/update:
     post:
       consumes:
@@ -150,7 +191,7 @@ paths:
             type: string
       summary: 更新学生信息记录
       tags:
-      - 基本信息
+        - 学籍信息
   /studentInformation/upload:
     post:
       consumes:
@@ -176,7 +217,245 @@ paths:
             type: string
       summary: 上传学生信息表格文件
       tags:
-        - 基本信息
+        - 学籍信息
+  /teachingClass/delete/{id}:
+    get:
+      consumes:
+        - application/json
+      description: 删除一条教学班信息
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 主键
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      summary: 删除一条教学班信息
+      tags:
+        - 教学班信息
+  /teachingClass/insert:
+    post:
+      consumes:
+        - multipart/form-data
+      description: 增加教学班信息记录
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 学生学号
+          in: formData
+          name: studentId
+          required: true
+          type: string
+        - description: 姓名
+          in: formData
+          name: name
+          type: string
+        - description: 所在年级
+          in: formData
+          name: grade
+          type: string
+        - description: 所在学院或部门
+          in: formData
+          name: department
+          type: string
+        - description: 所在专业
+          in: formData
+          name: professional
+          type: string
+        - description: 所在班级
+          in: formData
+          name: class
+          type: string
+        - description: 课程名称
+          in: formData
+          name: courseName
+          type: string
+        - description: 课程id
+          in: formData
+          name: courseId
+          type: string
+        - description: 任课老师名字
+          in: formData
+          name: courseTeacherName
+          type: string
+        - description: 任课老师id
+          in: formData
+          name: courseTeacherId
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: '{"status": 1}'
+          schema:
+            type: string
+      summary: 增加教学班信息记录
+      tags:
+        - 教学班信息
+  /teachingClass/selectByPage:
+    post:
+      consumes:
+        - application/json
+      description: 分页查询教学班信息，如果查询第一页，返回总条数，条件非必需
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 查询页码
+          in: formData
+          name: pageNum
+          required: true
+          type: string
+        - description: 每页条数
+          in: formData
+          name: pageSize
+          required: true
+          type: string
+        - description: 学生学号
+          in: formData
+          name: studentId
+          required: true
+          type: string
+        - description: 姓名
+          in: formData
+          name: name
+          type: string
+        - description: 所在年级
+          in: formData
+          name: grade
+          type: string
+        - description: 所在学院或部门
+          in: formData
+          name: department
+          type: string
+        - description: 所在专业
+          in: formData
+          name: professional
+          type: string
+        - description: 所在班级
+          in: formData
+          name: class
+          type: string
+        - description: 课程名称
+          in: formData
+          name: courseName
+          type: string
+        - description: 课程id
+          in: formData
+          name: courseId
+          type: string
+        - description: 任课老师名字
+          in: formData
+          name: courseTeacherName
+          type: string
+        - description: 任课老师id
+          in: formData
+          name: courseTeacherId
+          type: string
+      produces:
+        - application/json
+      summary: 分页查询教学班信息
+      tags:
+        - 教学班信息
+  /teachingClass/update:
+    post:
+      consumes:
+        - multipart/form-data
+      description: 更新教学班信息记录
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 学生学号
+          in: formData
+          name: studentId
+          required: true
+          type: string
+        - description: 姓名
+          in: formData
+          name: name
+          type: string
+        - description: 所在年级
+          in: formData
+          name: grade
+          type: string
+        - description: 所在学院或部门
+          in: formData
+          name: department
+          type: string
+        - description: 所在专业
+          in: formData
+          name: professional
+          type: string
+        - description: 所在班级
+          in: formData
+          name: class
+          type: string
+        - description: 课程名称
+          in: formData
+          name: courseName
+          type: string
+        - description: 课程id
+          in: formData
+          name: courseId
+          type: string
+        - description: 任课老师名字
+          in: formData
+          name: courseTeacherName
+          type: string
+        - description: 任课老师id
+          in: formData
+          name: courseTeacherId
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: '{"status": 1}'
+          schema:
+            type: string
+      summary: 更新教学班信息记录
+      tags:
+        - 教学班信息
+  /teachingClass/upload:
+    post:
+      consumes:
+        - multipart/form-data
+      description: 上传教学班表格文件，批量添加教学班信息
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 文件
+          in: formData
+          name: file
+          required: true
+          type: file
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: '{"status": 1}'
+          schema:
+            type: string
+      summary: 上传教学班表格文件
+      tags:
+        - 教学班信息
   /user/login:
     post:
       consumes:
