@@ -30,9 +30,15 @@ type StudentInformation struct {
 }
 
 //获得记录
+//通过StudentId查询
+func (information *StudentInformation) SelectByStudentId() *StudentInformation {
+	db.DB.Where("student_id = ?", information.StudentId).First(&information)
+	return information
+}
+
 //通过id查询
-func (information *StudentInformation) SelectByStudentId(StudentId string) *StudentInformation {
-	db.DB.Where("student_id = ?", StudentId).First(&information)
+func (information *StudentInformation) SelectById() *StudentInformation {
+	db.DB.Where("id = ?", information.Id).First(&information)
 	return information
 }
 
@@ -66,6 +72,7 @@ func (information *StudentInformation) Update() int64 {
 }
 
 //删除记录
+//通过id删除记录
 func (information *StudentInformation) Delete() int64 {
 	//防止记录被全部删除
 	if information.Id != "" {

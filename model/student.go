@@ -31,9 +31,10 @@ func (student *Student) Insert() int64 {
 }
 
 //删除记录
+//通过StudentId删除记录
 func (student *Student) Delete() int64 {
 	//防止记录被全部删除
-	if student.Id != "" {
+	if student.StudentId != "" {
 		i := db.DB.Delete(&student)
 		return i.RowsAffected
 	}

@@ -40,8 +40,16 @@ func Update(information *model.TeacherInformation) int64 {
 	return information.Update()
 }
 
+//通过id查询
+func SelectTeacherInformationById(id string) *model.TeacherInformation {
+	information := model.TeacherInformation{Id: id}
+	return information.SelectById()
+}
+
 //删除一条记录
 func Delete(id string) int64 {
-	information := model.TeacherInformation{Id: id}
+	//获取相关记录，获取学号
+	information := SelectTeacherInformationById(id)
+	loginService.Delete(information.TeacherId)
 	return information.Delete()
 }

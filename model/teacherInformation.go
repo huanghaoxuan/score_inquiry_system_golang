@@ -15,18 +15,24 @@ import (
 
 //储存学生相关信息
 type TeacherInformation struct {
-	Id          string    `form:"id" gorm:"primary_key;column:id" json:"id"`                           //主键
-	TeacherId   string    `form:"teacherId" gorm:"column:teacherId;not null;unique;" json:"teacherId"` //老师工号
-	Name        string    `form:"name" gorm:"column:name" json:"name"`                                 //姓名
-	Department  string    `form:"department" gorm:"column:department" json:"department"`               //所在学院或部门
-	Permissions int       `form:"permissions" gorm:"column:permissions" json:"permissions"`            //权限控制
-	CreatedAt   time.Time `form:"createdAt" gorm:"column:created_at" json:"createdAt"`                 //创建时间
+	Id          string    `form:"id" gorm:"primary_key;column:id" json:"id"`                            //主键
+	TeacherId   string    `form:"teacherId" gorm:"column:teacher_id;not null;unique;" json:"teacherId"` //老师工号
+	Name        string    `form:"name" gorm:"column:name" json:"name"`                                  //姓名
+	Department  string    `form:"department" gorm:"column:department" json:"department"`                //所在学院或部门
+	Permissions int       `form:"permissions" gorm:"column:permissions" json:"permissions"`             //权限控制
+	CreatedAt   time.Time `form:"createdAt" gorm:"column:created_at" json:"createdAt"`                  //创建时间
 }
 
 //获得记录
+//通过StudentId查询
+func (information *TeacherInformation) SelectByStudentId() *TeacherInformation {
+	db.DB.Where("teacher_id = ?", information.TeacherId).First(&information)
+	return information
+}
+
 //通过id查询
-func (information *TeacherInformation) SelectByStudentId(StudentId string) *TeacherInformation {
-	db.DB.Where("student_id = ?", StudentId).First(&information)
+func (information *TeacherInformation) SelectById() *TeacherInformation {
+	db.DB.Where("id = ?", information.Id).First(&information)
 	return information
 }
 
@@ -60,6 +66,7 @@ func (information *TeacherInformation) Update() int64 {
 }
 
 //删除记录
+//通过id删除记录
 func (information *TeacherInformation) Delete() int64 {
 	//防止记录被全部删除
 	if information.Id != "" {

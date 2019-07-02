@@ -24,3 +24,9 @@ func Registered(studentId string, password string, permissions int) int64 {
 	student := model.Student{Id: id, StudentId: studentId, Password: password, Permissions: permissions}
 	return student.Insert()
 }
+
+//删除一条记录
+func Delete(studentId string) int64 {
+	student := model.Student{StudentId: studentId}
+	return student.Delete()
+}

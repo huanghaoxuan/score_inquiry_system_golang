@@ -75,8 +75,16 @@ func ProcessingExcelFile(s string) {
 	}
 }
 
+//通过id查询
+func SelectStudentInformationById(id string) *model.StudentInformation {
+	information := model.StudentInformation{Id: id}
+	return information.SelectById()
+}
+
 //删除一条记录
 func Delete(id string) int64 {
-	information := model.StudentInformation{Id: id}
+	//获取相关记录，获取学号
+	information := SelectStudentInformationById(id)
+	loginService.Delete(information.StudentId)
 	return information.Delete()
 }
