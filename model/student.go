@@ -35,7 +35,7 @@ func (student *Student) Insert() int64 {
 func (student *Student) Delete() int64 {
 	//防止记录被全部删除
 	if student.StudentId != "" {
-		i := db.DB.Delete(&student)
+		i := db.DB.Where("student_id = ?", student.StudentId).Delete(&student)
 		return i.RowsAffected
 	}
 	return 0
