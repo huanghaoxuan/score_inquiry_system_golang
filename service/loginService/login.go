@@ -18,9 +18,9 @@ func Login(student *model.Student) int64 {
 	return student.SelectByStudentIdPassword()
 }
 
-func InsertStudent(studentId string, password string) int64 {
+func Registered(studentId string, password string, permissions int) int64 {
 	id := uuid.NewV4().String()
 	password = md5.GeneratedMD5(password)
-	student := model.Student{ID: id, StudentId: studentId, Password: password, Permissions: 1}
+	student := model.Student{Id: id, StudentId: studentId, Password: password, Permissions: permissions}
 	return student.Insert()
 }

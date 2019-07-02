@@ -45,7 +45,7 @@ func ProcessingExcelFile(s string) {
 				case 6:
 					teachingClass.CourseName = colCell
 				case 7:
-					teachingClass.Courseid = colCell
+					teachingClass.CourseId = colCell
 				case 8:
 					teachingClass.CourseTeacherName = colCell
 				}

@@ -66,7 +66,6 @@ func InsertStudentInformation(c *gin.Context) {
 // @Param departmentNew formData string false "现所在学院或部门"
 // @Param classNew formData string false "现所在班级"
 // @Param gradeNew formData string false "现所在年级"
-// @Param permissions formData string false "权限"
 // @Success 200 {string} json "{"status": 1}"
 // @Router /studentInformation/update [post]
 func UpdateStudentInformation(c *gin.Context) {
@@ -102,7 +101,7 @@ func UploadStudentInformation(c *gin.Context) {
 // @Summary 分页查询学生信息
 // @Description 分页查询学生信息，如果查询第一页，返回总条数，条件非必需
 // @Tags 学籍信息
-// @Accept json
+// @Accept mpfd
 // @Produce json
 // @Param Authorization header string true "Token"
 // @Param pageNum formData string true "查询页码"

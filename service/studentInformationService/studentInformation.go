@@ -31,6 +31,8 @@ func Insert(information *model.StudentInformation) int64 {
 	information.Id = uuid.NewV4().String()
 	//默认权限为1
 	information.Permissions = 1
+	//插入登录信息
+	loginService.Registered(information.StudentId, information.StudentId, 1)
 	return information.Insert()
 }
 
@@ -66,8 +68,6 @@ func ProcessingExcelFile(s string) {
 					studentInformation.ClassNew = colCell
 				}
 			}
-			//插入登录信息
-			loginService.InsertStudent(studentInformation.StudentId, studentInformation.StudentId)
 			//插入基本信息
 			Insert(&studentInformation)
 		}

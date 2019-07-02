@@ -91,7 +91,7 @@ paths:
   /studentInformation/selectByPage:
     post:
       consumes:
-        - application/json
+        - multipart/form-data
       description: 分页查询学生信息，如果查询第一页，返回总条数，条件非必需
       parameters:
         - description: Token
@@ -178,10 +178,6 @@ paths:
         in: formData
         name: gradeNew
         type: string
-      - description: 权限
-        in: formData
-        name: permissions
-        type: string
       produces:
       - application/json
       responses:
@@ -218,6 +214,134 @@ paths:
       summary: 上传学生信息表格文件
       tags:
         - 学籍信息
+  /teacherInformation/delete/{id}:
+    get:
+      consumes:
+        - application/json
+      description: 删除一条老师信息
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 主键
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      summary: 删除一条老师信息
+      tags:
+        - 老师信息
+  /teacherInformation/insert:
+    post:
+      consumes:
+        - multipart/form-data
+      description: 增加老师信息记录
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 教师工号
+          in: formData
+          name: teacherId
+          required: true
+          type: string
+        - description: 姓名
+          in: formData
+          name: name
+          type: string
+        - description: 所在学院或部门
+          in: formData
+          name: department
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: '{"status": 1}'
+          schema:
+            type: string
+      summary: 增加老师信息记录
+      tags:
+        - 老师信息
+  /teacherInformation/selectByPage:
+    post:
+      consumes:
+        - multipart/form-data
+      description: 分页查询老师信息，如果查询第一页，返回总条数，条件非必需
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 查询页码
+          in: formData
+          name: pageNum
+          required: true
+          type: string
+        - description: 每页条数
+          in: formData
+          name: pageSize
+          required: true
+          type: string
+        - description: 教师工号
+          in: formData
+          name: teacherId
+          required: true
+          type: string
+        - description: 姓名
+          in: formData
+          name: name
+          type: string
+        - description: 所在学院或部门
+          in: formData
+          name: department
+          type: string
+      produces:
+        - application/json
+      summary: 分页查询老师信息
+      tags:
+        - 老师信息
+  /teacherInformation/update:
+    post:
+      consumes:
+        - multipart/form-data
+      description: 更新老师信息记录
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 教师工号
+          in: formData
+          name: teacherId
+          required: true
+          type: string
+        - description: 姓名
+          in: formData
+          name: name
+          type: string
+        - description: 所在学院或部门
+          in: formData
+          name: department
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: '{"status": 1}'
+          schema:
+            type: string
+      summary: 更新老师信息记录
+      tags:
+        - 老师信息
   /teachingClass/delete/{id}:
     get:
       consumes:

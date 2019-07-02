@@ -134,7 +134,7 @@
         "post": {
           "description": "分页查询学生信息，如果查询第一页，返回总条数，条件非必需",
                 "consumes": [
-                  "application/json"
+                  "multipart/form-data"
                 ],
                 "produces": [
                     "application/json"
@@ -267,12 +267,6 @@
                         "description": "现所在年级",
                       "name": "gradeNew",
                         "in": "formData"
-                    },
-                    {
-                        "type": "string",
-                        "description": "权限",
-                        "name": "permissions",
-                        "in": "formData"
                     }
                 ],
                 "responses": {
@@ -312,6 +306,196 @@
               "name": "file",
               "in": "formData",
               "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "{\"status\": 1}",
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "/teacherInformation/delete/{id}": {
+        "get": {
+          "description": "删除一条老师信息",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "tags": [
+            "老师信息"
+          ],
+          "summary": "删除一条老师信息",
+          "parameters": [
+            {
+              "type": "string",
+              "description": "Token",
+              "name": "Authorization",
+              "in": "header",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "主键",
+              "name": "id",
+              "in": "path",
+              "required": true
+            }
+          ]
+        }
+      },
+      "/teacherInformation/insert": {
+        "post": {
+          "description": "增加老师信息记录",
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "tags": [
+            "老师信息"
+          ],
+          "summary": "增加老师信息记录",
+          "parameters": [
+            {
+              "type": "string",
+              "description": "Token",
+              "name": "Authorization",
+              "in": "header",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "教师工号",
+              "name": "teacherId",
+              "in": "formData",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "姓名",
+              "name": "name",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "所在学院或部门",
+              "name": "department",
+              "in": "formData"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "{\"status\": 1}",
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "/teacherInformation/selectByPage": {
+        "post": {
+          "description": "分页查询老师信息，如果查询第一页，返回总条数，条件非必需",
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "tags": [
+            "老师信息"
+          ],
+          "summary": "分页查询老师信息",
+          "parameters": [
+            {
+              "type": "string",
+              "description": "Token",
+              "name": "Authorization",
+              "in": "header",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "查询页码",
+              "name": "pageNum",
+              "in": "formData",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "每页条数",
+              "name": "pageSize",
+              "in": "formData",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "教师工号",
+              "name": "teacherId",
+              "in": "formData",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "姓名",
+              "name": "name",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "所在学院或部门",
+              "name": "department",
+              "in": "formData"
+            }
+          ]
+        }
+      },
+      "/teacherInformation/update": {
+        "post": {
+          "description": "更新老师信息记录",
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "tags": [
+            "老师信息"
+          ],
+          "summary": "更新老师信息记录",
+          "parameters": [
+            {
+              "type": "string",
+              "description": "Token",
+              "name": "Authorization",
+              "in": "header",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "教师工号",
+              "name": "teacherId",
+              "in": "formData",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "姓名",
+              "name": "name",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "所在学院或部门",
+              "name": "department",
+              "in": "formData"
             }
           ],
           "responses": {
