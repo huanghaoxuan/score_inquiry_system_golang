@@ -28,8 +28,8 @@ import (
 // @contact.url https://github.com/huanghaoxuan
 // @contact.email huanghaoxuan1998@outlook.com
 
-// @license.name Apache 2.0
-// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+// @license.name GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+// @license.url https://www.gnu.org/licenses/gpl-3.0.en.html
 
 // @host localhost:5201
 // @BasePath /api

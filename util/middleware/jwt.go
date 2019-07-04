@@ -58,11 +58,11 @@ func ValidateToken(c *gin.Context) {
 			c.Next()
 		} else {
 			//验证不通过
-			c.AbortWithStatusJSON(http.StatusForbidden, gin.H{"msg": "当前登录过期，请重新登录"})
+			c.AbortWithStatusJSON(http.StatusForbidden, gin.H{"msg": "当前登录信息无效或已过期，请重新登录"})
 		}
 	} else {
 		//有错误
-		c.AbortWithStatusJSON(http.StatusForbidden, gin.H{"msg": "当前登录有误，请重新登录"})
+		c.AbortWithStatusJSON(http.StatusForbidden, gin.H{"msg": "当前登录信息无效或已过期，请重新登录"})
 	}
 
 }

@@ -7,8 +7,8 @@ info:
     url: https://github.com/huanghaoxuan
   description: 东南大学成贤学院学生成绩录入及学生进行查询系统的标准API接口文档
   license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    name: GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007
+    url: https://www.gnu.org/licenses/gpl-3.0.en.html
   termsOfService: 暂缺
   title: 成绩录入及查询系统标准接口文档
   version: 0.0.1
@@ -293,7 +293,6 @@ paths:
         - description: 教师工号
           in: formData
           name: teacherId
-          required: true
           type: string
         - description: 姓名
           in: formData

@@ -31,6 +31,7 @@ func Insert(information *model.TeacherInformation) int64 {
 	//权限为2
 	information.Permissions = 2
 	//插入登录信息
+
 	loginService.Registered(information.TeacherId, information.TeacherId, 2)
 	return information.Insert()
 }

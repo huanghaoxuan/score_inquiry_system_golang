@@ -19,7 +19,7 @@ type StudentInformation struct {
 	Id            string    `form:"id" gorm:"primary_key;column:id" json:"id"`                            //主键
 	StudentId     string    `form:"studentId" gorm:"column:student_id;not null;unique;" json:"studentId"` //学生学号、老师工号
 	Name          string    `form:"name" gorm:"column:name" json:"name"`                                  //姓名
-	DepartmentOld string    `form:"departmentOld" gorm:"column:department_old" json:"departmentOld"`      //原所在学院或部门
+	DepartmentOld string    `form:"departmentOld" gorm:"column:department_old" ？json:"departmentOld"`     //原所在学院或部门
 	ClassOld      string    `form:"classOld" gorm:"column:class_old" json:"classOld"`                     //原所在班级
 	GradeOld      string    `form:"gradeOld" gorm:"column:grade_old" json:"gradeOld"`                     //原所在年级
 	DepartmentNew string    `form:"departmentNew" gorm:"column:department_new" json:"departmentNew"`      //现所在学院或部门

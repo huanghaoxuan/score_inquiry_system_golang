@@ -74,7 +74,7 @@ func UpdateTeacherInformation(c *gin.Context) {
 // @Param Authorization header string true "Token"
 // @Param pageNum formData string true "查询页码"
 // @Param pageSize formData string true "每页条数"
-// @Param teacherId formData string true "教师工号"
+// @Param teacherId formData string false "教师工号"
 // @Param name formData string false "姓名"
 // @Param department formData string false "所在学院或部门"
 // @Router /teacherInformation/selectByPage [post]
