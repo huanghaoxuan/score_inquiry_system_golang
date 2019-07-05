@@ -36,7 +36,7 @@ func Insert(information *model.StudentInformation) int64 {
 	return information.Insert()
 }
 
-//更新相关记录权限
+//更新相关记录
 func Update(information *model.StudentInformation) int64 {
 	return information.Update()
 }
