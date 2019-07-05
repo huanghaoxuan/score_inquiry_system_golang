@@ -13,6 +13,124 @@ info:
   title: 成绩录入及查询系统标准接口文档
   version: 0.0.1
 paths:
+  /course/delete/{id}:
+    get:
+      consumes:
+        - application/json
+      description: 删除一条课程信息
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 主键
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      summary: 删除一条课程信息
+      tags:
+        - 学籍信息
+  /course/insert:
+    post:
+      consumes:
+        - multipart/form-data
+      description: 增加课程信息记录
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 课程名
+          in: formData
+          name: name
+          required: true
+          type: string
+        - description: 学年
+          in: formData
+          name: year
+          type: string
+        - description: 学期
+          in: formData
+          name: semester
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: '{"status": 1}'
+          schema:
+            type: string
+      summary: 增加课程信息记录
+      tags:
+        - 课程信息
+  /course/selectByPage:
+    post:
+      consumes:
+        - multipart/form-data
+      description: 分页查询课程信息记录
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 课程名
+          in: formData
+          name: name
+          required: true
+          type: string
+        - description: 学年
+          in: formData
+          name: year
+          type: string
+        - description: 学期
+          in: formData
+          name: semester
+          type: string
+      produces:
+        - application/json
+      summary: 分页查询课程信息记录
+      tags:
+        - 课程信息
+  /course/update:
+    post:
+      consumes:
+        - multipart/form-data
+      description: 更新课程信息记录
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 课程名
+          in: formData
+          name: name
+          required: true
+          type: string
+        - description: 学年
+          in: formData
+          name: year
+          type: string
+        - description: 学期
+          in: formData
+          name: semester
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: '{"status": 1}'
+          schema:
+            type: string
+      summary: 更新课程信息记录
+      tags:
+        - 课程信息
   /studentInformation/delete/{id}:
     get:
       consumes:
