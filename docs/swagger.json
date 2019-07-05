@@ -811,7 +811,7 @@
         "post": {
           "description": "分页查询教学班信息，如果查询第一页，返回总条数，条件非必需",
           "consumes": [
-            "application/json"
+            "multipart/form-data"
           ],
           "produces": [
             "application/json"

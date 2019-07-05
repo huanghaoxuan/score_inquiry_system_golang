@@ -37,7 +37,6 @@ func TeachingClass(basePath *gin.RouterGroup) {
 func DeleteTeachingClass(c *gin.Context) {
 	id := c.Param("id")
 	status := teachingClassService.Delete(id)
-
 	//回调
 	c.JSON(http.StatusOK, gin.H{"status": status})
 }
@@ -45,7 +44,7 @@ func DeleteTeachingClass(c *gin.Context) {
 // @Summary 分页查询教学班信息
 // @Description 分页查询教学班信息，如果查询第一页，返回总条数，条件非必需
 // @Tags 教学班信息
-// @Accept json
+// @Accept mpfd
 // @Produce json
 // @Param Authorization header string true "Token"
 // @Param pageNum formData string true "查询页码"
