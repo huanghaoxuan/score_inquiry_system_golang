@@ -56,6 +56,7 @@ func DeleteTeachingClass(c *gin.Context) {
 // @Param class formData string false "所在班级"
 // @Param courseName formData string false "课程名称"
 // @Param courseId formData string false "课程id"
+// @Param teachingClassId formData string false "教学班号"
 // @Param courseTeacherName formData string false "任课老师名字"
 // @Param courseTeacherId formData string false "任课老师id"
 // @Router /teachingClass/selectByPage [post]
@@ -86,6 +87,7 @@ func SelectTeachingClassByPage(c *gin.Context) {
 // @Param class formData string false "所在班级"
 // @Param courseName formData string false "课程名称"
 // @Param courseId formData string false "课程id"
+// @Param teachingClassId formData string false "教学班号"
 // @Param courseTeacherName formData string false "任课老师名字"
 // @Param courseTeacherId formData string false "任课老师id"
 // @Success 200 {string} json "{"status": 1}"
@@ -114,6 +116,7 @@ func UpdateTeachingClass(c *gin.Context) {
 // @Param class formData string false "所在班级"
 // @Param courseName formData string false "课程名称"
 // @Param courseId formData string false "课程id"
+// @Param teachingClassId formData string false "教学班号"
 // @Param courseTeacherName formData string false "任课老师名字"
 // @Param courseTeacherId formData string false "任课老师id"
 // @Success 200 {string} json "{"status": 1}"

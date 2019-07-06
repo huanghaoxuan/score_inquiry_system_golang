@@ -18,7 +18,7 @@ type TeachingClassInformation struct {
 	Id                string    `form:"id" gorm:"primary_key;column:id" json:"id"`                                               //主键
 	CourseName        string    `form:"courseName" gorm:"column:course_name;index:idx_course_name" json:"courseName"`            //课程名称
 	CourseId          string    `form:"courseId" gorm:"column:course_id" json:"courseId"`                                        //课程id
-	TeachingClassId   string    `form:"teachingClassId" gorm:"column:teaching_class_id;not null;unique;" json:"teachingClassID"` //教学班号
+	TeachingClassId   string    `form:"teachingClassId" gorm:"column:teaching_class_id;not null;unique;" json:"teachingClassId"` //教学班号
 	CourseTeacherName string    `form:"courseTeacherName" gorm:"column:course_teacher_name" json:"courseTeacherName"`            //任课老师名字
 	CourseTeacherId   string    `form:"courseTeacherId" gorm:"column:course_teacher_id" json:"courseTeacherId"`                  //任课老师id
 	CreatedAt         time.Time `form:"createdAt" gorm:"column:created_at" json:"createdAt"`                                     //创建时间
@@ -37,6 +37,12 @@ func (teachingClassInformation *TeachingClassInformation) SelectByPage(pageNum i
 		db.DB.Where(&teachingClassInformation).Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&teachingClassInformationes)
 	}
 	return teachingClassInformationes
+}
+
+//通过id查询
+func (teachingClassInformation *TeachingClassInformation) SelectById() *TeachingClassInformation {
+	db.DB.Where("id = ?", teachingClassInformation.Id).First(&teachingClassInformation)
+	return teachingClassInformation
 }
 
 //查询总记录

@@ -4,6 +4,7 @@ import (
 	"github.com/360EntSecGroup-Skylar/excelize"
 	uuid "github.com/satori/go.uuid"
 	"score_inquiry_system/model"
+	"score_inquiry_system/service/teachingClassInformationService"
 )
 
 /**
@@ -28,6 +29,7 @@ func ProcessingExcelFile(s string, courseId string, courseName string) {
 	for i, row := range rows {
 		if i != 0 {
 			teachingClass := model.TeachingClass{}
+			teachingClassInformation := model.TeachingClassInformation{}
 			for j, colCell := range row {
 				switch j {
 				case 0:
@@ -44,15 +46,20 @@ func ProcessingExcelFile(s string, courseId string, courseName string) {
 					teachingClass.Class = colCell
 				case 6:
 					teachingClass.CourseName = colCell
+					teachingClassInformation.CourseName = colCell
 				case 7:
 					teachingClass.TeachingClassId = colCell
+					teachingClassInformation.TeachingClassId = colCell
 				case 8:
 					teachingClass.CourseTeacherName = colCell
+					teachingClassInformation.CourseTeacherName = colCell
 				}
 			}
-			//插入基本信息
-			teachingClass.CourseId = courseId
 			if courseName == teachingClass.CourseName {
+				//插入基本信息
+				teachingClass.CourseId = courseId
+				teachingClassInformation.CourseId = courseId
+				teachingClassInformationService.Insert(&teachingClassInformation)
 				Insert(&teachingClass)
 			}
 		}
