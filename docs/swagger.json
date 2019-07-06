@@ -786,6 +786,12 @@
             },
             {
               "type": "string",
+              "description": "教学班号",
+              "name": "teachingClassId",
+              "in": "formData"
+            },
+            {
+              "type": "string",
               "description": "任课老师名字",
               "name": "courseTeacherName",
               "in": "formData"
@@ -893,6 +899,12 @@
             },
             {
               "type": "string",
+              "description": "教学班号",
+              "name": "teachingClassId",
+              "in": "formData"
+            },
+            {
+              "type": "string",
               "description": "任课老师名字",
               "name": "courseTeacherName",
               "in": "formData"
@@ -978,6 +990,12 @@
             },
             {
               "type": "string",
+              "description": "教学班号",
+              "name": "teachingClassId",
+              "in": "formData"
+            },
+            {
+              "type": "string",
               "description": "任课老师名字",
               "name": "courseTeacherName",
               "in": "formData"
@@ -1026,6 +1044,229 @@
               "name": "file",
               "in": "formData",
               "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "{\"status\": 1}",
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "/teachingClassInformation/delete/{id}": {
+        "get": {
+          "description": "删除一条教学班信息",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "tags": [
+            "教学班基本信息"
+          ],
+          "summary": "删除一条教学班信息",
+          "parameters": [
+            {
+              "type": "string",
+              "description": "Token",
+              "name": "Authorization",
+              "in": "header",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "主键",
+              "name": "id",
+              "in": "path",
+              "required": true
+            }
+          ]
+        }
+      },
+      "/teachingClassInformation/insert": {
+        "post": {
+          "description": "增加教学班信息记录",
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "tags": [
+            "教学班基本信息"
+          ],
+          "summary": "增加教学班信息记录",
+          "parameters": [
+            {
+              "type": "string",
+              "description": "Token",
+              "name": "Authorization",
+              "in": "header",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "课程名称",
+              "name": "courseName",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "课程id",
+              "name": "courseId",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "教学班号",
+              "name": "teachingClassId",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "任课老师名字",
+              "name": "courseTeacherName",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "任课老师id",
+              "name": "courseTeacherId",
+              "in": "formData"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "{\"status\": 1}",
+              "schema": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      },
+      "/teachingClassInformation/selectByPage": {
+        "post": {
+          "description": "分页查询教学班信息，如果查询第一页，返回总条数，条件非必需",
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "tags": [
+            "教学班基本信息"
+          ],
+          "summary": "分页查询教学班信息",
+          "parameters": [
+            {
+              "type": "string",
+              "description": "Token",
+              "name": "Authorization",
+              "in": "header",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "查询页码",
+              "name": "pageNum",
+              "in": "formData",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "每页条数",
+              "name": "pageSize",
+              "in": "formData",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "课程名称",
+              "name": "courseName",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "课程id",
+              "name": "courseId",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "教学班号",
+              "name": "teachingClassId",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "任课老师名字",
+              "name": "courseTeacherName",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "任课老师id",
+              "name": "courseTeacherId",
+              "in": "formData"
+            }
+          ]
+        }
+      },
+      "/teachingClassInformation/update": {
+        "post": {
+          "description": "更新教学班信息记录",
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "tags": [
+            "教学班基本信息"
+          ],
+          "summary": "更新教学班信息记录",
+          "parameters": [
+            {
+              "type": "string",
+              "description": "Token",
+              "name": "Authorization",
+              "in": "header",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "课程名称",
+              "name": "courseName",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "课程id",
+              "name": "courseId",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "教学班号",
+              "name": "teachingClassId",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "任课老师名字",
+              "name": "courseTeacherName",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "任课老师id",
+              "name": "courseTeacherId",
+              "in": "formData"
             }
           ],
           "responses": {

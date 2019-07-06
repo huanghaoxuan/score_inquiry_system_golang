@@ -77,7 +77,7 @@ func SelectTeachingClassInformationByPage(c *gin.Context) {
 // @Param courseTeacherName formData string false "任课老师名字"
 // @Param courseTeacherId formData string false "任课老师id"
 // @Success 200 {string} json "{"status": 1}"
-// @Router /teachingClass/update [post]
+// @Router /teachingClassInformation/update [post]
 func UpdateTeachingClassInformation(c *gin.Context) {
 	//模型填充
 	var teachingClassInformation model.TeachingClassInformation
@@ -100,7 +100,7 @@ func UpdateTeachingClassInformation(c *gin.Context) {
 // @Param courseTeacherName formData string false "任课老师名字"
 // @Param courseTeacherId formData string false "任课老师id"
 // @Success 200 {string} json "{"status": 1}"
-// @Router /teachingClass/insert [post]
+// @Router /teachingClassInformation/insert [post]
 func InsertTeachingClassInformation(c *gin.Context) {
 	//模型填充
 	var teachingClassInformation model.TeachingClassInformation

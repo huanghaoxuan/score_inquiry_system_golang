@@ -524,6 +524,10 @@ paths:
           in: formData
           name: courseId
           type: string
+        - description: 教学班号
+          in: formData
+          name: teachingClassId
+          type: string
         - description: 任课老师名字
           in: formData
           name: courseTeacherName
@@ -596,6 +600,10 @@ paths:
           in: formData
           name: courseId
           type: string
+        - description: 教学班号
+          in: formData
+          name: teachingClassId
+          type: string
         - description: 任课老师名字
           in: formData
           name: courseTeacherName
@@ -653,6 +661,10 @@ paths:
           in: formData
           name: courseId
           type: string
+        - description: 教学班号
+          in: formData
+          name: teachingClassId
+          type: string
         - description: 任课老师名字
           in: formData
           name: courseTeacherName
@@ -697,6 +709,155 @@ paths:
       summary: 上传教学班表格文件
       tags:
         - 教学班信息
+  /teachingClassInformation/delete/{id}:
+    get:
+      consumes:
+        - application/json
+      description: 删除一条教学班信息
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 主键
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      summary: 删除一条教学班信息
+      tags:
+        - 教学班基本信息
+  /teachingClassInformation/insert:
+    post:
+      consumes:
+        - multipart/form-data
+      description: 增加教学班信息记录
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 课程名称
+          in: formData
+          name: courseName
+          type: string
+        - description: 课程id
+          in: formData
+          name: courseId
+          type: string
+        - description: 教学班号
+          in: formData
+          name: teachingClassId
+          type: string
+        - description: 任课老师名字
+          in: formData
+          name: courseTeacherName
+          type: string
+        - description: 任课老师id
+          in: formData
+          name: courseTeacherId
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: '{"status": 1}'
+          schema:
+            type: string
+      summary: 增加教学班信息记录
+      tags:
+        - 教学班基本信息
+  /teachingClassInformation/selectByPage:
+    post:
+      consumes:
+        - multipart/form-data
+      description: 分页查询教学班信息，如果查询第一页，返回总条数，条件非必需
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 查询页码
+          in: formData
+          name: pageNum
+          required: true
+          type: string
+        - description: 每页条数
+          in: formData
+          name: pageSize
+          required: true
+          type: string
+        - description: 课程名称
+          in: formData
+          name: courseName
+          type: string
+        - description: 课程id
+          in: formData
+          name: courseId
+          type: string
+        - description: 教学班号
+          in: formData
+          name: teachingClassId
+          type: string
+        - description: 任课老师名字
+          in: formData
+          name: courseTeacherName
+          type: string
+        - description: 任课老师id
+          in: formData
+          name: courseTeacherId
+          type: string
+      produces:
+        - application/json
+      summary: 分页查询教学班信息
+      tags:
+        - 教学班基本信息
+  /teachingClassInformation/update:
+    post:
+      consumes:
+        - multipart/form-data
+      description: 更新教学班信息记录
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 课程名称
+          in: formData
+          name: courseName
+          type: string
+        - description: 课程id
+          in: formData
+          name: courseId
+          type: string
+        - description: 教学班号
+          in: formData
+          name: teachingClassId
+          type: string
+        - description: 任课老师名字
+          in: formData
+          name: courseTeacherName
+          type: string
+        - description: 任课老师id
+          in: formData
+          name: courseTeacherId
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: '{"status": 1}'
+          schema:
+            type: string
+      summary: 更新教学班信息记录
+      tags:
+        - 教学班基本信息
   /user/login:
     post:
       consumes:
