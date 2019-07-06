@@ -54,7 +54,7 @@ func (information *StudentInformation) SelectByPage(pageNum int, pageSize int) [
 //查询总记录
 func (information *StudentInformation) Count() int {
 	count := 0
-	db.DB.Model(&information).Count(&count)
+	db.DB.Model(&information).Where(&information).Count(&count)
 	return count
 }
 

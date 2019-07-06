@@ -22,7 +22,7 @@ func Insert(teachingClass *model.TeachingClass) int64 {
 }
 
 //处理上传的学生信息表格
-func ProcessingExcelFile(s string) {
+func ProcessingExcelFile(s string, courseId string, courseName string) {
 	file, _ := excelize.OpenFile(s)
 	rows := file.GetRows("Sheet1")
 	for i, row := range rows {
@@ -45,13 +45,16 @@ func ProcessingExcelFile(s string) {
 				case 6:
 					teachingClass.CourseName = colCell
 				case 7:
-					teachingClass.CourseId = colCell
+					teachingClass.TeachingClassId = colCell
 				case 8:
 					teachingClass.CourseTeacherName = colCell
 				}
 			}
 			//插入基本信息
-			Insert(&teachingClass)
+			teachingClass.CourseId = courseId
+			if courseName == teachingClass.CourseName {
+				Insert(&teachingClass)
+			}
 		}
 
 	}

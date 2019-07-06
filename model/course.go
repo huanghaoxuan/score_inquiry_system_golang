@@ -36,7 +36,7 @@ func (course *Course) SelectByPage(pageNum int, pageSize int) []Course {
 //查询总记录
 func (course *Course) Count() int {
 	count := 0
-	db.DB.Model(&course).Count(&count)
+	db.DB.Model(&course).Where(&course).Count(&count)
 	return count
 }
 

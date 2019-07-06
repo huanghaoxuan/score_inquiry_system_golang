@@ -1,7 +1,6 @@
 package api
 
 import (
-	"fmt"
 	"github.com/gin-gonic/gin"
 	uuid "github.com/satori/go.uuid"
 	"net/http"
@@ -139,12 +138,13 @@ func InsertTeachingClass(c *gin.Context) {
 // @Success 200 {string} json "{"status": 1}"
 // @Router /teachingClass/upload [post]
 func UploadTeachingClass(c *gin.Context) {
+	courseId := c.PostForm("courseId")
+	courseName := c.PostForm("courseName")
 	// 单文件
 	fileHeader, _ := c.FormFile("file")
-	fmt.Println("./../public/teachingClass" + fileHeader.Filename)
 	s := "public/teachingClass/" + uuid.NewV4().String() + fileHeader.Filename
 	//序列化表格文件
 	_ = c.SaveUploadedFile(fileHeader, s)
 	//处理表格文件
-	teachingClassService.ProcessingExcelFile(s)
+	teachingClassService.ProcessingExcelFile(s, courseId, courseName)
 }

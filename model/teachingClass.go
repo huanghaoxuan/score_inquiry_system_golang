@@ -13,7 +13,7 @@ import (
  * @Version 1.0
  */
 
-//教学班信息结构体
+//教学班学生信息结构体
 type TeachingClass struct {
 	Id                string    `form:"id" gorm:"primary_key;column:id" json:"id"`                                         //主键
 	Grade             string    `form:"grade" gorm:"column:grade" json:"grade"`                                            //所在年级
@@ -24,6 +24,7 @@ type TeachingClass struct {
 	Class             string    `form:"class" gorm:"column:class" json:"class"`                                            //所在班级
 	CourseName        string    `form:"courseName" gorm:"column:course_name;index:idx_course_name" json:"courseName"`      //课程名称
 	CourseId          string    `form:"courseId" gorm:"column:course_id" json:"courseId"`                                  //课程id
+	TeachingClassId   string    `form:"teachingClassId" gorm:"column:teaching_class_id" json:"teachingClassId"`            //教学班号
 	CourseTeacherName string    `form:"courseTeacherName" gorm:"column:course_teacher_name" json:"courseTeacherName"`      //任课老师名字
 	CourseTeacherId   string    `form:"courseTeacherId" gorm:"column:course_teacher_id" json:"courseTeacherId"`            //任课老师id
 	CreatedAt         time.Time `form:"createdAt" gorm:"column:created_at" json:"createdAt"`                               //创建时间
@@ -54,7 +55,7 @@ func (teachingClass *TeachingClass) SelectByPage(pageNum int, pageSize int) []Te
 //查询总记录
 func (teachingClass *TeachingClass) Count() int {
 	count := 0
-	db.DB.Model(&teachingClass).Count(&count)
+	db.DB.Model(&teachingClass).Where(&teachingClass).Count(&count)
 	return count
 }
 
