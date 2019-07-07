@@ -1,6 +1,9 @@
 package model
 
-import "score_inquiry_system/db"
+import (
+	"score_inquiry_system/db"
+	"time"
+)
 
 /**
  * @Author: HuangHaoXuan
@@ -12,10 +15,12 @@ import "score_inquiry_system/db"
 
 //课程信息结构体
 type Course struct {
-	Id       string `form:"id" gorm:"primary_key;column:id" json:"id"`       //主键
-	Name     string `form:"name" gorm:"column:name;not null;" json:"name"`   //课程名字
-	Year     int    `form:"year" gorm:"column:year" json:"year"`             //学年
-	Semester string `form:"semester" gorm:"column:semester" json:"semester"` //学期
+	Id        string    `form:"id" gorm:"primary_key;column:id" json:"id"`           //主键
+	Name      string    `form:"name" gorm:"column:name;not null;" json:"name"`       //课程名字
+	Year      int       `form:"year" gorm:"column:year" json:"year"`                 //学年
+	Semester  string    `form:"semester" gorm:"column:semester" json:"semester"`     //学期
+	CreatedAt time.Time `form:"createdAt" gorm:"column:created_at" json:"createdAt"` //创建时间
+
 }
 
 //通过id查询
@@ -28,7 +33,7 @@ func (course *Course) SelectById() *Course {
 func (course *Course) SelectByPage(pageNum int, pageSize int) []Course {
 	courses := make([]Course, 10)
 	if pageNum > 0 && pageSize > 0 {
-		db.DB.Where(&course).Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&courses)
+		db.DB.Where(&course).Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&courses)
 	}
 	return courses
 }

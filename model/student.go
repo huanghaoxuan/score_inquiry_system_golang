@@ -20,9 +20,9 @@ type Student struct {
 	Permissions int    `form:"permissions" gorm:"column:permissions" json:"permissions"`             //权限控制
 }
 
-func (student *Student) SelectByStudentIdPassword() int64 {
+func (student *Student) SelectByStudentIdPassword() (int64, int) {
 	first := db.DB.Where("student_id = ? and password = ?", student.StudentId, student.Password).First(&student)
-	return first.RowsAffected
+	return first.RowsAffected, student.Permissions
 }
 
 func (student *Student) Insert() int64 {

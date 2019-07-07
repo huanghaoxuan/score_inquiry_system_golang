@@ -76,6 +76,12 @@ func ProcessingExcelFile(s string) {
 }
 
 //通过id查询
+func SelectStudentInformationByStudentId(studentId string) *model.StudentInformation {
+	information := model.StudentInformation{StudentId: studentId}
+	return information.SelectByStudentId()
+}
+
+//通过id查询
 func SelectStudentInformationById(id string) *model.StudentInformation {
 	information := model.StudentInformation{Id: id}
 	return information.SelectById()

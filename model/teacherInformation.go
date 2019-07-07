@@ -16,7 +16,7 @@ import (
 //储存学生相关信息
 type TeacherInformation struct {
 	Id          string    `form:"id" gorm:"primary_key;column:id" json:"id"`                            //主键
-	TeacherId   string    `form:"teacherId" gorm:"column:teacher_id;not null;unique;" json:"teacherId"` //老师工号
+	StudentId   string    `form:"studentId" gorm:"column:student_id;not null;unique;" json:"studentId"` //学生学号、老师工号
 	Name        string    `form:"name" gorm:"column:name" json:"name"`                                  //姓名
 	Department  string    `form:"department" gorm:"column:department" json:"department"`                //所在学院或部门
 	Permissions int       `form:"permissions" gorm:"column:permissions" json:"permissions"`             //权限控制
@@ -26,7 +26,7 @@ type TeacherInformation struct {
 //获得记录
 //通过StudentId查询
 func (information *TeacherInformation) SelectByStudentId() *TeacherInformation {
-	db.DB.Where("teacher_id = ?", information.TeacherId).First(&information)
+	db.DB.Where("student_id = ?", information.StudentId).First(&information)
 	return information
 }
 
@@ -40,7 +40,7 @@ func (information *TeacherInformation) SelectById() *TeacherInformation {
 func (information *TeacherInformation) SelectByPage(pageNum int, pageSize int) []TeacherInformation {
 	teacherInformation := make([]TeacherInformation, 10)
 	if pageNum > 0 && pageSize > 0 {
-		db.DB.Where(&information).Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&teacherInformation)
+		db.DB.Where(&information).Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&teacherInformation)
 	}
 	return teacherInformation
 }

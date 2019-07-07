@@ -47,7 +47,7 @@ func (teachingClass *TeachingClass) SelectByStudentId(StudentId string) *Teachin
 func (teachingClass *TeachingClass) SelectByPage(pageNum int, pageSize int) []TeachingClass {
 	teachingClasses := make([]TeachingClass, 10)
 	if pageNum > 0 && pageSize > 0 {
-		db.DB.Where(&teachingClass).Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&teachingClasses)
+		db.DB.Where(&teachingClass).Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&teachingClasses)
 	}
 	return teachingClasses
 }

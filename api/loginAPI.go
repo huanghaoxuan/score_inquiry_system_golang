@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"score_inquiry_system/model"
 	"score_inquiry_system/service/loginService"
+	"score_inquiry_system/service/studentInformationService"
+	"score_inquiry_system/service/teacherInformationService"
 	"score_inquiry_system/util/middleware"
 )
 
@@ -30,11 +32,17 @@ func Login(c *gin.Context) {
 	var student model.Student
 	_ = c.ShouldBind(&student)
 	fmt.Println(student)
-	status := loginService.Login(&student)
+	status, permissions := loginService.Login(&student)
 	if status == 0 {
 		c.JSON(http.StatusForbidden, gin.H{"status": status})
 	} else {
-		c.JSON(http.StatusOK, gin.H{"status": status, "token": middleware.GeneratedToken()})
+		if permissions == 1 {
+			data := studentInformationService.SelectStudentInformationByStudentId(student.StudentId)
+			c.JSON(http.StatusOK, gin.H{"status": status, "token": middleware.GeneratedToken(), "data": data})
+		} else {
+			data := teacherInformationService.SelectTeacherInformationByStudentId(student.StudentId)
+			c.JSON(http.StatusOK, gin.H{"status": status, "token": middleware.GeneratedToken(), "data": data})
+		}
 	}
 }
 

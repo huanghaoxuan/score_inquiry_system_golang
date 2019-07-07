@@ -14,7 +14,7 @@ import (
  * @Version 1.0
  */
 
-func Login(student *model.Student) int64 {
+func Login(student *model.Student) (int64, int) {
 	return student.SelectByStudentIdPassword()
 }
 

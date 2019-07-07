@@ -32,13 +32,19 @@ func Insert(information *model.TeacherInformation) int64 {
 	information.Permissions = 2
 	//插入登录信息
 
-	loginService.Registered(information.TeacherId, information.TeacherId, 2)
+	loginService.Registered(information.StudentId, information.StudentId, 2)
 	return information.Insert()
 }
 
 //更新相关记录权限
 func Update(information *model.TeacherInformation) int64 {
 	return information.Update()
+}
+
+//通过StudentId查询
+func SelectTeacherInformationByStudentId(studentId string) *model.TeacherInformation {
+	information := model.TeacherInformation{StudentId: studentId}
+	return information.SelectByStudentId()
 }
 
 //通过id查询
@@ -51,6 +57,6 @@ func SelectTeacherInformationById(id string) *model.TeacherInformation {
 func Delete(id string) int64 {
 	//获取相关记录，获取学号
 	information := SelectTeacherInformationById(id)
-	loginService.Delete(information.TeacherId)
+	loginService.Delete(information.StudentId)
 	return information.Delete()
 }

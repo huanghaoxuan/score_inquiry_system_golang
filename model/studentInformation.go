@@ -46,7 +46,7 @@ func (information *StudentInformation) SelectById() *StudentInformation {
 func (information *StudentInformation) SelectByPage(pageNum int, pageSize int) []StudentInformation {
 	studentInformations := make([]StudentInformation, 10)
 	if pageNum > 0 && pageSize > 0 {
-		db.DB.Where(&information).Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&studentInformations)
+		db.DB.Where(&information).Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&studentInformations)
 	}
 	return studentInformations
 }
