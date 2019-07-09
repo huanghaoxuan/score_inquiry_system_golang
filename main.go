@@ -59,7 +59,13 @@ func main() {
 		api.TeachingClassInformation(basePath)
 	}
 	//数据库结构自动更新
-	db.DB.AutoMigrate(&model.Student{}, &model.StudentInformation{}, &model.TeachingClass{}, &model.TeacherInformation{}, &model.TeacherInformation{})
+	db.DB.AutoMigrate(&model.Student{},
+		&model.StudentInformation{},
+		&model.TeachingClass{},
+		&model.TeacherInformation{},
+		&model.TeacherInformation{},
+		&model.SourceStageInformation{})
+
 	_ = r.Run(":5201")
 
 }
