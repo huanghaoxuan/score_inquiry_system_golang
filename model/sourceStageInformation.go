@@ -29,6 +29,12 @@ func (sourceStageInformation *SourceStageInformation) SelectById() *SourceStageI
 	return sourceStageInformation
 }
 
+//通过teachingClassId查询
+func (sourceStageInformation *SourceStageInformation) SelectByTeachingClassId() *SourceStageInformation {
+	db.DB.Where("teaching_class_id = ?", sourceStageInformation.TeachingClassId).First(&sourceStageInformation)
+	return sourceStageInformation
+}
+
 //分页查询
 func (sourceStageInformation *SourceStageInformation) SelectByPage(pageNum int, pageSize int) []SourceStageInformation {
 	sourceStageInformations := make([]SourceStageInformation, 10)
