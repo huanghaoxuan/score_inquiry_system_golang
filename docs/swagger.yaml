@@ -131,6 +131,132 @@ paths:
       summary: 更新课程信息记录
       tags:
         - 课程信息
+  /sourceStageInformation/delete/{id}:
+    get:
+      consumes:
+        - application/json
+      description: 删除阶段性测验信息
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 主键
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      summary: 删除阶段性测验信息
+      tags:
+        - 阶段性测验信息
+  /sourceStageInformation/insert:
+    post:
+      consumes:
+        - multipart/form-data
+      description: 增加阶段性测验信息
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 课程名字
+          in: formData
+          name: name
+          required: true
+          type: string
+        - description: 教学班号
+          in: formData
+          name: teachingClassId
+          type: string
+        - description: 阶段性测验序号
+          in: formData
+          name: scoresId
+          type: string
+        - description: 阶段性测验描述
+          in: formData
+          name: scoresNote
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: '{"status": 1}'
+          schema:
+            type: string
+      summary: 增加阶段性测验信息
+      tags:
+        - 阶段性测验信息
+  /sourceStageInformation/selectByPage:
+    post:
+      consumes:
+        - multipart/form-data
+      description: 分页查询阶段性测验信息
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 课程名字
+          in: formData
+          name: name
+          required: true
+          type: string
+        - description: 教学班号
+          in: formData
+          name: teachingClassId
+          type: string
+        - description: 阶段性测验序号
+          in: formData
+          name: scoresId
+          type: string
+      produces:
+        - application/json
+      summary: 查询阶段性测验信息
+      tags:
+        - 阶段性测验信息
+  /sourceStageInformation/update:
+    post:
+      consumes:
+        - multipart/form-data
+      description: 更新阶段性测验信息
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 课程名字
+          in: formData
+          name: name
+          required: true
+          type: string
+        - description: 教学班号
+          in: formData
+          name: teachingClassId
+          type: string
+        - description: 阶段性测验序号
+          in: formData
+          name: scoresId
+          type: string
+        - description: 阶段性测验描述
+          in: formData
+          name: scoresNote
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: '{"status": 1}'
+          schema:
+            type: string
+      summary: 更新阶段性测验信息
+      tags:
+        - 阶段性测验信息
   /studentInformation/delete/{id}:
     get:
       consumes:
