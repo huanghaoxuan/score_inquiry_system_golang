@@ -31,7 +31,7 @@ func (sourceStageInformation *SourceStageInformation) SelectById() *SourceStageI
 
 //通过teachingClassId查询
 func (sourceStageInformation *SourceStageInformation) SelectByTeachingClassId() *SourceStageInformation {
-	db.DB.Where("teaching_class_id = ?", sourceStageInformation.TeachingClassId).First(&sourceStageInformation)
+	db.DB.Where("teaching_class_id = ?", sourceStageInformation.TeachingClassId).Order("created_at desc").First(&sourceStageInformation)
 	return sourceStageInformation
 }
 
