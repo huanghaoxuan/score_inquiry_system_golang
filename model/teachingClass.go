@@ -52,6 +52,13 @@ func (teachingClass *TeachingClass) SelectByPage(pageNum int, pageSize int) []Te
 	return teachingClasses
 }
 
+//查询所有
+func (teachingClass *TeachingClass) SelectAll() []TeachingClass {
+	var teachingClasses []TeachingClass
+	db.DB.Where(&teachingClass).Order("created_at desc").Find(&teachingClasses)
+	return teachingClasses
+}
+
 //查询总记录
 func (teachingClass *TeachingClass) Count() int {
 	count := 0

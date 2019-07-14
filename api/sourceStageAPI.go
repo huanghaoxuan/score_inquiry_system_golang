@@ -17,8 +17,8 @@ import (
  */
 
 func SourceStage(basePath *gin.RouterGroup) {
-	basePath.POST("/sourceStage/inserts", InsertSourceStages)
-	basePath.POST("/sourceStage/update", UpdateSourceStage)
+	basePath.POST("/sourceStage/insert", InsertSourceStage)
+	basePath.POST("/sourceStage/updates", UpdateSourceStages)
 	//basePath.POST("/sourceStage/upload", UploadSourceStage)
 	basePath.POST("/sourceStage/selectByPage", SelectSourceStageByPage)
 	basePath.GET("/sourceStage/delete/:id", DeleteSourceStage)
@@ -37,8 +37,8 @@ func SourceStage(basePath *gin.RouterGroup) {
 // @Param scoresNote formData string false "成绩注释"
 // @Param scores formData string false "成绩"
 // @Success 200 {string} json "{"status": 1}"
-// @Router /sourceStage/inserts [post]
-func InsertSourceStages(c *gin.Context) {
+// @Router /sourceStage/insert [post]
+func InsertSourceStage(c *gin.Context) {
 
 	//获取数组形式的数据
 	type sourceStages struct {
@@ -57,10 +57,10 @@ func InsertSourceStages(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": status})
 }
 
-// @Summary 更新阶段性测验成绩
-// @Description 更新阶段性测验成绩
+// @Summary 批量更新阶段性测验成绩
+// @Description 批量更新阶段性测验成绩
 // @Tags 阶段性测验成绩
-// @Accept mpfd
+// @Accept json
 // @Produce json
 // @Param Authorization header string true "Token"
 // @Param name formData string true "学生名字"
@@ -70,13 +70,23 @@ func InsertSourceStages(c *gin.Context) {
 // @Param scoresNote formData string false "成绩注释"
 // @Param scores formData string false "成绩"
 // @Success 200 {string} json "{"status": 1}"
-// @Router /sourceStage/update [post]
-func UpdateSourceStage(c *gin.Context) {
+// @Router /sourceStage/updates [post]
+func UpdateSourceStages(c *gin.Context) {
+
+	//获取数组形式的数据
+	type sourceStages struct {
+		Data []model.SourceStage `form:"data[]" json:"data"`
+	}
+
 	//模型填充
-	var sourceStage model.SourceStage
-	_ = c.ShouldBind(&sourceStage)
+	var data sourceStages
+	_ = c.ShouldBindJSON(&data)
 	//状态回调
-	status := sourceStageService.Update(&sourceStage)
+	var status int64 = 0
+	for _, v := range data.Data {
+		status += sourceStageService.Update(&v)
+	}
+
 	//回调
 	c.JSON(http.StatusOK, gin.H{"status": status})
 }

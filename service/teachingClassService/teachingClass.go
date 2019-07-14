@@ -77,6 +77,11 @@ func SelectByPage(pageNum int, pageSize int, teachingClass *model.TeachingClass)
 	return teachingClass.SelectByPage(pageNum, pageSize)
 }
 
+//分页所有
+func SelectAll(teachingClass *model.TeachingClass) []model.TeachingClass {
+	return teachingClass.SelectAll()
+}
+
 //更新相关记录权限
 func Update(teachingClass *model.TeachingClass) int64 {
 	return teachingClass.Update()

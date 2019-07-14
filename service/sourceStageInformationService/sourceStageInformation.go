@@ -3,6 +3,7 @@ package sourceStageInformationService
 import (
 	uuid "github.com/satori/go.uuid"
 	"score_inquiry_system/model"
+	"score_inquiry_system/service/sourceStageService"
 )
 
 /**
@@ -27,6 +28,17 @@ func SelectByPage(pageNum int, pageSize int, sourceStageInformation *model.Sourc
 func Insert(sourceStageInformation *model.SourceStageInformation) int64 {
 	//设置uuid为主键
 	sourceStageInformation.Id = uuid.NewV4().String()
+	teachingClass := model.TeachingClass{TeachingClassId: sourceStageInformation.TeachingClassId}
+	teachingClasses := teachingClass.SelectAll()
+	for _, v := range teachingClasses {
+		sourceStage := model.SourceStage{
+			Name:            v.Name,
+			StudentId:       v.StudentId,
+			TeachingClassId: v.TeachingClassId,
+			SourceStageId:   sourceStageInformation.Id,
+		}
+		sourceStageService.Insert(&sourceStage)
+	}
 	return sourceStageInformation.Insert()
 }
 
