@@ -74,6 +74,8 @@ func UpdateSourceStageInformation(c *gin.Context) {
 // @Accept mpfd
 // @Produce json
 // @Param Authorization header string true "Token"
+// @Param pageNum formData string true "查询页码"
+// @Param pageSize formData string true "每页条数"
 // @Param name formData string true "课程名字"
 // @Param teachingClassId formData string false "教学班号"
 // @Param scoresId formData string false "阶段性测验序号"
