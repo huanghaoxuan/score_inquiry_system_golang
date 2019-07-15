@@ -63,7 +63,7 @@ func UpdateSourceStageInformation(c *gin.Context) {
 	var sourceStageInformation model.SourceStageInformation
 	_ = c.ShouldBind(&sourceStageInformation)
 	//状态回调
-	status := sourceStageInformationService.Update(&sourceStageInformation)
+	status := sourceStageInformationService.UpdateAll(&sourceStageInformation)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"status": status})
 }

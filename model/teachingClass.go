@@ -37,9 +37,9 @@ func (teachingClass *TeachingClass) Insert() int64 {
 }
 
 //获得记录
-//通过StudentId查询
-func (teachingClass *TeachingClass) SelectByStudentId(StudentId string) *TeachingClass {
-	db.DB.Where("student_id = ?", StudentId).First(&teachingClass)
+//通过Id查询
+func (teachingClass *TeachingClass) SelectById() *TeachingClass {
+	db.DB.Where("id = ?", teachingClass.Id).First(&teachingClass)
 	return teachingClass
 }
 

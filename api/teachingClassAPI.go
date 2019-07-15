@@ -26,7 +26,7 @@ func TeachingClass(basePath *gin.RouterGroup) {
 	basePath.GET("/teachingClass/delete/:id", DeleteTeachingClass)
 }
 
-// @Summary 删除一条教学班信息
+// @Summary 删除一条教学班学生信息
 // @Description 删除一条教学班信息
 // @Tags 教学班信息
 // @Accept json
@@ -41,7 +41,7 @@ func DeleteTeachingClass(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": status})
 }
 
-// @Summary 分页查询教学班信息
+// @Summary 分页查询教学班学生信息
 // @Description 分页查询教学班信息，如果查询第一页，返回总条数，条件非必需
 // @Tags 教学班信息
 // @Accept mpfd
@@ -74,7 +74,7 @@ func SelectTeachingClassByPage(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": teachingClasses, "count": count})
 }
 
-// @Summary 更新教学班信息记录
+// @Summary 更新教学班信息学生记录
 // @Description 更新教学班信息记录
 // @Tags 教学班信息
 // @Accept mpfd
@@ -103,7 +103,7 @@ func UpdateTeachingClass(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": status})
 }
 
-// @Summary 增加教学班信息记录
+// @Summary 增加教学班信息学生记录
 // @Description 增加教学班信息记录
 // @Tags 教学班信息
 // @Accept mpfd
@@ -129,6 +129,7 @@ func InsertTeachingClass(c *gin.Context) {
 	//状态回调
 	status := teachingClassService.Insert(&teachingClass)
 	var sourceStage model.SourceStage
+	//插入阶段性成绩学生信息
 	_ = c.ShouldBind(&sourceStage)
 	//状态回调
 	sourceStageService.InsertStudent(&sourceStage)
@@ -136,7 +137,7 @@ func InsertTeachingClass(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": status})
 }
 
-// @Summary 上传教学班表格文件
+// @Summary 上传教学班学生表格文件
 // @Description 上传教学班表格文件，批量添加教学班信息
 // @Tags 教学班信息
 // @Accept mpfd

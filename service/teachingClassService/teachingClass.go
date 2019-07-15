@@ -22,6 +22,11 @@ func Insert(teachingClass *model.TeachingClass) int64 {
 	return teachingClass.Insert()
 }
 
+func SelectById(id string) *model.TeachingClass {
+	teachingClass := model.TeachingClass{Id: id}
+	return teachingClass.SelectById()
+}
+
 //处理上传的学生信息表格
 func ProcessingExcelFile(s string, courseId string, courseName string) {
 	file, _ := excelize.OpenFile(s)
@@ -90,5 +95,9 @@ func Update(teachingClass *model.TeachingClass) int64 {
 //删除一条记录
 func Delete(id string) int64 {
 	teachingClass := model.TeachingClass{Id: id}
+	teachingClass.SelectById()
+	//删除相关成绩记录
+	sourceStage := model.SourceStage{StudentId: teachingClass.StudentId, TeachingClassId: teachingClass.TeachingClassId}
+	sourceStage.DeleteByStudentIdTeachingClassId()
 	return teachingClass.Delete()
 }

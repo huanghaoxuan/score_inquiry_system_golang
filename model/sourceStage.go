@@ -16,7 +16,7 @@ import (
 //成绩阶段性测验信息结构体
 type SourceStage struct {
 	Id              string    `form:"id" gorm:"primary_key;column:id" json:"id"`                                        //主键
-	Name            string    `form:"name" gorm:"column:name;not null;" json:"name"`                                    //名字
+	Name            string    `form:"name" gorm:"-" json:"name"`                                                        //名字
 	StudentId       string    `form:"studentId" gorm:"column:student_id;not null;unique;" json:"studentId"`             //学生学号
 	TeachingClassId string    `form:"teachingClassId" gorm:"column:teaching_class_id;not null;" json:"teachingClassId"` //教学班号
 	SourceStageId   string    `form:"sourceStageId" gorm:"column:source_stage_id;not null;" json:"sourceStageId"`       //阶段性测验id
@@ -60,12 +60,30 @@ func (sourceStage *SourceStage) Update() int64 {
 	return updates.RowsAffected
 }
 
+//更新记录
+//更新全部字段
+func (sourceStage *SourceStage) UpdateAll() int64 {
+	updates := db.DB.Model(&sourceStage).Where("id = ?", sourceStage.Id).Save(sourceStage)
+	return updates.RowsAffected
+}
+
 //删除记录
 //通过id删除记录
 func (sourceStage *SourceStage) Delete() int64 {
 	//防止记录被全部删除
 	if sourceStage.Id != "" {
 		i := db.DB.Delete(&sourceStage)
+		return i.RowsAffected
+	}
+	return 0
+}
+
+//删除记录
+//通过id删除记录
+func (sourceStage *SourceStage) DeleteByStudentIdTeachingClassId() int64 {
+	//防止记录被全部删除
+	if sourceStage.StudentId != "" && sourceStage.TeachingClassId != "" {
+		i := db.DB.Where("student_id = ? and teaching_class_id = ?", sourceStage.StudentId, sourceStage.TeachingClassId).Delete(&sourceStage)
 		return i.RowsAffected
 	}
 	return 0

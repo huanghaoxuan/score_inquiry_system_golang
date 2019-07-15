@@ -36,6 +36,12 @@ func (information *StudentInformation) SelectByStudentId() *StudentInformation {
 	return information
 }
 
+//查询
+func (information *StudentInformation) Select() *StudentInformation {
+	db.DB.Where(&information).Find(&information)
+	return information
+}
+
 //通过id查询
 func (information *StudentInformation) SelectById() *StudentInformation {
 	db.DB.Where("id = ?", information.Id).First(&information)

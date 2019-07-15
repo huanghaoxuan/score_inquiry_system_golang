@@ -29,12 +29,6 @@ func (sourceStageInformation *SourceStageInformation) SelectById() *SourceStageI
 	return sourceStageInformation
 }
 
-//通过teachingClassId查询
-func (sourceStageInformation *SourceStageInformation) SelectByTeachingClassId() *SourceStageInformation {
-	db.DB.Where("teaching_class_id = ?", sourceStageInformation.TeachingClassId).Order("created_at desc").First(&sourceStageInformation)
-	return sourceStageInformation
-}
-
 //分页查询
 func (sourceStageInformation *SourceStageInformation) SelectByPage(pageNum int, pageSize int) []SourceStageInformation {
 	sourceStageInformations := make([]SourceStageInformation, 10)
@@ -68,6 +62,13 @@ func (sourceStageInformation *SourceStageInformation) Insert() int64 {
 //更新相关记录权限
 func (sourceStageInformation *SourceStageInformation) Update() int64 {
 	updates := db.DB.Model(&sourceStageInformation).Where("id = ?", sourceStageInformation.Id).Updates(sourceStageInformation)
+	return updates.RowsAffected
+}
+
+//更新记录
+//全部字段更新
+func (sourceStageInformation *SourceStageInformation) UpdateAll() int64 {
+	updates := db.DB.Model(&sourceStageInformation).Where("id = ?", sourceStageInformation.Id).Save(sourceStageInformation)
 	return updates.RowsAffected
 }
 

@@ -20,7 +20,20 @@ func Count(sourceStage *model.SourceStage) int {
 
 //分页查询
 func SelectByPage(pageNum int, pageSize int, sourceStage *model.SourceStage) []model.SourceStage {
-	return sourceStage.SelectByPage(pageNum, pageSize)
+	//姓名作为查询条件
+	if sourceStage.Name != "" {
+		Studentinformation := model.StudentInformation{Name: sourceStage.Name}
+		Studentinformation.Select()
+		sourceStage.StudentId = Studentinformation.StudentId
+	}
+	sourceStages := sourceStage.SelectByPage(pageNum, pageSize)
+	//获取姓名
+	for i, v := range sourceStages {
+		information := model.StudentInformation{StudentId: v.StudentId}
+		information.SelectByStudentId()
+		sourceStages[i].Name = information.Name
+	}
+	return sourceStages
 }
 
 //插入
@@ -49,6 +62,11 @@ func InsertStudent(sourceStage *model.SourceStage) int64 {
 //更新相关记录
 func Update(sourceStage *model.SourceStage) int64 {
 	return sourceStage.Update()
+}
+
+//更新全部字段
+func UpdateAll(sourceStage *model.SourceStage) int64 {
+	return sourceStage.UpdateAll()
 }
 
 //通过id查询

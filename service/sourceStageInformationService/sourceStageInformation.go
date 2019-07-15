@@ -47,6 +47,11 @@ func Update(sourceStageInformation *model.SourceStageInformation) int64 {
 	return sourceStageInformation.Update()
 }
 
+//更新全部字段
+func UpdateAll(sourceStageInformation *model.SourceStageInformation) int64 {
+	return sourceStageInformation.UpdateAll()
+}
+
 //通过id查询
 func SelectSourceStageInformationById(id string) *model.SourceStageInformation {
 	sourceStageInformation := model.SourceStageInformation{Id: id}
