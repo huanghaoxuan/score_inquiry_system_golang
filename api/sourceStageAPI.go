@@ -17,14 +17,14 @@ import (
  */
 
 func SourceStage(basePath *gin.RouterGroup) {
-	basePath.POST("/sourceStage/insert", InsertSourceStage)
+	basePath.POST("/sourceStage/insertStudent", InsertSourceStage)
 	basePath.POST("/sourceStage/updates", UpdateSourceStages)
 	//basePath.POST("/sourceStage/upload", UploadSourceStage)
 	basePath.POST("/sourceStage/selectByPage", SelectSourceStageByPage)
 	basePath.GET("/sourceStage/delete/:id", DeleteSourceStage)
 }
 
-// @Summary 批量增加阶段性测验成绩
+// @Summary 增加阶段性测验成绩
 // @Description 增加阶段性测验成绩
 // @Tags 阶段性测验成绩
 // @Accept json
@@ -37,22 +37,14 @@ func SourceStage(basePath *gin.RouterGroup) {
 // @Param scoresNote formData string false "成绩注释"
 // @Param scores formData string false "成绩"
 // @Success 200 {string} json "{"status": 1}"
-// @Router /sourceStage/insert [post]
+// @Router /sourceStage/insertStudent [post]
 func InsertSourceStage(c *gin.Context) {
 
-	//获取数组形式的数据
-	type sourceStages struct {
-		Data []model.SourceStage `form:"data[]" json:"data"`
-	}
-
 	//模型填充
-	var data sourceStages
-	_ = c.ShouldBindJSON(&data)
+	var sourceStage model.SourceStage
+	_ = c.ShouldBindJSON(&sourceStage)
 	//状态回调
-	var status int64 = 1
-	for _, v := range data.Data {
-		status += sourceStageService.Insert(&v)
-	}
+	status := sourceStageService.InsertStudent(&sourceStage)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"status": status})
 }

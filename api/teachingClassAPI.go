@@ -5,6 +5,7 @@ import (
 	uuid "github.com/satori/go.uuid"
 	"net/http"
 	"score_inquiry_system/model"
+	"score_inquiry_system/service/sourceStageService"
 	"score_inquiry_system/service/teachingClassService"
 	"strconv"
 )
@@ -127,6 +128,10 @@ func InsertTeachingClass(c *gin.Context) {
 	_ = c.ShouldBind(&teachingClass)
 	//状态回调
 	status := teachingClassService.Insert(&teachingClass)
+	var sourceStage model.SourceStage
+	_ = c.ShouldBind(&sourceStage)
+	//状态回调
+	sourceStageService.InsertStudent(&sourceStage)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"status": status})
 }

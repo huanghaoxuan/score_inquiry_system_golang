@@ -162,7 +162,7 @@ paths:
       summary: 删除阶段性测验成绩
       tags:
         - 阶段性测验成绩
-  /sourceStage/inserts:
+  /sourceStage/insertStudent:
     post:
       consumes:
         - application/json
@@ -206,7 +206,7 @@ paths:
           description: '{"status": 1}'
           schema:
             type: string
-      summary: 批量增加阶段性测验成绩
+      summary: 增加阶段性测验成绩
       tags:
         - 阶段性测验成绩
   /sourceStage/selectByPage:
@@ -261,11 +261,11 @@ paths:
       summary: 分页查询阶段性测验成绩
       tags:
         - 阶段性测验成绩
-  /sourceStage/update:
+  /sourceStage/updates:
     post:
       consumes:
-        - multipart/form-data
-      description: 更新阶段性测验成绩
+        - application/json
+      description: 批量更新阶段性测验成绩
       parameters:
         - description: Token
           in: header
@@ -305,7 +305,7 @@ paths:
           description: '{"status": 1}'
           schema:
             type: string
-      summary: 更新阶段性测验成绩
+      summary: 批量更新阶段性测验成绩
       tags:
         - 阶段性测验成绩
   /sourceStageInformation/delete/{id}:

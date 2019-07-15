@@ -30,6 +30,22 @@ func Insert(sourceStage *model.SourceStage) int64 {
 	return sourceStage.Insert()
 }
 
+func InsertStudent(sourceStage *model.SourceStage) int64 {
+	sourceStageInformation := model.SourceStageInformation{TeachingClassId: sourceStage.TeachingClassId}
+	sourceStageInformations := sourceStageInformation.SelectAll()
+	var status int64 = 1
+	for _, v := range sourceStageInformations {
+		sourceStage2 := model.SourceStage{
+			Name:            sourceStage.Name,
+			StudentId:       sourceStage.StudentId,
+			TeachingClassId: v.TeachingClassId,
+			SourceStageId:   v.Id,
+		}
+		status += Insert(&sourceStage2)
+	}
+	return status
+}
+
 //更新相关记录
 func Update(sourceStage *model.SourceStage) int64 {
 	return sourceStage.Update()

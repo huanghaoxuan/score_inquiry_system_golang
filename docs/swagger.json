@@ -239,7 +239,7 @@
           ]
         }
       },
-      "/sourceStage/inserts": {
+      "/sourceStage/insertStudent": {
         "post": {
           "description": "增加阶段性测验成绩",
           "consumes": [
@@ -251,7 +251,7 @@
           "tags": [
             "阶段性测验成绩"
           ],
-          "summary": "批量增加阶段性测验成绩",
+          "summary": "增加阶段性测验成绩",
           "parameters": [
             {
               "type": "string",
@@ -385,11 +385,11 @@
           ]
         }
       },
-      "/sourceStage/update": {
+      "/sourceStage/updates": {
         "post": {
-          "description": "更新阶段性测验成绩",
+          "description": "批量更新阶段性测验成绩",
           "consumes": [
-            "multipart/form-data"
+            "application/json"
           ],
           "produces": [
             "application/json"
@@ -397,7 +397,7 @@
           "tags": [
             "阶段性测验成绩"
           ],
-          "summary": "更新阶段性测验成绩",
+          "summary": "批量更新阶段性测验成绩",
           "parameters": [
             {
               "type": "string",

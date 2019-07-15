@@ -44,6 +44,13 @@ func (sourceStageInformation *SourceStageInformation) SelectByPage(pageNum int, 
 	return sourceStageInformations
 }
 
+//查询全部
+func (sourceStageInformation *SourceStageInformation) SelectAll() []SourceStageInformation {
+	sourceStageInformations := make([]SourceStageInformation, 10)
+	db.DB.Where(&sourceStageInformation).Order("created_at desc").Find(&sourceStageInformations)
+	return sourceStageInformations
+}
+
 //查询总记录
 func (sourceStageInformation *SourceStageInformation) Count() int {
 	count := 0
