@@ -34,6 +34,10 @@ func Update(course *model.Course) int64 {
 	return course.Update()
 }
 
+func UpdateAll(course *model.Course) int64 {
+	return course.UpdateAll()
+}
+
 //通过id查询
 func SelectCourseById(id string) *model.Course {
 	course := model.Course{Id: id}

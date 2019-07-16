@@ -43,6 +43,12 @@ func (teachingClass *TeachingClass) SelectById() *TeachingClass {
 	return teachingClass
 }
 
+func (teachingClass *TeachingClass) Select() []TeachingClass {
+	teachingClasses := make([]TeachingClass, 10)
+	db.DB.Where(&teachingClass).First(&teachingClass)
+	return teachingClasses
+}
+
 //分页查询
 func (teachingClass *TeachingClass) SelectByPage(pageNum int, pageSize int) []TeachingClass {
 	teachingClasses := make([]TeachingClass, 10)
@@ -68,14 +74,27 @@ func (teachingClass *TeachingClass) Count() int {
 
 //更新记录
 func (teachingClass *TeachingClass) Update() int64 {
-	updates := db.DB.Model(&teachingClass).Where("id = ?", teachingClass.Id).Updates(teachingClass)
-	return updates.RowsAffected
+	if teachingClass.Id != "" {
+		updates := db.DB.Model(&teachingClass).Where("id = ?", teachingClass.Id).Updates(teachingClass)
+		return updates.RowsAffected
+	}
+	return 0
+}
+
+func (teachingClass *TeachingClass) UpdateAll() int64 {
+	if teachingClass.Id != "" {
+		updates := db.DB.Model(&teachingClass).Where("id = ?", teachingClass.Id).Save(teachingClass)
+		return updates.RowsAffected
+	}
+	return 0
 }
 
 //删除记录
 func (teachingClass *TeachingClass) Delete() int64 {
 	//防止记录被全部删除
 	if teachingClass.Id != "" {
+		teachingClass.SelectById()
+		db.DB.Where("teaching_class_id = ? and student_id = ?", teachingClass.TeachingClassId, teachingClass.StudentId).Delete(SourceStage{})
 		i := db.DB.Delete(&teachingClass)
 		return i.RowsAffected
 	}

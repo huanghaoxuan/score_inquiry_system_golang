@@ -16,7 +16,7 @@ import (
 //成绩阶段性测验信息结构体
 type SourceStage struct {
 	Id              string    `form:"id" gorm:"primary_key;column:id" json:"id"`                                        //主键
-	Name            string    `form:"name" gorm:"-" json:"name"`                                                        //名字
+	Name            string    `form:"name" gorm:"column:name" json:"name"`                                              //名字
 	StudentId       string    `form:"studentId" gorm:"column:student_id;not null;unique;" json:"studentId"`             //学生学号
 	TeachingClassId string    `form:"teachingClassId" gorm:"column:teaching_class_id;not null;" json:"teachingClassId"` //教学班号
 	SourceStageId   string    `form:"sourceStageId" gorm:"column:source_stage_id;not null;" json:"sourceStageId"`       //阶段性测验id
@@ -33,7 +33,7 @@ func (sourceStage *SourceStage) SelectById() *SourceStage {
 
 //分页查询
 func (sourceStage *SourceStage) SelectByPage(pageNum int, pageSize int) []SourceStage {
-	sourceStages := make([]SourceStage, 10)
+	sourceStages := make([]SourceStage, 15)
 	if pageNum > 0 && pageSize > 0 {
 		db.DB.Where(&sourceStage).Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&sourceStages)
 	}
@@ -56,15 +56,21 @@ func (sourceStage *SourceStage) Insert() int64 {
 //更新记录
 //更新相关记录权限
 func (sourceStage *SourceStage) Update() int64 {
-	updates := db.DB.Model(&sourceStage).Where("id = ?", sourceStage.Id).Updates(sourceStage)
-	return updates.RowsAffected
+	if sourceStage.Id != "" {
+		updates := db.DB.Model(&sourceStage).Where("id = ?", sourceStage.Id).Updates(sourceStage)
+		return updates.RowsAffected
+	}
+	return 0
 }
 
 //更新记录
 //更新全部字段
 func (sourceStage *SourceStage) UpdateAll() int64 {
-	updates := db.DB.Model(&sourceStage).Where("id = ?", sourceStage.Id).Save(sourceStage)
-	return updates.RowsAffected
+	if sourceStage.Id != "" {
+		updates := db.DB.Model(&sourceStage).Where("id = ?", sourceStage.Id).Save(sourceStage)
+		return updates.RowsAffected
+	}
+	return 0
 }
 
 //删除记录
@@ -73,17 +79,6 @@ func (sourceStage *SourceStage) Delete() int64 {
 	//防止记录被全部删除
 	if sourceStage.Id != "" {
 		i := db.DB.Delete(&sourceStage)
-		return i.RowsAffected
-	}
-	return 0
-}
-
-//删除记录
-//通过id删除记录
-func (sourceStage *SourceStage) DeleteByStudentIdTeachingClassId() int64 {
-	//防止记录被全部删除
-	if sourceStage.StudentId != "" && sourceStage.TeachingClassId != "" {
-		i := db.DB.Where("student_id = ? and teaching_class_id = ?", sourceStage.StudentId, sourceStage.TeachingClassId).Delete(&sourceStage)
 		return i.RowsAffected
 	}
 	return 0

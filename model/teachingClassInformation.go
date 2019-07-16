@@ -45,6 +45,12 @@ func (teachingClassInformation *TeachingClassInformation) SelectById() *Teaching
 	return teachingClassInformation
 }
 
+func (teachingClassInformation *TeachingClassInformation) Select() []TeachingClassInformation {
+	teachingClassInformationes := make([]TeachingClassInformation, 10)
+	db.DB.Where(&teachingClassInformation).Find(&teachingClassInformationes)
+	return teachingClassInformationes
+}
+
 //查询总记录
 func (teachingClassInformation *TeachingClassInformation) Count() int {
 	count := 0
@@ -54,14 +60,28 @@ func (teachingClassInformation *TeachingClassInformation) Count() int {
 
 //更新记录
 func (teachingClassInformation *TeachingClassInformation) Update() int64 {
-	updates := db.DB.Model(&teachingClassInformation).Where("id = ?", teachingClassInformation.Id).Updates(teachingClassInformation)
-	return updates.RowsAffected
+	if teachingClassInformation.Id != "" {
+		updates := db.DB.Model(&teachingClassInformation).Where("id = ?", teachingClassInformation.Id).Updates(teachingClassInformation)
+		return updates.RowsAffected
+	}
+	return 0
+}
+
+func (teachingClassInformation *TeachingClassInformation) UpdateAll() int64 {
+	if teachingClassInformation.Id != "" {
+		updates := db.DB.Model(&teachingClassInformation).Where("id = ?", teachingClassInformation.Id).Save(teachingClassInformation)
+		return updates.RowsAffected
+	}
+	return 0
 }
 
 //删除记录
 func (teachingClassInformation *TeachingClassInformation) Delete() int64 {
 	//防止记录被全部删除
 	if teachingClassInformation.Id != "" {
+		db.DB.Where("course_id = ?", teachingClassInformation.CourseId).Delete(TeachingClass{})
+		db.DB.Where("teaching_class_id = ?", teachingClassInformation.TeachingClassId).Delete(SourceStageInformation{})
+		db.DB.Where("teaching_class_id = ?", teachingClassInformation.TeachingClassId).Delete(SourceStage{})
 		i := db.DB.Delete(&teachingClassInformation)
 		return i.RowsAffected
 	}

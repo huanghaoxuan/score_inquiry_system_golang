@@ -83,7 +83,7 @@ func UpdateTeachingClassInformation(c *gin.Context) {
 	var teachingClassInformation model.TeachingClassInformation
 	_ = c.ShouldBind(&teachingClassInformation)
 	//状态回调
-	status := teachingClassInformationService.Update(&teachingClassInformation)
+	status := teachingClassInformationService.UpdateAll(&teachingClassInformation)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"status": status})
 }

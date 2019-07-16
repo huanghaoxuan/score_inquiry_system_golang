@@ -61,7 +61,7 @@ func UpdateCourse(c *gin.Context) {
 	var course model.Course
 	_ = c.ShouldBind(&course)
 	//状态回调
-	status := courseService.Update(&course)
+	status := courseService.UpdateAll(&course)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"status": status})
 }

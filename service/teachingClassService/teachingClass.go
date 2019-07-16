@@ -92,12 +92,12 @@ func Update(teachingClass *model.TeachingClass) int64 {
 	return teachingClass.Update()
 }
 
+func UpdateAll(teachingClass *model.TeachingClass) int64 {
+	return teachingClass.UpdateAll()
+}
+
 //删除一条记录
 func Delete(id string) int64 {
 	teachingClass := model.TeachingClass{Id: id}
-	teachingClass.SelectById()
-	//删除相关成绩记录
-	sourceStage := model.SourceStage{StudentId: teachingClass.StudentId, TeachingClassId: teachingClass.TeachingClassId}
-	sourceStage.DeleteByStudentIdTeachingClassId()
 	return teachingClass.Delete()
 }

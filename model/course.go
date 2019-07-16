@@ -54,15 +54,36 @@ func (course *Course) Insert() int64 {
 //更新记录
 //更新相关记录权限
 func (course *Course) Update() int64 {
-	updates := db.DB.Model(&course).Where("id = ?", course.Id).Updates(course)
-	return updates.RowsAffected
+	if course.Id != "" {
+		updates := db.DB.Model(&course).Where("id = ?", course.Id).Updates(course)
+		return updates.RowsAffected
+	}
+	return 0
+}
+
+func (course *Course) UpdateAll() int64 {
+	if course.Id != "" {
+		updates := db.DB.Model(&course).Where("id = ?", course.Id).Save(course)
+		return updates.RowsAffected
+	}
+	return 0
 }
 
 //删除记录
 //通过id删除记录
 func (course *Course) Delete() int64 {
+
 	//防止记录被全部删除
 	if course.Id != "" {
+		course.SelectById()
+		teachingClassInformation := TeachingClassInformation{CourseId: course.Id}
+		teachingClassInformations := teachingClassInformation.Select()
+		for _, v := range teachingClassInformations {
+			db.DB.Where("teaching_class_id = ?", v.TeachingClassId).Delete(SourceStageInformation{})
+			db.DB.Where("teaching_class_id = ?", v.TeachingClassId).Delete(SourceStage{})
+		}
+		db.DB.Where("course_id = ?", course.Id).Delete(TeachingClassInformation{})
+		db.DB.Where("course_id = ?", course.Id).Delete(TeachingClass{})
 		i := db.DB.Delete(&course)
 		return i.RowsAffected
 	}

@@ -61,15 +61,21 @@ func (sourceStageInformation *SourceStageInformation) Insert() int64 {
 //更新记录
 //更新相关记录权限
 func (sourceStageInformation *SourceStageInformation) Update() int64 {
-	updates := db.DB.Model(&sourceStageInformation).Where("id = ?", sourceStageInformation.Id).Updates(sourceStageInformation)
-	return updates.RowsAffected
+	if sourceStageInformation.Id != "" {
+		updates := db.DB.Model(&sourceStageInformation).Where("id = ?", sourceStageInformation.Id).Updates(sourceStageInformation)
+		return updates.RowsAffected
+	}
+	return 0
 }
 
 //更新记录
 //全部字段更新
 func (sourceStageInformation *SourceStageInformation) UpdateAll() int64 {
-	updates := db.DB.Model(&sourceStageInformation).Where("id = ?", sourceStageInformation.Id).Save(sourceStageInformation)
-	return updates.RowsAffected
+	if sourceStageInformation.Id != "" {
+		updates := db.DB.Model(&sourceStageInformation).Where("id = ?", sourceStageInformation.Id).Save(sourceStageInformation)
+		return updates.RowsAffected
+	}
+	return 0
 }
 
 //删除记录
@@ -77,6 +83,7 @@ func (sourceStageInformation *SourceStageInformation) UpdateAll() int64 {
 func (sourceStageInformation *SourceStageInformation) Delete() int64 {
 	//防止记录被全部删除
 	if sourceStageInformation.Id != "" {
+		db.DB.Where("source_stage_id = ?", sourceStageInformation.Id).Delete(SourceStage{})
 		i := db.DB.Delete(&sourceStageInformation)
 		return i.RowsAffected
 	}
