@@ -67,7 +67,8 @@ func main() {
 		&model.TeacherInformation{},
 		&model.TeacherInformation{},
 		&model.SourceStageInformation{},
-		&model.SourceStage{})
+		&model.SourceStage{},
+		&model.SourceFinal{})
 
 	_ = r.Run(":5201")
 
