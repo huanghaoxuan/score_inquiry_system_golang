@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"score_inquiry_system/model"
 	"score_inquiry_system/service/teacherInformationService"
+	"score_inquiry_system/util/middleware"
 	"strconv"
 )
 
@@ -17,11 +18,13 @@ import (
  */
 
 func TeacherInformation(basePath *gin.RouterGroup) {
-	basePath.POST("/teacherInformation/insert", InsertTeacherInformation)
-	basePath.POST("/teacherInformation/update", UpdateTeacherInformation)
+	teacher := basePath.Group("")
+	teacher.Use(middleware.ValidateTeacherPermissions)
+	teacher.POST("/teacherInformation/insert", InsertTeacherInformation)
+	teacher.POST("/teacherInformation/update", UpdateTeacherInformation)
 	//basePath.POST("/teacherInformation/upload", UploadTeacherInformation)
 	basePath.POST("/teacherInformation/selectByPage", SelectTeacherInformationByPage)
-	basePath.GET("/teacherInformation/delete/:id", DeleteTeacherInformation)
+	teacher.GET("/teacherInformation/delete/:id", DeleteTeacherInformation)
 }
 
 // @Summary 增加老师信息记录
@@ -79,6 +82,7 @@ func UpdateTeacherInformation(c *gin.Context) {
 // @Param department formData string false "所在学院或部门"
 // @Router /teacherInformation/selectByPage [post]
 func SelectTeacherInformationByPage(c *gin.Context) {
+
 	//模型填充
 	var teacherInformation model.TeacherInformation
 	_ = c.ShouldBind(&teacherInformation)

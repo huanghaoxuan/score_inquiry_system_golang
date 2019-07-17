@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"score_inquiry_system/model"
 	"score_inquiry_system/service/studentInformationService"
+	"score_inquiry_system/util/middleware"
 	"strconv"
 )
 
@@ -19,11 +20,13 @@ import (
  */
 
 func StudentInformation(basePath *gin.RouterGroup) {
-	basePath.POST("/studentInformation/insert", InsertStudentInformation)
-	basePath.POST("/studentInformation/update", UpdateStudentInformation)
-	basePath.POST("/studentInformation/upload", UploadStudentInformation)
+	teacher := basePath.Group("")
+	teacher.Use(middleware.ValidateTeacherPermissions)
+	teacher.POST("/studentInformation/insert", InsertStudentInformation)
+	teacher.POST("/studentInformation/update", UpdateStudentInformation)
+	teacher.POST("/studentInformation/upload", UploadStudentInformation)
 	basePath.POST("/studentInformation/selectByPage", SelectStudentInformationByPage)
-	basePath.GET("/studentInformation/delete/:id", DeleteStudentInformation)
+	teacher.GET("/studentInformation/delete/:id", DeleteStudentInformation)
 }
 
 // @Summary 增加学生信息记录

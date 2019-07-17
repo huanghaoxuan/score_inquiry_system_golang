@@ -7,6 +7,7 @@ import (
 	"score_inquiry_system/model"
 	"score_inquiry_system/service/sourceStageService"
 	"score_inquiry_system/service/teachingClassService"
+	"score_inquiry_system/util/middleware"
 	"strconv"
 )
 
@@ -19,11 +20,13 @@ import (
  */
 
 func TeachingClass(basePath *gin.RouterGroup) {
-	basePath.POST("/teachingClass/insert", InsertTeachingClass)
-	basePath.POST("/teachingClass/update", UpdateTeachingClass)
-	basePath.POST("/teachingClass/upload", UploadTeachingClass)
+	teacher := basePath.Group("")
+	teacher.Use(middleware.ValidateTeacherPermissions)
+	teacher.POST("/teachingClass/insert", InsertTeachingClass)
+	teacher.POST("/teachingClass/update", UpdateTeachingClass)
+	teacher.POST("/teachingClass/upload", UploadTeachingClass)
 	basePath.POST("/teachingClass/selectByPage", SelectTeachingClassByPage)
-	basePath.GET("/teachingClass/delete/:id", DeleteTeachingClass)
+	teacher.GET("/teachingClass/delete/:id", DeleteTeachingClass)
 }
 
 // @Summary 删除一条教学班学生信息

@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"score_inquiry_system/model"
 	"score_inquiry_system/service/teachingClassInformationService"
+	"score_inquiry_system/util/middleware"
 	"strconv"
 )
 
@@ -17,10 +18,12 @@ import (
  */
 
 func TeachingClassInformation(basePath *gin.RouterGroup) {
-	basePath.POST("/teachingClassInformation/insert", InsertTeachingClassInformation)
-	basePath.POST("/teachingClassInformation/update", UpdateTeachingClassInformation)
+	teacher := basePath.Group("")
+	teacher.Use(middleware.ValidateTeacherPermissions)
+	teacher.POST("/teachingClassInformation/insert", InsertTeachingClassInformation)
+	teacher.POST("/teachingClassInformation/update", UpdateTeachingClassInformation)
 	basePath.POST("/teachingClassInformation/selectByPage", SelectTeachingClassInformationByPage)
-	basePath.GET("/teachingClassInformation/delete/:id", DeleteTeachingClassInformation)
+	teacher.GET("/teachingClassInformation/delete/:id", DeleteTeachingClassInformation)
 }
 
 // @Summary 删除一条教学班信息

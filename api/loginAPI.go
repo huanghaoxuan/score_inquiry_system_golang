@@ -38,10 +38,10 @@ func Login(c *gin.Context) {
 	} else {
 		if permissions == 1 {
 			data := studentInformationService.SelectStudentInformationByStudentId(student.StudentId)
-			c.JSON(http.StatusOK, gin.H{"status": status, "token": middleware.GeneratedToken(), "data": data})
+			c.JSON(http.StatusOK, gin.H{"status": status, "token": middleware.GeneratedToken(1), "data": data})
 		} else {
 			data := teacherInformationService.SelectTeacherInformationByStudentId(student.StudentId)
-			c.JSON(http.StatusOK, gin.H{"status": status, "token": middleware.GeneratedToken(), "data": data})
+			c.JSON(http.StatusOK, gin.H{"status": status, "token": middleware.GeneratedToken(2), "data": data})
 		}
 	}
 }

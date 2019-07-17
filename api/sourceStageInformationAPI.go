@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"score_inquiry_system/model"
 	"score_inquiry_system/service/sourceStageInformationService"
+	"score_inquiry_system/util/middleware"
 	"strconv"
 )
 
@@ -17,11 +18,13 @@ import (
  */
 
 func SourceStageInformation(basePath *gin.RouterGroup) {
-	basePath.POST("/sourceStageInformation/insert", InsertSourceStageInformation)
-	basePath.POST("/sourceStageInformation/update", UpdateSourceStageInformation)
+	teacher := basePath.Group("")
+	teacher.Use(middleware.ValidateTeacherPermissions)
+	teacher.POST("/sourceStageInformation/insert", InsertSourceStageInformation)
+	teacher.POST("/sourceStageInformation/update", UpdateSourceStageInformation)
 	//basePath.POST("/sourceStageInformation/upload", UploadSourceStageInformation)
 	basePath.POST("/sourceStageInformation/selectByPage", SelectSourceStageInformationByPage)
-	basePath.GET("/sourceStageInformation/delete/:id", DeleteSourceStageInformation)
+	teacher.GET("/sourceStageInformation/delete/:id", DeleteSourceStageInformation)
 }
 
 // @Summary 增加阶段性测验信息

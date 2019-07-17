@@ -4,7 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"score_inquiry_system/model"
-	"score_inquiry_system/service/sourceStageService"
+	"score_inquiry_system/service/sourceFinalService"
 	"score_inquiry_system/util/middleware"
 	"strconv"
 )
@@ -17,14 +17,14 @@ import (
  * @Version 1.0
  */
 
-func SourceStage(basePath *gin.RouterGroup) {
+func SourceFinal(basePath *gin.RouterGroup) {
 	teacher := basePath.Group("")
 	teacher.Use(middleware.ValidateTeacherPermissions)
-	teacher.POST("/sourceStage/insertStudent", InsertSourceStage)
-	teacher.POST("/sourceStage/updates", UpdateSourceStages)
-	//basePath.POST("/sourceStage/upload", UploadSourceStage)
-	basePath.POST("/sourceStage/selectByPage", SelectSourceStageByPage)
-	teacher.GET("/sourceStage/delete/:id", DeleteSourceStage)
+	teacher.POST("/sourceFinal/insertStudent", InsertSourceFinal)
+	teacher.POST("/sourceFinal/updates", UpdateSourceFinals)
+	//basePath.POST("/sourceFinal/upload", UploadSourceFinal)
+	basePath.POST("/sourceFinal/selectByPage", SelectSourceFinalByPage)
+	teacher.GET("/sourceFinal/delete/:id", DeleteSourceFinal)
 }
 
 // @Summary 增加阶段性测验成绩
@@ -36,18 +36,18 @@ func SourceStage(basePath *gin.RouterGroup) {
 // @Param name formData string true "学生名字"
 // @Param studentId formData string true "学生学号"
 // @Param teachingClassId formData string false "教学班号"
-// @Param sourceStageId formData string false "阶段性测验id"
+// @Param sourceFinalId formData string false "阶段性测验id"
 // @Param scoresNote formData string false "成绩注释"
 // @Param scores formData string false "成绩"
 // @Success 200 {string} json "{"status": 1}"
-// @Router /sourceStage/insert [post]
-func InsertSourceStage(c *gin.Context) {
+// @Router /sourceFinal/insert [post]
+func InsertSourceFinal(c *gin.Context) {
 
 	//模型填充
-	var sourceStage model.SourceStage
-	_ = c.ShouldBindJSON(&sourceStage)
+	var sourceFinal model.SourceFinal
+	_ = c.ShouldBindJSON(&sourceFinal)
 	//状态回调
-	status := sourceStageService.Insert(&sourceStage)
+	status := sourceFinalService.Insert(&sourceFinal)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"status": status})
 }
@@ -61,25 +61,25 @@ func InsertSourceStage(c *gin.Context) {
 // @Param name formData string true "学生名字"
 // @Param studentId formData string true "学生学号"
 // @Param teachingClassId formData string false "教学班号"
-// @Param sourceStageId formData string false "阶段性测验id"
+// @Param sourceFinalId formData string false "阶段性测验id"
 // @Param scoresNote formData string false "成绩注释"
 // @Param scores formData string false "成绩"
 // @Success 200 {string} json "{"status": 1}"
-// @Router /sourceStage/updates [post]
-func UpdateSourceStages(c *gin.Context) {
+// @Router /sourceFinal/updates [post]
+func UpdateSourceFinals(c *gin.Context) {
 
 	//获取数组形式的数据
-	type sourceStages struct {
-		Data []model.SourceStage `form:"data[]" json:"data"`
+	type sourceFinals struct {
+		Data []model.SourceFinal `form:"data[]" json:"data"`
 	}
 
 	//模型填充
-	var data sourceStages
+	var data sourceFinals
 	_ = c.ShouldBindJSON(&data)
 	//状态回调
 	var status int64 = 0
 	for _, v := range data.Data {
-		status += sourceStageService.UpdateAll(&v)
+		status += sourceFinalService.UpdateAll(&v)
 	}
 
 	//回调
@@ -97,21 +97,21 @@ func UpdateSourceStages(c *gin.Context) {
 // @Param name formData string true "学生名字"
 // @Param studentId formData string true "学生学号"
 // @Param teachingClassId formData string false "教学班号"
-// @Param sourceStageId formData string false "阶段性测验id"
+// @Param sourceFinalId formData string false "阶段性测验id"
 // @Param scoresNote formData string false "成绩注释"
 // @Param scores formData string false "成绩"
-// @Router /sourceStage/selectByPage [post]
-func SelectSourceStageByPage(c *gin.Context) {
+// @Router /sourceFinal/selectByPage [post]
+func SelectSourceFinalByPage(c *gin.Context) {
 	//模型填充
-	var sourceStage model.SourceStage
-	_ = c.ShouldBind(&sourceStage)
+	var sourceFinal model.SourceFinal
+	_ = c.ShouldBind(&sourceFinal)
 	pageNum, _ := strconv.Atoi(c.PostForm("pageNum"))
 	pageSize, _ := strconv.Atoi(c.PostForm("pageSize"))
 	//查询总条数
-	count := sourceStage.Count()
-	sourceStages := sourceStageService.SelectByPage(pageNum, pageSize, &sourceStage)
+	count := sourceFinal.Count()
+	sourceFinals := sourceFinalService.SelectByPage(pageNum, pageSize, &sourceFinal)
 	//回调
-	c.JSON(http.StatusOK, gin.H{"data": sourceStages, "count": count})
+	c.JSON(http.StatusOK, gin.H{"data": sourceFinals, "count": count})
 }
 
 // @Summary 删除阶段性测验成绩
@@ -121,10 +121,10 @@ func SelectSourceStageByPage(c *gin.Context) {
 // @Produce json
 // @Param Authorization header string true "Token"
 // @Param id path string true "主键"
-// @Router /sourceStage/delete/{id} [get]
-func DeleteSourceStage(c *gin.Context) {
+// @Router /sourceFinal/delete/{id} [get]
+func DeleteSourceFinal(c *gin.Context) {
 	id := c.Param("id")
-	status := sourceStageService.Delete(id)
+	status := sourceFinalService.Delete(id)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"status": status})
 }

@@ -23,7 +23,7 @@ const (
 )
 
 //生成Token验证码
-func GeneratedToken() string {
+func GeneratedToken(permissions int) string {
 
 	token := jwt.New(jwt.SigningMethodHS256)
 	claims := make(jwt.MapClaims)
@@ -33,8 +33,8 @@ func GeneratedToken() string {
 	claims["iat"] = time.Now().Unix()
 	//加入签发者
 	claims["iss"] = SecretKey
+	claims["permissions"] = permissions
 	token.Claims = claims
-
 	//生成token字符串
 	tokenString, _ := token.SignedString([]byte(SecretKey))
 	return tokenString
@@ -55,6 +55,11 @@ func ValidateToken(c *gin.Context) {
 	if err == nil {
 		if token.Valid {
 			//验证通过继续往下走
+			//finToken := token.Claims.(jwt.MapClaims)
+			//校验下token是否过期
+			//succ := finToken.VerifyExpiresAt(time.Now().Unix(),true)
+			//获取token中保存的用户信息
+			//fmt.Println(finToken["iss"])
 			c.Next()
 		} else {
 			//验证不通过
@@ -65,4 +70,20 @@ func ValidateToken(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusForbidden, gin.H{"msg": "当前登录信息无效或已过期，请重新登录"})
 	}
 
+}
+
+func ValidateTeacherPermissions(c *gin.Context) {
+	token, _ := request.ParseFromRequest(c.Request, request.AuthorizationHeaderExtractor,
+		func(token *jwt.Token) (interface{}, error) {
+			return []byte(SecretKey), nil
+		})
+	finToken := token.Claims.(jwt.MapClaims)
+	//校验下token是否过期
+	//succ := finToken.VerifyExpiresAt(time.Now().Unix(),true)
+	//获取token中保存的用户信息
+	if (int)(finToken["permissions"].(float64)) == 1 {
+		c.AbortWithStatusJSON(http.StatusForbidden, gin.H{"msg": "该账号权限不允许使用该方法或该请求"})
+	} else {
+		c.Next()
+	}
 }

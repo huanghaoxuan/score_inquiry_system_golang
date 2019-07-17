@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"score_inquiry_system/model"
 	"score_inquiry_system/service/courseService"
+	"score_inquiry_system/util/middleware"
 	"strconv"
 )
 
@@ -17,11 +18,13 @@ import (
  */
 
 func Course(basePath *gin.RouterGroup) {
-	basePath.POST("/course/insert", InsertCourse)
-	basePath.POST("/course/update", UpdateCourse)
+	teacher := basePath.Group("")
+	teacher.Use(middleware.ValidateTeacherPermissions)
+	teacher.POST("/course/insert", InsertCourse)
+	teacher.POST("/course/update", UpdateCourse)
 	//basePath.POST("/course/upload", UploadCourse)
 	basePath.POST("/course/selectByPage", SelectCourseByPage)
-	basePath.GET("/course/delete/:id", DeleteCourse)
+	teacher.GET("/course/delete/:id", DeleteCourse)
 }
 
 // @Summary 增加课程信息记录
