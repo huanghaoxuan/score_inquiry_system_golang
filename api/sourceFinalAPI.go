@@ -27,16 +27,15 @@ func SourceFinal(basePath *gin.RouterGroup) {
 	teacher.GET("/sourceFinal/delete/:id", DeleteSourceFinal)
 }
 
-// @Summary 增加阶段性测验成绩
-// @Description 增加阶段性测验成绩
-// @Tags 阶段性测验成绩
+// @Summary 增加期末成绩
+// @Description 增加期末成绩
+// @Tags 期末成绩
 // @Accept json
 // @Produce json
 // @Param Authorization header string true "Token"
 // @Param name formData string true "学生名字"
 // @Param studentId formData string true "学生学号"
 // @Param teachingClassId formData string false "教学班号"
-// @Param sourceFinalId formData string false "阶段性测验id"
 // @Param scoresNote formData string false "成绩注释"
 // @Param scores formData string false "成绩"
 // @Success 200 {string} json "{"status": 1}"
@@ -52,16 +51,15 @@ func InsertSourceFinal(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": status})
 }
 
-// @Summary 批量更新阶段性测验成绩
-// @Description 批量更新阶段性测验成绩
-// @Tags 阶段性测验成绩
+// @Summary 批量更新期末成绩
+// @Description 批量更新期末成绩
+// @Tags 期末成绩
 // @Accept json
 // @Produce json
 // @Param Authorization header string true "Token"
 // @Param name formData string true "学生名字"
 // @Param studentId formData string true "学生学号"
 // @Param teachingClassId formData string false "教学班号"
-// @Param sourceFinalId formData string false "阶段性测验id"
 // @Param scoresNote formData string false "成绩注释"
 // @Param scores formData string false "成绩"
 // @Success 200 {string} json "{"status": 1}"
@@ -86,9 +84,9 @@ func UpdateSourceFinals(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"status": status})
 }
 
-// @Summary 分页查询阶段性测验成绩
-// @Description 分页查询阶段性测验成绩
-// @Tags 阶段性测验成绩
+// @Summary 分页查询期末成绩
+// @Description 分页查询期末成绩
+// @Tags 期末成绩
 // @Accept mpfd
 // @Produce json
 // @Param Authorization header string true "Token"
@@ -97,7 +95,6 @@ func UpdateSourceFinals(c *gin.Context) {
 // @Param name formData string true "学生名字"
 // @Param studentId formData string true "学生学号"
 // @Param teachingClassId formData string false "教学班号"
-// @Param sourceFinalId formData string false "阶段性测验id"
 // @Param scoresNote formData string false "成绩注释"
 // @Param scores formData string false "成绩"
 // @Router /sourceFinal/selectByPage [post]
@@ -114,9 +111,9 @@ func SelectSourceFinalByPage(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": sourceFinals, "count": count})
 }
 
-// @Summary 删除阶段性测验成绩
-// @Description 删除阶段性测验成绩
-// @Tags 阶段性测验成绩
+// @Summary 删除期末成绩
+// @Description 删除期末成绩
+// @Tags 期末成绩
 // @Accept json
 // @Produce json
 // @Param Authorization header string true "Token"
