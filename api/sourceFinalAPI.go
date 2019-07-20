@@ -25,6 +25,7 @@ func SourceFinal(basePath *gin.RouterGroup) {
 	//basePath.POST("/sourceFinal/upload", UploadSourceFinal)
 	basePath.POST("/sourceFinal/selectByPage", SelectSourceFinalByPage)
 	teacher.GET("/sourceFinal/delete/:id", DeleteSourceFinal)
+	teacher.GET("/sourceFinal/updateStudent/:teachingClassId", UpdateSourceFinalStudent)
 }
 
 // @Summary 增加期末成绩
@@ -122,6 +123,21 @@ func SelectSourceFinalByPage(c *gin.Context) {
 func DeleteSourceFinal(c *gin.Context) {
 	id := c.Param("id")
 	status := sourceFinalService.Delete(id)
+	//回调
+	c.JSON(http.StatusOK, gin.H{"status": status})
+}
+
+// @Summary 同步当前教学班学生信息
+// @Description 同步当前教学班学生信息
+// @Tags 期末成绩
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Token"
+// @Param teachingClassId path string true "教学班号"
+// @Router /sourceFinal/updateStudent/{teachingClassId} [get]
+func UpdateSourceFinalStudent(c *gin.Context) {
+	teachingClassId := c.Param("teachingClassId")
+	status := sourceFinalService.UpdateStudent(teachingClassId)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"status": status})
 }

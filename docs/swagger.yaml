@@ -141,6 +141,161 @@ paths:
       summary: 更新课程信息记录
       tags:
         - 课程信息
+  /sourceFinal/delete/{id}:
+    get:
+      consumes:
+        - application/json
+      description: 删除期末成绩
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 主键
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      summary: 删除期末成绩
+      tags:
+        - 期末成绩
+  /sourceFinal/insert:
+    post:
+      consumes:
+        - application/json
+      description: 增加期末成绩
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 学生名字
+          in: formData
+          name: name
+          required: true
+          type: string
+        - description: 学生学号
+          in: formData
+          name: studentId
+          required: true
+          type: string
+        - description: 教学班号
+          in: formData
+          name: teachingClassId
+          type: string
+        - description: 成绩注释
+          in: formData
+          name: scoresNote
+          type: string
+        - description: 成绩
+          in: formData
+          name: scores
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: '{"status": 1}'
+          schema:
+            type: string
+      summary: 增加期末成绩
+      tags:
+        - 期末成绩
+  /sourceFinal/selectByPage:
+    post:
+      consumes:
+        - multipart/form-data
+      description: 分页查询期末成绩
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 查询页码
+          in: formData
+          name: pageNum
+          required: true
+          type: string
+        - description: 每页条数
+          in: formData
+          name: pageSize
+          required: true
+          type: string
+        - description: 学生名字
+          in: formData
+          name: name
+          required: true
+          type: string
+        - description: 学生学号
+          in: formData
+          name: studentId
+          required: true
+          type: string
+        - description: 教学班号
+          in: formData
+          name: teachingClassId
+          type: string
+        - description: 成绩注释
+          in: formData
+          name: scoresNote
+          type: string
+        - description: 成绩
+          in: formData
+          name: scores
+          type: string
+      produces:
+        - application/json
+      summary: 分页查询期末成绩
+      tags:
+        - 期末成绩
+  /sourceFinal/updates:
+    post:
+      consumes:
+        - application/json
+      description: 批量更新期末成绩
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 学生名字
+          in: formData
+          name: name
+          required: true
+          type: string
+        - description: 学生学号
+          in: formData
+          name: studentId
+          required: true
+          type: string
+        - description: 教学班号
+          in: formData
+          name: teachingClassId
+          type: string
+        - description: 成绩注释
+          in: formData
+          name: scoresNote
+          type: string
+        - description: 成绩
+          in: formData
+          name: scores
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: '{"status": 1}'
+          schema:
+            type: string
+      summary: 批量更新期末成绩
+      tags:
+        - 期末成绩
   /sourceStage/delete/{id}:
     get:
       consumes:
@@ -162,7 +317,7 @@ paths:
       summary: 删除阶段性测验成绩
       tags:
         - 阶段性测验成绩
-  /sourceStage/insertStudent:
+  /sourceStage/insert:
     post:
       consumes:
         - application/json
@@ -790,7 +945,7 @@ paths:
           type: string
       produces:
         - application/json
-      summary: 删除一条教学班信息
+      summary: 删除一条教学班学生信息
       tags:
         - 教学班信息
   /teachingClass/insert:
@@ -856,7 +1011,7 @@ paths:
           description: '{"status": 1}'
           schema:
             type: string
-      summary: 增加教学班信息记录
+      summary: 增加教学班信息学生记录
       tags:
         - 教学班信息
   /teachingClass/selectByPage:
@@ -927,7 +1082,7 @@ paths:
           type: string
       produces:
         - application/json
-      summary: 分页查询教学班信息
+      summary: 分页查询教学班学生信息
       tags:
         - 教学班信息
   /teachingClass/update:
@@ -993,7 +1148,7 @@ paths:
           description: '{"status": 1}'
           schema:
             type: string
-      summary: 更新教学班信息记录
+      summary: 更新教学班信息学生记录
       tags:
         - 教学班信息
   /teachingClass/upload:
@@ -1019,7 +1174,7 @@ paths:
           description: '{"status": 1}'
           schema:
             type: string
-      summary: 上传教学班表格文件
+      summary: 上传教学班学生表格文件
       tags:
         - 教学班信息
   /teachingClassInformation/delete/{id}:

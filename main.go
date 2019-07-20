@@ -59,6 +59,7 @@ func main() {
 		api.TeachingClassInformation(basePath)
 		api.SourceStageInformation(basePath)
 		api.SourceStage(basePath)
+		api.SourceFinal(basePath)
 	}
 	//数据库结构自动更新
 	db.DB.AutoMigrate(&model.Student{},

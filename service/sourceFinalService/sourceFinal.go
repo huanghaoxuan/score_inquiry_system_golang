@@ -52,3 +52,20 @@ func Delete(id string) int64 {
 	sourceFinal := model.SourceFinal{Id: id}
 	return sourceFinal.Delete()
 }
+
+//同步学生
+func UpdateStudent(teachingClassId string) int64 {
+	teachingClass := model.TeachingClass{TeachingClassId: teachingClassId}
+	teachingClasses := teachingClass.Select()
+	var count int64 = 0
+	for _, v := range teachingClasses {
+		sourceFinal := model.SourceFinal{
+			Id:              uuid.NewV4().String(),
+			Name:            v.Name,
+			StudentId:       v.StudentId,
+			ClassId:         v.Id,
+			TeachingClassId: v.TeachingClassId}
+		count += sourceFinal.Insert()
+	}
+	return count
+}

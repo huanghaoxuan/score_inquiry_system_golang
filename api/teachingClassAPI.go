@@ -5,6 +5,7 @@ import (
 	uuid "github.com/satori/go.uuid"
 	"net/http"
 	"score_inquiry_system/model"
+	"score_inquiry_system/service/sourceFinalService"
 	"score_inquiry_system/service/sourceStageService"
 	"score_inquiry_system/service/teachingClassService"
 	"score_inquiry_system/util/middleware"
@@ -131,6 +132,8 @@ func InsertTeachingClass(c *gin.Context) {
 	_ = c.ShouldBind(&teachingClass)
 	//状态回调
 	status := teachingClassService.Insert(&teachingClass)
+	//开启协程，插入期末成绩
+	go sourceFinalService.UpdateStudent(teachingClass.TeachingClassId)
 	var sourceStage model.SourceStage
 	//插入阶段性成绩学生信息
 	_ = c.ShouldBind(&sourceStage)

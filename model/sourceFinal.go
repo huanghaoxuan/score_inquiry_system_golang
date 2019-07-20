@@ -18,6 +18,7 @@ type SourceFinal struct {
 	Id              string    `form:"id" gorm:"primary_key;column:id" json:"id"`                                        //主键
 	Name            string    `form:"name" gorm:"column:name" json:"name"`                                              //名字
 	StudentId       string    `form:"studentId" gorm:"column:student_id;not null;unique;" json:"studentId"`             //学生学号
+	ClassId         string    `form:"classId" gorm:"column:class_id;not null;unique" json:"classId"`                    //TeachingClass表中的主键id,唯一
 	TeachingClassId string    `form:"teachingClassId" gorm:"column:teaching_class_id;not null;" json:"teachingClassId"` //教学班号
 	ScoresNote      string    `form:"scoresNote" gorm:"column:scores_note;not null;" json:"scoresNote"`                 //成绩注释
 	Scores          string    `form:"scores" gorm:"column:scores;not null;" json:"scores"`                              //成绩
