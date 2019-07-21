@@ -18,6 +18,151 @@
     "host": "localhost:5201",
     "basePath": "/api",
     "paths": {
+      "/ShowSource/Stage": {
+        "post": {
+          "description": "学生进行阶段性成绩查询",
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "tags": [
+            "成绩查询"
+          ],
+          "summary": "阶段性成绩查询",
+          "parameters": [
+            {
+              "type": "string",
+              "description": "Token",
+              "name": "Authorization",
+              "in": "header",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "查询页码",
+              "name": "pageNum",
+              "in": "formData",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "每页条数",
+              "name": "pageSize",
+              "in": "formData",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "学生名字",
+              "name": "name",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "学生学号",
+              "name": "studentId",
+              "in": "formData",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "教学班号",
+              "name": "teachingClassId",
+              "in": "formData",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "阶段性测验id",
+              "name": "sourceStageId",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "成绩注释",
+              "name": "scoresNote",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "成绩",
+              "name": "scores",
+              "in": "formData"
+            }
+          ]
+        }
+      },
+      "/ShowSource/final": {
+        "post": {
+          "description": "学生进行期末成绩查询",
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "tags": [
+            "成绩查询"
+          ],
+          "summary": "期末成绩查询",
+          "parameters": [
+            {
+              "type": "string",
+              "description": "Token",
+              "name": "Authorization",
+              "in": "header",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "查询页码",
+              "name": "pageNum",
+              "in": "formData",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "每页条数",
+              "name": "pageSize",
+              "in": "formData",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "学生名字",
+              "name": "name",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "学生学号",
+              "name": "studentId",
+              "in": "formData",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "教学班号",
+              "name": "teachingClassId",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "成绩注释",
+              "name": "scoresNote",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "成绩",
+              "name": "scores",
+              "in": "formData"
+            }
+          ]
+        }
+      },
       "/course/delete/{id}": {
         "get": {
           "description": "删除一条课程信息",
@@ -264,8 +409,7 @@
               "type": "string",
               "description": "学生名字",
               "name": "name",
-              "in": "formData",
-              "required": true
+              "in": "formData"
             },
             {
               "type": "string",
@@ -342,8 +486,7 @@
               "type": "string",
               "description": "学生名字",
               "name": "name",
-              "in": "formData",
-              "required": true
+              "in": "formData"
             },
             {
               "type": "string",
@@ -373,6 +516,37 @@
           ]
         }
       },
+      "/sourceFinal/updateStudent/{teachingClassId}": {
+        "get": {
+          "description": "同步当前教学班学生信息",
+          "consumes": [
+            "application/json"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "tags": [
+            "期末成绩"
+          ],
+          "summary": "同步当前教学班学生信息",
+          "parameters": [
+            {
+              "type": "string",
+              "description": "Token",
+              "name": "Authorization",
+              "in": "header",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "教学班号",
+              "name": "teachingClassId",
+              "in": "path",
+              "required": true
+            }
+          ]
+        }
+      },
       "/sourceFinal/updates": {
         "post": {
           "description": "批量更新期末成绩",
@@ -398,8 +572,7 @@
               "type": "string",
               "description": "学生名字",
               "name": "name",
-              "in": "formData",
-              "required": true
+              "in": "formData"
             },
             {
               "type": "string",
@@ -493,8 +666,7 @@
               "type": "string",
               "description": "学生名字",
               "name": "name",
-              "in": "formData",
-              "required": true
+              "in": "formData"
             },
             {
               "type": "string",
@@ -577,8 +749,7 @@
               "type": "string",
               "description": "学生名字",
               "name": "name",
-              "in": "formData",
-              "required": true
+              "in": "formData"
             },
             {
               "type": "string",
@@ -639,8 +810,7 @@
               "type": "string",
               "description": "学生名字",
               "name": "name",
-              "in": "formData",
-              "required": true
+              "in": "formData"
             },
             {
               "type": "string",

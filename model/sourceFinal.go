@@ -40,6 +40,26 @@ func (sourceFinal *SourceFinal) SelectByPage(pageNum int, pageSize int) []Source
 	return sourceFinals
 }
 
+//期末成绩查询
+func (sourceFinal *SourceFinal) ShowSourceFinal(pageNum int, pageSize int) interface{} {
+	type sourceFinalRes struct {
+		SourceFinal
+		CourseName string `json:"courseName"`
+		Year       int    `json:"year"`     //学年
+		Semester   string `json:"semester"` //学期
+	}
+	final := []sourceFinalRes{}
+	db.DB.Table("source_final").
+		Select("source_final.* , teaching_class_information.course_name , course.year , course.semester").
+		Where("source_final.student_id = ?", sourceFinal.StudentId).
+		Joins("left join teaching_class_information on source_final.teaching_class_id = teaching_class_information.teaching_class_id").
+		Joins("left join course on teaching_class_information.course_name = course.name").
+		Order("source_final.created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).
+		Find(&final)
+	//SELECT source_final.* , teaching_class_information.course_name , course.* FROM `source_final` left join teaching_class_information on source_final.teaching_class_id = teaching_class_information.teaching_class_id left join course on teaching_class_information.course_name = course.name WHERE (source_final.student_id = '38216137') ORDER BY source_final.created_at desc LIMIT 9 OFFSET 0
+	return final
+}
+
 //查询总记录
 func (sourceFinal *SourceFinal) Count() int {
 	count := 0

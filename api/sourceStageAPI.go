@@ -33,7 +33,7 @@ func SourceStage(basePath *gin.RouterGroup) {
 // @Accept json
 // @Produce json
 // @Param Authorization header string true "Token"
-// @Param name formData string true "学生名字"
+// @Param name formData string false "学生名字"
 // @Param studentId formData string true "学生学号"
 // @Param teachingClassId formData string false "教学班号"
 // @Param sourceStageId formData string false "阶段性测验id"
@@ -58,7 +58,7 @@ func InsertSourceStage(c *gin.Context) {
 // @Accept json
 // @Produce json
 // @Param Authorization header string true "Token"
-// @Param name formData string true "学生名字"
+// @Param name formData string false "学生名字"
 // @Param studentId formData string true "学生学号"
 // @Param teachingClassId formData string false "教学班号"
 // @Param sourceStageId formData string false "阶段性测验id"
@@ -94,7 +94,7 @@ func UpdateSourceStages(c *gin.Context) {
 // @Param Authorization header string true "Token"
 // @Param pageNum formData string true "查询页码"
 // @Param pageSize formData string true "每页条数"
-// @Param name formData string true "学生名字"
+// @Param name formData string false "学生名字"
 // @Param studentId formData string true "学生学号"
 // @Param teachingClassId formData string false "教学班号"
 // @Param sourceStageId formData string false "阶段性测验id"

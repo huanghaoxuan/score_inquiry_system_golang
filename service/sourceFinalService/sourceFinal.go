@@ -69,3 +69,7 @@ func UpdateStudent(teachingClassId string) int64 {
 	}
 	return count
 }
+
+func ShowSourceFinal(pageNum int, pageSize int, sourceFinal *model.SourceFinal) interface{} {
+	return sourceFinal.ShowSourceFinal(pageNum, pageSize)
+}

@@ -68,3 +68,7 @@ func Delete(id string) int64 {
 	sourceStage := model.SourceStage{Id: id}
 	return sourceStage.Delete()
 }
+
+func ShowSourceStage(pageNum int, pageSize int, sourceStage *model.SourceStage) interface{} {
+	return sourceStage.ShowSourceStage(pageNum, pageSize)
+}

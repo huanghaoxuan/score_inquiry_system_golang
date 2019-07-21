@@ -83,3 +83,21 @@ func (sourceStage *SourceStage) Delete() int64 {
 	}
 	return 0
 }
+
+//期末成绩查询
+func (sourceStage *SourceStage) ShowSourceStage(pageNum int, pageSize int) interface{} {
+	type sourceStageRes struct {
+		SourceStage
+		StageId   string `json:"stageId"`   //阶段性测验序号
+		StageNote string `json:"stageNote"` //阶段性测验描述
+	}
+	stage := []sourceStageRes{}
+	db.DB.Table("source_stage").
+		Select("source_stage.* , source_stage_information.*").
+		Where("source_stage.student_id = ? and source_stage.teaching_class_id = ?", sourceStage.StudentId, sourceStage.TeachingClassId).
+		Joins("left join source_stage_information on source_stage.source_stage_id = source_stage_information.id").
+		Order("source_stage.created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).
+		Find(&stage)
+	//SELECT source_final.* , teaching_class_information.course_name , course.* FROM `source_final` left join teaching_class_information on source_final.teaching_class_id = teaching_class_information.teaching_class_id left join course on teaching_class_information.course_name = course.name WHERE (source_final.student_id = '38216137') ORDER BY source_final.created_at desc LIMIT 9 OFFSET 0
+	return stage
+}

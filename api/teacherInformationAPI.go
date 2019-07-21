@@ -23,7 +23,7 @@ func TeacherInformation(basePath *gin.RouterGroup) {
 	teacher.POST("/teacherInformation/insert", InsertTeacherInformation)
 	teacher.POST("/teacherInformation/update", UpdateTeacherInformation)
 	//basePath.POST("/teacherInformation/upload", UploadTeacherInformation)
-	basePath.POST("/teacherInformation/selectByPage", SelectTeacherInformationByPage)
+	teacher.POST("/teacherInformation/selectByPage", SelectTeacherInformationByPage)
 	teacher.GET("/teacherInformation/delete/:id", DeleteTeacherInformation)
 }
 
