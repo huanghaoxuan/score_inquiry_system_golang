@@ -63,10 +63,12 @@ func main() {
 		api.ShowSource(basePath)
 	}
 	//数据库结构自动更新
-	db.DB.AutoMigrate(&model.Student{},
+	db.DB.AutoMigrate(
+		&model.Course{},
+		&model.Student{},
 		&model.StudentInformation{},
 		&model.TeachingClass{},
-		&model.TeacherInformation{},
+		&model.TeachingClassInformation{},
 		&model.TeacherInformation{},
 		&model.SourceStageInformation{},
 		&model.SourceStage{},

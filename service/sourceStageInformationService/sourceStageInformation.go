@@ -24,6 +24,11 @@ func SelectByPage(pageNum int, pageSize int, sourceStageInformation *model.Sourc
 	return sourceStageInformation.SelectByPage(pageNum, pageSize)
 }
 
+//查询全部
+func SelectAll(sourceStageInformation *model.SourceStageInformation) []model.SourceStageInformation {
+	return sourceStageInformation.SelectAll()
+}
+
 //插入
 func Insert(sourceStageInformation *model.SourceStageInformation) int64 {
 	//设置uuid为主键

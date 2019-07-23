@@ -21,6 +21,7 @@ require (
 	github.com/mattn/go-isatty v0.0.8 // indirect
 	github.com/satori/go.uuid v1.2.0
 	github.com/stretchr/objx v0.2.0 // indirect
+	github.com/swaggo/gin-swagger v1.1.0
 	github.com/swaggo/swag v1.5.0
 	github.com/ugorji/go v1.1.5-pre // indirect
 	github.com/urfave/negroni v1.0.0 // indirect
