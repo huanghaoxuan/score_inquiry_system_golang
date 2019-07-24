@@ -3,7 +3,6 @@ package sourceStageInformationService
 import (
 	uuid "github.com/satori/go.uuid"
 	"score_inquiry_system/model"
-	"score_inquiry_system/service/sourceStageService"
 )
 
 /**
@@ -42,7 +41,8 @@ func Insert(sourceStageInformation *model.SourceStageInformation) int64 {
 			TeachingClassId: v.TeachingClassId,
 			SourceStageId:   sourceStageInformation.Id,
 		}
-		sourceStageService.Insert(&sourceStage)
+		sourceStage.Id = uuid.NewV4().String()
+		sourceStage.Insert()
 	}
 	return sourceStageInformation.Insert()
 }

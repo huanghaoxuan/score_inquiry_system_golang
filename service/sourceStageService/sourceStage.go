@@ -22,21 +22,24 @@ func Count(sourceStage *model.SourceStage) int {
 func SelectByPage(pageNum int, pageSize int, sourceStage *model.SourceStage) interface{} {
 	id := sourceStage.Id
 	sourceStage.Id = ""
-	sourceStages := sourceStage.SelectByPage(pageNum, pageSize)
-	data := make([]map[string]string, 0, len(sourceStages))
+	sourceStages := sourceStage.SelectAll()
+	data := make([]map[string]interface{}, 0, len(sourceStages))
 	for index := 0; index < len(sourceStages); index++ {
 		if sourceStages[index].Name != "" {
 			studentId := sourceStages[index].StudentId
-			data = append(data, make(map[string]string))
+			//扩容
+			data = append(data, make(map[string]interface{}))
 			data[len(data)-1]["name"] = sourceStages[index].Name
 			data[len(data)-1]["studentId"] = sourceStages[index].StudentId
-			data[len(data)-1]["TeachingClassId"] = sourceStages[index].TeachingClassId
-			for i, v := range sourceStages {
-				if studentId == v.StudentId {
-					if id == v.SourceStageId {
-						data[len(data)-1]["scores"] = v.Scores
+			data[len(data)-1]["teachingClassId"] = sourceStages[index].TeachingClassId
+			data[len(data)-1]["createdAt"] = sourceStages[index].CreatedAt
+			for i := 0; i < len(sourceStages); i++ {
+				if studentId == sourceStages[i].StudentId {
+					if id == sourceStages[i].SourceStageId {
+						data[len(data)-1]["scores"] = sourceStages[i].Scores
+						data[len(data)-1]["id"] = sourceStages[i].Id
 					}
-					data[len(data)-1][v.SourceStageId] = v.Scores
+					data[len(data)-1][sourceStages[i].SourceStageId] = sourceStages[i].Scores
 					sourceStages[i].Name = ""
 				}
 			}

@@ -79,7 +79,7 @@ func UpdateSourceStages(c *gin.Context) {
 	//状态回调
 	var status int64 = 0
 	for _, v := range data.Data {
-		status += sourceStageService.UpdateAll(&v)
+		status += sourceStageService.Update(&v)
 	}
 
 	//回调

@@ -40,6 +40,14 @@ func (sourceStage *SourceStage) SelectByPage(pageNum int, pageSize int) []Source
 	return sourceStages
 }
 
+//全部查询
+func (sourceStage *SourceStage) SelectAll() []SourceStage {
+	sourceStages := make([]SourceStage, 15)
+	db.DB.Where(&sourceStage).Order("created_at desc").Find(&sourceStages)
+
+	return sourceStages
+}
+
 //查询总记录
 func (sourceStage *SourceStage) Count() int {
 	count := 0

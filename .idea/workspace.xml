@@ -3,9 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="643eb69c-3746-41e6-a2bc-ccda17858c03" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/sourceStageAPI.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/sourceStageAPI.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db/msserver.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/msserver.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/sourceStage.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/sourceStage.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/sourceStageInformationService/sourceStageInformation.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/sourceStageInformationService/sourceStageInformation.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/sourceStageService/sourceStage.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/sourceStageService/sourceStage.go" afterDir="false" />
     </list>
@@ -34,8 +34,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/db/msserver.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="58" column="13" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
+            <state relative-caret-position="166">
+              <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
               <folding>
                 <element signature="e#12#130#0" expanded="true" />
               </folding>
@@ -44,19 +44,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/db/db.properties">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="1" column="19" selection-start-line="1" selection-start-column="19" selection-end-line="1" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model/sourceStage.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="20" column="117" selection-start-line="20" selection-start-column="102" selection-end-line="20" selection-end-column="117" />
+            <state relative-caret-position="504">
+              <caret line="39" column="23" lean-forward="true" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -64,7 +55,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model/sourceFinal.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="882">
+            <state relative-caret-position="124">
               <caret line="45" column="19" selection-start-line="45" selection-start-column="19" selection-end-line="45" selection-end-column="19" />
               <folding>
                 <element signature="e#15#60#0" expanded="true" />
@@ -76,26 +67,53 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model/student.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
+            <state relative-caret-position="187">
               <caret line="16" column="41" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api/sourceStageAPI.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2247">
-              <caret line="114" selection-start-line="114" selection-end-line="114" />
+            <state relative-caret-position="448">
+              <caret line="85" column="33" selection-start-line="85" selection-start-column="33" selection-end-line="85" selection-end-column="33" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/service/sourceStageService/sourceStage.go">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/api/sourceStageInformationAPI.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="27" column="28" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
+            <state relative-caret-position="315">
+              <caret line="46" column="45" lean-forward="true" selection-start-line="46" selection-start-column="45" selection-end-line="46" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/util/middleware/jwt.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="193">
+              <caret line="62" selection-start-line="62" selection-end-line="62" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/service/sourceStageInformationService/sourceStageInformation.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="212">
+              <caret line="36" column="39" lean-forward="true" selection-start-line="36" selection-start-column="39" selection-end-line="36" selection-end-column="39" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/service/sourceFinalService/sourceFinal.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="292">
+              <caret line="52" column="31" lean-forward="true" selection-start-line="52" selection-start-column="31" selection-end-line="52" selection-end-column="31" />
               <folding>
                 <element signature="e#28#102#0" expanded="true" />
               </folding>
@@ -104,28 +122,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://F:/go_workspace_gopath/pkg/mod/github.com/gin-gonic/gin@v1.4.0/recovery.go">
+        <entry file="file://$PROJECT_DIR$/service/sourceStageService/sourceStage.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="186">
-              <caret line="41" selection-start-line="41" selection-end-line="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/service/sourceStageInformationService/sourceStageInformation.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="504">
-              <caret line="28" column="45" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/service/sourceFinalService/sourceFinal.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1302">
-              <caret line="65" column="34" selection-start-line="65" selection-start-column="34" selection-end-line="65" selection-end-column="34" />
+            <state relative-caret-position="338">
+              <caret line="53" column="4" lean-forward="true" selection-start-line="53" selection-start-column="4" selection-end-line="53" selection-end-column="42" />
               <folding>
                 <element signature="e#28#102#0" expanded="true" />
               </folding>
@@ -236,17 +236,17 @@
         <option value="$PROJECT_DIR$/service/teachingClassService/teachingClass.go" />
         <option value="$PROJECT_DIR$/api/teacherInformationAPI.go" />
         <option value="$PROJECT_DIR$/api/showSource.go" />
-        <option value="$PROJECT_DIR$/api/sourceStageAPI.go" />
         <option value="$PROJECT_DIR$/api/sourceFinalAPI.go" />
         <option value="$PROJECT_DIR$/model/sourceFinal.go" />
         <option value="$PROJECT_DIR$/service/sourceFinalService/sourceFinal.go" />
-        <option value="$PROJECT_DIR$/model/sourceStage.go" />
         <option value="$PROJECT_DIR$/model/sourceStageInformation.go" />
         <option value="$PROJECT_DIR$/api/showSourceAPI.go" />
-        <option value="$PROJECT_DIR$/db/msserver.go" />
         <option value="$PROJECT_DIR$/main.go" />
-        <option value="$PROJECT_DIR$/service/sourceStageInformationService/sourceStageInformation.go" />
+        <option value="$PROJECT_DIR$/model/sourceStage.go" />
         <option value="$PROJECT_DIR$/service/sourceStageService/sourceStage.go" />
+        <option value="$PROJECT_DIR$/api/sourceStageAPI.go" />
+        <option value="$PROJECT_DIR$/service/sourceStageInformationService/sourceStageInformation.go" />
+        <option value="$PROJECT_DIR$/db/msserver.go" />
       </list>
     </option>
   </component>
@@ -475,7 +475,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.15778251" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.15938166" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" sideWeight="0.49840087" weight="0.25813448" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
@@ -485,7 +485,7 @@
       <window_info anchor="bottom" id="Message" order="5" />
       <window_info anchor="bottom" id="Find" order="6" weight="0.25813448" />
       <window_info anchor="bottom" id="Run" order="7" sideWeight="0.49946696" weight="0.34924078" />
-      <window_info active="true" anchor="bottom" id="Debug" order="8" sideWeight="0.49840087" visible="true" weight="0.2483731" />
+      <window_info active="true" anchor="bottom" id="Debug" order="8" sideWeight="0.49840087" visible="true" weight="0.38828632" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="11" weight="0.329718" />
@@ -540,7 +540,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="添加老师信息界面" />
     <MESSAGE value="添加老师信息" />
     <MESSAGE value="删除基本信息的同时删除登录信息" />
     <MESSAGE value="修复因删除学籍基本信息而导致登录表被清空的重大bug" />
@@ -565,12 +564,25 @@
     <MESSAGE value="加入期末成绩api" />
     <MESSAGE value="录入期末成绩" />
     <MESSAGE value="功能基本完成" />
-    <option name="LAST_COMMIT_MESSAGE" value="功能基本完成" />
+    <MESSAGE value="将阶段性成绩放入一个表格中查询" />
+    <option name="LAST_COMMIT_MESSAGE" value="将阶段性成绩放入一个表格中查询" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
     <proxy>direct</proxy>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/api/sourceStageAPI.go</url>
+          <line>80</line>
+          <properties />
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://E:/go/go/src/mime/multipart/formdata.go">
@@ -760,24 +772,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/sourceStageInformationAPI.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="20" column="33" selection-start-line="20" selection-start-column="33" selection-end-line="20" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/api/studentInformationAPI.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
           <caret line="27" column="12" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/util/middleware/jwt.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1617">
-          <caret line="83" column="54" selection-start-line="83" selection-start-column="54" selection-end-line="83" selection-end-column="54" />
         </state>
       </provider>
     </entry>
@@ -802,13 +800,6 @@
           <folding>
             <element signature="e#13#202#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/sourceFinalAPI.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-336">
-          <caret line="36" column="36" selection-start-line="36" selection-start-column="36" selection-end-line="36" selection-end-column="36" />
         </state>
       </provider>
     </entry>
@@ -853,13 +844,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://F:/go_workspace_gopath/pkg/mod/github.com/gin-gonic/gin@v1.4.0/context.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="125" column="5" lean-forward="true" selection-start-line="125" selection-start-column="5" selection-end-line="125" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/sourceStageInformation.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
@@ -870,13 +854,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db/msserver.go">
+    <entry file="file://F:/go_workspace_gopath/pkg/mod/github.com/gin-gonic/gin@v1.4.0/recovery.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="58" column="13" selection-start-line="58" selection-start-column="13" selection-end-line="58" selection-end-column="13" />
-          <folding>
-            <element signature="e#12#130#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="186">
+          <caret line="41" selection-start-line="41" selection-end-line="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://E:/go/go/src/runtime/panic.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="700" lean-forward="true" selection-start-line="700" selection-end-line="700" />
         </state>
       </provider>
     </entry>
@@ -887,16 +875,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/sourceStage.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="20" column="117" selection-start-line="20" selection-start-column="102" selection-end-line="20" selection-end-column="117" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/sourceFinal.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="882">
+        <state relative-caret-position="124">
           <caret line="45" column="19" selection-start-line="45" selection-start-column="19" selection-end-line="45" selection-end-column="19" />
           <folding>
             <element signature="e#15#60#0" expanded="true" />
@@ -906,56 +887,87 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/model/student.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
+        <state relative-caret-position="187">
           <caret line="16" column="41" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/sourceStageAPI.go">
+    <entry file="file://F:/go_workspace_gopath/pkg/mod/github.com/gin-gonic/gin@v1.4.0/context.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2247">
-          <caret line="114" selection-start-line="114" selection-end-line="114" />
+        <state relative-caret-position="201">
+          <caret line="123" selection-start-line="123" selection-end-line="123" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/service/sourceStageInformationService/sourceStageInformation.go">
+    <entry file="file://$PROJECT_DIR$/util/middleware/jwt.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="62" selection-start-line="62" selection-end-line="62" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/sourceFinalAPI.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="78" column="24" lean-forward="true" selection-start-line="78" selection-start-column="24" selection-end-line="78" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/sourceStage.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="504">
-          <caret line="28" column="45" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+          <caret line="39" column="23" lean-forward="true" selection-start-line="39" selection-start-column="23" selection-end-line="39" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/service/sourceFinalService/sourceFinal.go">
+    <entry file="file://$PROJECT_DIR$/api/sourceStageInformationAPI.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1302">
-          <caret line="65" column="34" selection-start-line="65" selection-start-column="34" selection-end-line="65" selection-end-column="34" />
-          <folding>
-            <element signature="e#28#102#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://E:/go/go/src/runtime/panic.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="177">
-          <caret line="43" selection-start-line="43" selection-end-line="43" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://F:/go_workspace_gopath/pkg/mod/github.com/gin-gonic/gin@v1.4.0/recovery.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="41" selection-start-line="41" selection-end-line="41" />
+        <state relative-caret-position="315">
+          <caret line="46" column="45" lean-forward="true" selection-start-line="46" selection-start-column="45" selection-end-line="46" selection-end-column="45" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/service/sourceStageService/sourceStage.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="27" column="28" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
+        <state relative-caret-position="338">
+          <caret line="53" column="4" lean-forward="true" selection-start-line="53" selection-start-column="4" selection-end-line="53" selection-end-column="42" />
           <folding>
             <element signature="e#28#102#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/sourceFinalService/sourceFinal.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="292">
+          <caret line="52" column="31" lean-forward="true" selection-start-line="52" selection-start-column="31" selection-end-line="52" selection-end-column="31" />
+          <folding>
+            <element signature="e#28#102#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/sourceStageInformationService/sourceStageInformation.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="36" column="39" lean-forward="true" selection-start-line="36" selection-start-column="39" selection-end-line="36" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/msserver.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="43" lean-forward="true" selection-start-line="43" selection-end-line="43" />
+          <folding>
+            <element signature="e#12#130#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/sourceStageAPI.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="448">
+          <caret line="85" column="33" selection-start-line="85" selection-start-column="33" selection-end-line="85" selection-end-column="33" />
         </state>
       </provider>
     </entry>
