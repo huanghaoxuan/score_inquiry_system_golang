@@ -26,6 +26,8 @@ type TeachingClass struct {
 	CourseId          string    `form:"courseId" gorm:"column:course_id" json:"courseId"`                                  //课程id
 	TeachingClassId   string    `form:"teachingClassId" gorm:"column:teaching_class_id" json:"teachingClassId"`            //教学班号
 	CourseTeacherName string    `form:"courseTeacherName" gorm:"column:course_teacher_name" json:"courseTeacherName"`      //任课老师名字
+	Final             string    `form:"final" gorm:"column:final" json:"final"`                                            //期末成绩
+	Result            string    `form:"result" gorm:"column:result" json:"result"`                                         //最终成绩
 	CourseTeacherId   string    `form:"courseTeacherId" gorm:"column:course_teacher_id" json:"courseTeacherId"`            //任课老师id
 	CreatedAt         time.Time `form:"createdAt" gorm:"column:created_at" json:"createdAt"`                               //创建时间
 }
@@ -60,7 +62,7 @@ func (teachingClass *TeachingClass) SelectByPage(pageNum int, pageSize int) []Te
 
 //查询所有
 func (teachingClass *TeachingClass) SelectAll() []TeachingClass {
-	var teachingClasses []TeachingClass
+	teachingClasses := make([]TeachingClass, 10)
 	db.DB.Where(&teachingClass).Order("created_at desc").Find(&teachingClasses)
 	return teachingClasses
 }

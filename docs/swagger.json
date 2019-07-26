@@ -18,151 +18,6 @@
     "host": "localhost:5201",
     "basePath": "/api",
     "paths": {
-      "/ShowSource/Stage": {
-        "post": {
-          "description": "学生进行阶段性成绩查询",
-          "consumes": [
-            "multipart/form-data"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "tags": [
-            "成绩查询"
-          ],
-          "summary": "阶段性成绩查询",
-          "parameters": [
-            {
-              "type": "string",
-              "description": "Token",
-              "name": "Authorization",
-              "in": "header",
-              "required": true
-            },
-            {
-              "type": "string",
-              "description": "查询页码",
-              "name": "pageNum",
-              "in": "formData",
-              "required": true
-            },
-            {
-              "type": "string",
-              "description": "每页条数",
-              "name": "pageSize",
-              "in": "formData",
-              "required": true
-            },
-            {
-              "type": "string",
-              "description": "学生名字",
-              "name": "name",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "学生学号",
-              "name": "studentId",
-              "in": "formData",
-              "required": true
-            },
-            {
-              "type": "string",
-              "description": "教学班号",
-              "name": "teachingClassId",
-              "in": "formData",
-              "required": true
-            },
-            {
-              "type": "string",
-              "description": "阶段性测验id",
-              "name": "sourceStageId",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "成绩注释",
-              "name": "scoresNote",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "成绩",
-              "name": "scores",
-              "in": "formData"
-            }
-          ]
-        }
-      },
-      "/ShowSource/final": {
-        "post": {
-          "description": "学生进行期末成绩查询",
-          "consumes": [
-            "multipart/form-data"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "tags": [
-            "成绩查询"
-          ],
-          "summary": "期末成绩查询",
-          "parameters": [
-            {
-              "type": "string",
-              "description": "Token",
-              "name": "Authorization",
-              "in": "header",
-              "required": true
-            },
-            {
-              "type": "string",
-              "description": "查询页码",
-              "name": "pageNum",
-              "in": "formData",
-              "required": true
-            },
-            {
-              "type": "string",
-              "description": "每页条数",
-              "name": "pageSize",
-              "in": "formData",
-              "required": true
-            },
-            {
-              "type": "string",
-              "description": "学生名字",
-              "name": "name",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "学生学号",
-              "name": "studentId",
-              "in": "formData",
-              "required": true
-            },
-            {
-              "type": "string",
-              "description": "教学班号",
-              "name": "teachingClassId",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "成绩注释",
-              "name": "scoresNote",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "成绩",
-              "name": "scores",
-              "in": "formData"
-            }
-          ]
-        }
-      },
       "/course/delete/{id}": {
         "get": {
           "description": "删除一条课程信息",
@@ -340,263 +195,6 @@
               "type": "string",
               "description": "学期",
               "name": "semester",
-              "in": "formData"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "{\"status\": 1}",
-              "schema": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      },
-      "/sourceFinal/delete/{id}": {
-        "get": {
-          "description": "删除期末成绩",
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "tags": [
-            "期末成绩"
-          ],
-          "summary": "删除期末成绩",
-          "parameters": [
-            {
-              "type": "string",
-              "description": "Token",
-              "name": "Authorization",
-              "in": "header",
-              "required": true
-            },
-            {
-              "type": "string",
-              "description": "主键",
-              "name": "id",
-              "in": "path",
-              "required": true
-            }
-          ]
-        }
-      },
-      "/sourceFinal/insert": {
-        "post": {
-          "description": "增加期末成绩",
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "tags": [
-            "期末成绩"
-          ],
-          "summary": "增加期末成绩",
-          "parameters": [
-            {
-              "type": "string",
-              "description": "Token",
-              "name": "Authorization",
-              "in": "header",
-              "required": true
-            },
-            {
-              "type": "string",
-              "description": "学生名字",
-              "name": "name",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "学生学号",
-              "name": "studentId",
-              "in": "formData",
-              "required": true
-            },
-            {
-              "type": "string",
-              "description": "教学班号",
-              "name": "teachingClassId",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "成绩注释",
-              "name": "scoresNote",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "成绩",
-              "name": "scores",
-              "in": "formData"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "{\"status\": 1}",
-              "schema": {
-                "type": "string"
-              }
-            }
-          }
-        }
-      },
-      "/sourceFinal/selectByPage": {
-        "post": {
-          "description": "分页查询期末成绩",
-          "consumes": [
-            "multipart/form-data"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "tags": [
-            "期末成绩"
-          ],
-          "summary": "分页查询期末成绩",
-          "parameters": [
-            {
-              "type": "string",
-              "description": "Token",
-              "name": "Authorization",
-              "in": "header",
-              "required": true
-            },
-            {
-              "type": "string",
-              "description": "查询页码",
-              "name": "pageNum",
-              "in": "formData",
-              "required": true
-            },
-            {
-              "type": "string",
-              "description": "每页条数",
-              "name": "pageSize",
-              "in": "formData",
-              "required": true
-            },
-            {
-              "type": "string",
-              "description": "学生名字",
-              "name": "name",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "学生学号",
-              "name": "studentId",
-              "in": "formData",
-              "required": true
-            },
-            {
-              "type": "string",
-              "description": "教学班号",
-              "name": "teachingClassId",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "成绩注释",
-              "name": "scoresNote",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "成绩",
-              "name": "scores",
-              "in": "formData"
-            }
-          ]
-        }
-      },
-      "/sourceFinal/updateStudent/{teachingClassId}": {
-        "get": {
-          "description": "同步当前教学班学生信息",
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "tags": [
-            "期末成绩"
-          ],
-          "summary": "同步当前教学班学生信息",
-          "parameters": [
-            {
-              "type": "string",
-              "description": "Token",
-              "name": "Authorization",
-              "in": "header",
-              "required": true
-            },
-            {
-              "type": "string",
-              "description": "教学班号",
-              "name": "teachingClassId",
-              "in": "path",
-              "required": true
-            }
-          ]
-        }
-      },
-      "/sourceFinal/updates": {
-        "post": {
-          "description": "批量更新期末成绩",
-          "consumes": [
-            "application/json"
-          ],
-          "produces": [
-            "application/json"
-          ],
-          "tags": [
-            "期末成绩"
-          ],
-          "summary": "批量更新期末成绩",
-          "parameters": [
-            {
-              "type": "string",
-              "description": "Token",
-              "name": "Authorization",
-              "in": "header",
-              "required": true
-            },
-            {
-              "type": "string",
-              "description": "学生名字",
-              "name": "name",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "学生学号",
-              "name": "studentId",
-              "in": "formData",
-              "required": true
-            },
-            {
-              "type": "string",
-              "description": "教学班号",
-              "name": "teachingClassId",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "成绩注释",
-              "name": "scoresNote",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "成绩",
-              "name": "scores",
               "in": "formData"
             }
           ],
@@ -1688,6 +1286,111 @@
             "教学班信息"
           ],
           "summary": "分页查询教学班学生信息",
+          "parameters": [
+            {
+              "type": "string",
+              "description": "Token",
+              "name": "Authorization",
+              "in": "header",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "查询页码",
+              "name": "pageNum",
+              "in": "formData",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "每页条数",
+              "name": "pageSize",
+              "in": "formData",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "学生学号",
+              "name": "studentId",
+              "in": "formData",
+              "required": true
+            },
+            {
+              "type": "string",
+              "description": "姓名",
+              "name": "name",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "所在年级",
+              "name": "grade",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "所在学院或部门",
+              "name": "department",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "所在专业",
+              "name": "professional",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "所在班级",
+              "name": "class",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "课程名称",
+              "name": "courseName",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "课程id",
+              "name": "courseId",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "教学班号",
+              "name": "teachingClassId",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "任课老师名字",
+              "name": "courseTeacherName",
+              "in": "formData"
+            },
+            {
+              "type": "string",
+              "description": "任课老师id",
+              "name": "courseTeacherId",
+              "in": "formData"
+            }
+          ]
+        }
+      },
+      "/teachingClass/selectFinal": {
+        "post": {
+          "description": "分页查询期末成绩信息，如果查询第一页，返回总条数，条件非必需",
+          "consumes": [
+            "multipart/form-data"
+          ],
+          "produces": [
+            "application/json"
+          ],
+          "tags": [
+            "教学班信息"
+          ],
+          "summary": "查询期末成绩信息",
           "parameters": [
             {
               "type": "string",

@@ -37,7 +37,7 @@ func SelectByPage(pageNum int, pageSize int, sourceStage *model.SourceStage) int
 				if studentId == sourceStages[i].StudentId {
 					if id == sourceStages[i].SourceStageId {
 						data[len(data)-1]["scores"] = sourceStages[i].Scores
-						data[len(data)-1]["id"] = sourceStages[i].Id
+						//data[len(data)-1]["id"] = sourceStages[i].Id
 					}
 					data[len(data)-1][sourceStages[i].SourceStageId] = sourceStages[i].Scores
 					sourceStages[i].Name = ""

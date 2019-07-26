@@ -5,7 +5,6 @@ import (
 	uuid "github.com/satori/go.uuid"
 	"net/http"
 	"score_inquiry_system/model"
-	"score_inquiry_system/service/sourceFinalService"
 	"score_inquiry_system/service/sourceStageService"
 	"score_inquiry_system/service/teachingClassService"
 	"score_inquiry_system/util/middleware"
@@ -27,6 +26,7 @@ func TeachingClass(basePath *gin.RouterGroup) {
 	teacher.POST("/teachingClass/update", UpdateTeachingClass)
 	teacher.POST("/teachingClass/upload", UploadTeachingClass)
 	basePath.POST("/teachingClass/selectByPage", SelectTeachingClassByPage)
+	basePath.POST("/teachingClass/selectFinal", SelectFinal)
 	teacher.GET("/teachingClass/delete/:id", DeleteTeachingClass)
 }
 
@@ -133,7 +133,6 @@ func InsertTeachingClass(c *gin.Context) {
 	//状态回调
 	status := teachingClassService.Insert(&teachingClass)
 	//开启协程，插入期末成绩
-	go sourceFinalService.UpdateStudent(teachingClass.TeachingClassId)
 	var sourceStage model.SourceStage
 	//插入阶段性成绩学生信息
 	_ = c.ShouldBind(&sourceStage)
@@ -162,4 +161,37 @@ func UploadTeachingClass(c *gin.Context) {
 	_ = c.SaveUploadedFile(fileHeader, s)
 	//处理表格文件
 	teachingClassService.ProcessingExcelFile(s, courseId, courseName)
+}
+
+// @Summary 查询期末成绩信息
+// @Description 分页查询期末成绩信息，如果查询第一页，返回总条数，条件非必需
+// @Tags 教学班信息
+// @Accept mpfd
+// @Produce json
+// @Param Authorization header string true "Token"
+// @Param pageNum formData string true "查询页码"
+// @Param pageSize formData string true "每页条数"
+// @Param studentId formData string true "学生学号"
+// @Param name formData string false "姓名"
+// @Param grade formData string false "所在年级"
+// @Param department formData string false "所在学院或部门"
+// @Param professional formData string false "所在专业"
+// @Param class formData string false "所在班级"
+// @Param courseName formData string false "课程名称"
+// @Param courseId formData string false "课程id"
+// @Param teachingClassId formData string false "教学班号"
+// @Param courseTeacherName formData string false "任课老师名字"
+// @Param courseTeacherId formData string false "任课老师id"
+// @Router /teachingClass/selectFinal [post]
+func SelectFinal(c *gin.Context) {
+	//模型填充
+	var teachingClass model.TeachingClass
+	_ = c.ShouldBind(&teachingClass)
+	pageNum, _ := strconv.Atoi(c.PostForm("pageNum"))
+	pageSize, _ := strconv.Atoi(c.PostForm("pageSize"))
+	//查询总条数
+	count := teachingClass.Count()
+	teachingClasses := teachingClassService.SelectFinal(pageNum, pageSize, &teachingClass)
+	//回调
+	c.JSON(http.StatusOK, gin.H{"data": teachingClasses, "count": count})
 }

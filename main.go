@@ -59,8 +59,6 @@ func main() {
 		api.TeachingClassInformation(basePath)
 		api.SourceStageInformation(basePath)
 		api.SourceStage(basePath)
-		api.SourceFinal(basePath)
-		api.ShowSource(basePath)
 	}
 	//数据库结构自动更新
 	db.DB.AutoMigrate(
@@ -71,8 +69,7 @@ func main() {
 		&model.TeachingClassInformation{},
 		&model.TeacherInformation{},
 		&model.SourceStageInformation{},
-		&model.SourceStage{},
-		&model.SourceFinal{})
+		&model.SourceStage{})
 
 	_ = r.Run(":5201")
 
