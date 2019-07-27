@@ -22,6 +22,7 @@ func SourceStage(basePath *gin.RouterGroup) {
 	teacher.Use(middleware.ValidateTeacherPermissions)
 	teacher.POST("/sourceStage/insertStudent", InsertSourceStage)
 	teacher.POST("/sourceStage/updates", UpdateSourceStages)
+	teacher.POST("/sourceStage/update", UpdateSourceStage)
 	//basePath.POST("/sourceStage/upload", UploadSourceStage)
 	basePath.POST("/sourceStage/selectByPage", SelectSourceStageByPage)
 	teacher.GET("/sourceStage/delete/:id", DeleteSourceStage)
@@ -45,7 +46,7 @@ func InsertSourceStage(c *gin.Context) {
 
 	//模型填充
 	var sourceStage model.SourceStage
-	_ = c.ShouldBindJSON(&sourceStage)
+	_ = c.ShouldBind(&sourceStage)
 	//状态回调
 	status := sourceStageService.Insert(&sourceStage)
 	//回调
@@ -125,6 +126,31 @@ func SelectSourceStageByPage(c *gin.Context) {
 func DeleteSourceStage(c *gin.Context) {
 	id := c.Param("id")
 	status := sourceStageService.Delete(id)
+	//回调
+	c.JSON(http.StatusOK, gin.H{"status": status})
+}
+
+// @Summary 更新阶段性测验成绩
+// @Description 更新阶段性测验成绩
+// @Tags 阶段性测验成绩
+// @Accept mpfd
+// @Produce json
+// @Param Authorization header string true "Token"
+// @Param name formData string false "学生名字"
+// @Param studentId formData string true "学生学号"
+// @Param teachingClassId formData string false "教学班号"
+// @Param sourceStageId formData string false "阶段性测验id"
+// @Param scoresNote formData string false "成绩注释"
+// @Param scores formData string false "成绩"
+// @Success 200 {string} json "{"status": 1}"
+// @Router /sourceStage/update [post]
+func UpdateSourceStage(c *gin.Context) {
+
+	//模型填充
+	var sourceStage model.SourceStage
+	_ = c.ShouldBind(&sourceStage)
+	//状态回调
+	status := sourceStageService.Update(&sourceStage)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"status": status})
 }

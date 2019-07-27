@@ -107,32 +107,19 @@ func SelectFinal(pageNum int, pageSize int, teachingClass *model.TeachingClass) 
 	sourceStages := sourceStage.SelectAll()
 	teachingClasss := teachingClass.SelectAll()
 	data := make([]map[string]interface{}, 0, len(sourceStages))
-	for index := 0; index < len(sourceStages); index++ {
-		if sourceStages[index].Name != "" {
-			studentId := sourceStages[index].StudentId
-			//扩容
-			data = append(data, make(map[string]interface{}))
-			data[len(data)-1]["name"] = sourceStages[index].Name
-			data[len(data)-1]["studentId"] = sourceStages[index].StudentId
-			data[len(data)-1]["teachingClassId"] = sourceStages[index].TeachingClassId
-			data[len(data)-1]["createdAt"] = sourceStages[index].CreatedAt
-			//uuids := make([]string, 5)
-			for i := 0; i < len(sourceStages); i++ {
-				if studentId == sourceStages[i].StudentId {
-					data[len(data)-1][sourceStages[i].SourceStageId] = sourceStages[i].Scores
-					//uuids = append(uuids, sourceStages[i].Id)
-					sourceStages[i].Name = ""
-				}
+	for index := 0; index < len(teachingClasss); index++ {
+		data = append(data, make(map[string]interface{}))
+		data[len(data)-1]["final"] = teachingClasss[index].Final
+		data[len(data)-1]["result"] = teachingClasss[index].Result
+		data[len(data)-1]["id"] = teachingClasss[index].Id
+		data[len(data)-1]["name"] = teachingClasss[index].Name
+		data[len(data)-1]["studentId"] = teachingClasss[index].StudentId
+		data[len(data)-1]["teachingClassId"] = teachingClasss[index].TeachingClassId
+		for i := 0; i < len(sourceStages); i++ {
+			if teachingClasss[index].StudentId == sourceStages[i].StudentId {
+				data[len(data)-1][sourceStages[i].SourceStageId] = sourceStages[i].Scores
 			}
-			for _, v := range teachingClasss {
-				if v.StudentId == studentId {
-					data[len(data)-1]["final"] = v.Final
-					break
-				}
-			}
-			//data[len(data)-1]["uuid"] = uuids
 		}
 	}
-
 	return data
 }

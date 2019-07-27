@@ -28,6 +28,7 @@ func TeachingClass(basePath *gin.RouterGroup) {
 	basePath.POST("/teachingClass/selectByPage", SelectTeachingClassByPage)
 	basePath.POST("/teachingClass/selectFinal", SelectFinal)
 	teacher.GET("/teachingClass/delete/:id", DeleteTeachingClass)
+	teacher.POST("/teachingClass/updateFinal", UpdateFinal)
 }
 
 // @Summary 删除一条教学班学生信息
@@ -194,4 +195,45 @@ func SelectFinal(c *gin.Context) {
 	teachingClasses := teachingClassService.SelectFinal(pageNum, pageSize, &teachingClass)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"data": teachingClasses, "count": count})
+}
+
+// @Summary 更新成绩信息
+// @Description 更新成绩信息
+// @Tags 教学班信息
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Token"
+// @Param pageNum formData string true "查询页码"
+// @Param pageSize formData string true "每页条数"
+// @Param studentId formData string true "学生学号"
+// @Param name formData string false "姓名"
+// @Param grade formData string false "所在年级"
+// @Param department formData string false "所在学院或部门"
+// @Param professional formData string false "所在专业"
+// @Param class formData string false "所在班级"
+// @Param courseName formData string false "课程名称"
+// @Param courseId formData string false "课程id"
+// @Param teachingClassId formData string false "教学班号"
+// @Param courseTeacherName formData string false "任课老师名字"
+// @Param courseTeacherId formData string false "任课老师id"
+// @Success 200 {string} json "{"status": 1}"
+// @Router /teachingClass/updateFinal [post]
+func UpdateFinal(c *gin.Context) {
+
+	//获取数组形式的数据
+	type teachingClasses struct {
+		Data []model.TeachingClass `form:"data[]" json:"data"`
+	}
+
+	//模型填充
+	var data teachingClasses
+	_ = c.ShouldBindJSON(&data)
+	//状态回调
+	var status int64 = 0
+	for _, v := range data.Data {
+		status += teachingClassService.Update(&v)
+	}
+
+	//回调
+	c.JSON(http.StatusOK, gin.H{"status": status})
 }

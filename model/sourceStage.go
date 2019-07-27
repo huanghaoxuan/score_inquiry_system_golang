@@ -31,6 +31,12 @@ func (sourceStage *SourceStage) SelectById() *SourceStage {
 	return sourceStage
 }
 
+//查询
+func (sourceStage *SourceStage) SelectOne() *SourceStage {
+	db.DB.Where(&sourceStage).First(&sourceStage)
+	return sourceStage
+}
+
 //分页查询
 func (sourceStage *SourceStage) SelectByPage(pageNum int, pageSize int) []SourceStage {
 	sourceStages := make([]SourceStage, 15)

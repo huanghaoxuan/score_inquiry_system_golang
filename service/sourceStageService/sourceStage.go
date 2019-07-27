@@ -73,6 +73,12 @@ func InsertStudent(sourceStage *model.SourceStage) int64 {
 
 //更新相关记录
 func Update(sourceStage *model.SourceStage) int64 {
+	if sourceStage.Id == "" {
+		source := sourceStage.Scores
+		sourceStage.Scores = ""
+		sourceStage.SelectOne()
+		sourceStage.Scores = source
+	}
 	return sourceStage.Update()
 }
 
