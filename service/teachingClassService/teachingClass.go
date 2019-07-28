@@ -123,3 +123,7 @@ func SelectFinal(pageNum int, pageSize int, teachingClass *model.TeachingClass) 
 	}
 	return data
 }
+
+func UpdateResult(teachingClass *model.TeachingClass) {
+
+}

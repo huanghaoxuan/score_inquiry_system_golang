@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"score_inquiry_system/model"
 	"score_inquiry_system/service/sourceStageService"
+	"score_inquiry_system/service/teachingClassService"
 	"score_inquiry_system/util/middleware"
 	"strconv"
 )
@@ -81,6 +82,8 @@ func UpdateSourceStages(c *gin.Context) {
 	var status int64 = 0
 	for _, v := range data.Data {
 		status += sourceStageService.Update(&v)
+		teachingClass := model.TeachingClass{TeachingClassId: v.TeachingClassId, StudentId: v.StudentId}
+		go teachingClassService.UpdateResult(&teachingClass)
 	}
 
 	//回调
