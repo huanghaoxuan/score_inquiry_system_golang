@@ -24,6 +24,7 @@ func SourceStageInformation(basePath *gin.RouterGroup) {
 	teacher.POST("/sourceStageInformation/update", UpdateSourceStageInformation)
 	//basePath.POST("/sourceStageInformation/upload", UploadSourceStageInformation)
 	basePath.POST("/sourceStageInformation/selectByPage", SelectSourceStageInformationByPage)
+	basePath.POST("/sourceStageInformation/selectAll", SelectSourceStageInformationAll)
 	teacher.GET("/sourceStageInformation/delete/:id", DeleteSourceStageInformation)
 }
 
@@ -92,6 +93,29 @@ func SelectSourceStageInformationByPage(c *gin.Context) {
 	//查询总条数
 	count := sourceStageInformation.Count()
 	sourceStageInformations := sourceStageInformationService.SelectByPage(pageNum, pageSize, &sourceStageInformation)
+	//回调
+	c.JSON(http.StatusOK, gin.H{"data": sourceStageInformations, "count": count})
+}
+
+// @Summary 查询阶段性测验信息
+// @Description 分页查询阶段性测验信息
+// @Tags 阶段性测验信息
+// @Accept mpfd
+// @Produce json
+// @Param Authorization header string true "Token"
+// @Param pageNum formData string true "查询页码"
+// @Param pageSize formData string true "每页条数"
+// @Param name formData string true "课程名字"
+// @Param teachingClassId formData string false "教学班号"
+// @Param scoresId formData string false "阶段性测验序号"
+// @Router /sourceStageInformation/selectAll [post]
+func SelectSourceStageInformationAll(c *gin.Context) {
+	//模型填充
+	var sourceStageInformation model.SourceStageInformation
+	_ = c.ShouldBind(&sourceStageInformation)
+	//查询总条数
+	count := sourceStageInformation.Count()
+	sourceStageInformations := sourceStageInformationService.SelectAll(&sourceStageInformation)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"data": sourceStageInformations, "count": count})
 }

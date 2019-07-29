@@ -17,7 +17,7 @@ import (
 type SourceStage struct {
 	Id              string    `form:"id" gorm:"primary_key;column:id" json:"id"`                                        //主键
 	Name            string    `form:"name" gorm:"column:name" json:"name"`                                              //名字
-	StudentId       string    `form:"studentId" gorm:"column:student_id;not null;unique;" json:"studentId"`             //学生学号
+	StudentId       string    `form:"studentId" gorm:"column:student_id;not null;" json:"studentId"`                    //学生学号
 	TeachingClassId string    `form:"teachingClassId" gorm:"column:teaching_class_id;not null;" json:"teachingClassId"` //教学班号
 	SourceStageId   string    `form:"sourceStageId" gorm:"column:source_stage_id;not null;" json:"sourceStageId"`       //阶段性测验id
 	ScoresNote      string    `form:"scoresNote" gorm:"column:scores_note;not null;" json:"scoresNote"`                 //成绩注释

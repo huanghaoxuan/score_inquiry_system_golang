@@ -49,6 +49,9 @@ func Init() *gorm.DB {
 	properties := read()
 	userName := properties["userName"]
 	userPassword := properties["userPassword"]
+
+	//userName := "root"
+	//userPassword := "123456"
 	db, err := gorm.Open("mysql", userName+":"+userPassword+"@/score_inquiry_system?charset=utf8&parseTime=True&loc=Local")
 	if err != nil {
 		fmt.Println("数据库连接错误:", err)

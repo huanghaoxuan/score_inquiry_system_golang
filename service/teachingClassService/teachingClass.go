@@ -82,6 +82,26 @@ func SelectByPage(pageNum int, pageSize int, teachingClass *model.TeachingClass)
 	return teachingClass.SelectByPage(pageNum, pageSize)
 }
 
+//分页查询
+func ShowFinal(pageNum int, pageSize int, teachingClass *model.TeachingClass) interface{} {
+	teachingClasses := teachingClass.SelectByPage(pageNum, pageSize)
+	data := make([]map[string]interface{}, 0, len(teachingClasses))
+	for index := 0; index < len(teachingClasses); index++ {
+		course := model.Course{Id: teachingClasses[index].CourseId}
+		course.SelectById()
+		//扩容
+		data = append(data, make(map[string]interface{}))
+		data[len(data)-1]["name"] = teachingClasses[index].Name
+		data[len(data)-1]["year"] = course.Year
+		data[len(data)-1]["semester"] = course.Semester
+		data[len(data)-1]["courseName"] = teachingClasses[index].CourseName
+		data[len(data)-1]["studentId"] = teachingClasses[index].StudentId
+		data[len(data)-1]["teachingClassId"] = teachingClasses[index].TeachingClassId
+		data[len(data)-1]["result"] = teachingClasses[index].Result
+	}
+	return data
+}
+
 //分页所有
 func SelectAll(teachingClass *model.TeachingClass) []model.TeachingClass {
 	return teachingClass.SelectAll()
