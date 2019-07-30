@@ -47,7 +47,7 @@ func (teachingClass *TeachingClass) SelectById() *TeachingClass {
 
 func (teachingClass *TeachingClass) Select() []TeachingClass {
 	teachingClasses := make([]TeachingClass, 10)
-	db.DB.Where(&teachingClass).Find(&teachingClasses)
+	db.DB.Where(&teachingClass).Order("created_at desc").Find(&teachingClasses)
 	return teachingClasses
 }
 
