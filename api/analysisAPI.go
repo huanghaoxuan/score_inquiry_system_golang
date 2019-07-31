@@ -17,6 +17,7 @@ import (
 func Analysis(basePath *gin.RouterGroup) {
 	basePath.GET("/analysis/pass/:studentId", Pass)
 	basePath.GET("/analysis/score/:studentId", ScoreCount)
+	basePath.GET("/analysis/teachingclass/:name", TeachingclassCount)
 }
 
 // @Summary 分析及格情况
@@ -34,7 +35,7 @@ func Pass(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{"data": data})
 }
 
-// @Summary 分析每年课程情况
+// @Summary 学生分析每年课程情况
 // @Description 分析每年课程情况
 // @Tags 首页数据源
 // @Accept json
@@ -45,6 +46,21 @@ func Pass(c *gin.Context) {
 func ScoreCount(c *gin.Context) {
 	studentId := c.Param("studentId")
 	data := analysisService.ScoreCount(studentId)
+	//回调
+	c.JSON(http.StatusOK, gin.H{"data": data})
+}
+
+// @Summary 教师分析任课班课程情况
+// @Description 教师分析任课班课程情况
+// @Tags 首页数据源
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Token"
+// @Param name path string true "教师姓名"
+// @Router /analysis/teachingclass/{name} [get]
+func TeachingclassCount(c *gin.Context) {
+	name := c.Param("name")
+	data := analysisService.TeachingclassCount(name)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"data": data})
 }

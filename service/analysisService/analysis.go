@@ -80,3 +80,39 @@ func ScoreCount(studentId string) interface{} {
 	}
 	return fData
 }
+
+//教师分析任课班课程情况
+func TeachingclassCount(name string) interface{} {
+	teachingClassInformation := model.TeachingClassInformation{CourseTeacherName: name}
+	teachingClassInformations := teachingClassInformation.Select()
+	data := make([]map[string]int, 0, len(teachingClassInformations))
+	for index := 0; index < len(teachingClassInformations); index++ {
+		course := model.Course{Id: teachingClassInformations[index].CourseId}
+		course.SelectById()
+		if len(data) == 0 {
+			data = append(data, make(map[string]int))
+			data[len(data)-1]["count"] = 1
+			data[len(data)-1]["year"] = course.Year
+		} else {
+			for index := 0; index < len(data); index++ {
+				if data[index]["year"] == course.Year {
+					data[len(data)-1]["count"] = data[len(data)-1]["count"] + 1
+					break
+				} else if index == len(data)-1 {
+					data = append(data, make(map[string]int))
+					data[len(data)-1]["count"] = 1
+					data[len(data)-1]["year"] = course.Year
+				}
+			}
+		}
+	}
+
+	//格式化数据源
+	fData := make([]map[string]interface{}, 0, len(data))
+	for index := 0; index < len(data); index++ {
+		fData = append(fData, make(map[string]interface{}))
+		fData[index]["count"] = data[index]["count"]
+		fData[index]["year"] = strconv.Itoa(data[index]["year"]) + " 学年"
+	}
+	return fData
+}
