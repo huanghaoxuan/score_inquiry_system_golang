@@ -7,6 +7,7 @@ import (
 	"score_inquiry_system/model"
 	"score_inquiry_system/service/loginService"
 	"score_inquiry_system/service/studentInformationService"
+	"score_inquiry_system/service/teacherInformationService"
 	"score_inquiry_system/util/middleware"
 )
 
@@ -35,9 +36,15 @@ func Login(c *gin.Context) {
 	if status == 0 {
 		c.JSON(http.StatusForbidden, gin.H{"status": status})
 	} else {
-		data := studentInformationService.SelectStudentInformationByStudentId(student.StudentId)
-		data.Permissions = permissions
-		c.JSON(http.StatusOK, gin.H{"status": status, "token": middleware.GeneratedToken(permissions), "data": data})
+		if permissions == 1 {
+			data := studentInformationService.SelectStudentInformationByStudentId(student.StudentId)
+			data.Permissions = permissions
+			c.JSON(http.StatusOK, gin.H{"status": status, "token": middleware.GeneratedToken(permissions), "data": data})
+		} else {
+			data := teacherInformationService.SelectTeacherInformationByStudentId(student.StudentId)
+			data.Permissions = permissions
+			c.JSON(http.StatusOK, gin.H{"status": status, "token": middleware.GeneratedToken(permissions), "data": data})
+		}
 	}
 }
 

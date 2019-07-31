@@ -14,7 +14,7 @@ import (
  */
 
 //分析成绩通过情况
-func AnalysisPass(studentId string) interface{} {
+func Pass(studentId string) interface{} {
 	teachingClass := model.TeachingClass{StudentId: studentId}
 	teachingClasses := teachingClass.SelectAll()
 	a := 0 //满分
@@ -25,7 +25,7 @@ func AnalysisPass(studentId string) interface{} {
 		if v.Result == "" {
 			break
 		}
-		result, _ := strconv.Atoi(v.Result)
+		result, _ := strconv.ParseFloat(v.Result, 64)
 		switch {
 		case result == 100:
 			a++
@@ -33,7 +33,7 @@ func AnalysisPass(studentId string) interface{} {
 			b++
 		case result >= 60:
 			c++
-		default:
+		case result < 60:
 			d++
 		}
 	}
@@ -43,4 +43,40 @@ func AnalysisPass(studentId string) interface{} {
 	data[2] = map[string]interface{}{"item": "及格", "count": c}
 	data[3] = map[string]interface{}{"item": "不及格", "count": d}
 	return data
+}
+
+//分析每年课程情况
+func ScoreCount(studentId string) interface{} {
+	teachingClass := model.TeachingClass{StudentId: studentId}
+	teachingClasses := teachingClass.SelectAll()
+	data := make([]map[string]int, 0, len(teachingClasses))
+	for index := 0; index < len(teachingClasses); index++ {
+		course := model.Course{Id: teachingClasses[index].CourseId}
+		course.SelectById()
+		if len(data) == 0 {
+			data = append(data, make(map[string]int))
+			data[len(data)-1]["count"] = 1
+			data[len(data)-1]["year"] = course.Year
+		} else {
+			for index := 0; index < len(data); index++ {
+				if data[index]["year"] == course.Year {
+					data[len(data)-1]["count"] = data[len(data)-1]["count"] + 1
+					break
+				} else if index == len(data)-1 {
+					data = append(data, make(map[string]int))
+					data[len(data)-1]["count"] = 1
+					data[len(data)-1]["year"] = course.Year
+				}
+			}
+		}
+	}
+
+	//格式化数据源
+	fData := make([]map[string]interface{}, 0, len(data))
+	for index := 0; index < len(data); index++ {
+		fData = append(fData, make(map[string]interface{}))
+		fData[index]["count"] = data[index]["count"]
+		fData[index]["year"] = strconv.Itoa(data[index]["year"]) + " 学年"
+	}
+	return fData
 }
