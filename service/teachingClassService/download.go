@@ -41,10 +41,18 @@ func GeneratedExcel(teachingClassId string) string {
 	xlsx.SetCellValue("Sheet1", getHeader(len(sourceStageInformations)+5, 1), "期末成绩")
 	xlsx.SetCellValue("Sheet1", getHeader(len(sourceStageInformations)+6, 1), "总成绩")
 	//--------------------------------------------------------------------------------------------------------------------
+	course := model.Course{}
+	courses := course.SelectAll()
 	//设置姓名、学号、课程名、学年、学期、期末成绩、总成绩
 	for index := 0; index < len(teachingClasses); index++ {
-		course := model.Course{Id: teachingClasses[index].CourseId}
-		course.SelectById()
+		for _, v := range courses {
+			if v.Id == teachingClasses[index].CourseId {
+				course = v
+				break
+			}
+		}
+		//course := model.Course{Id: teachingClasses[index].CourseId}
+		//course.SelectById()
 		xlsx.SetCellValue("Sheet1", "A"+strconv.Itoa(index+2), teachingClasses[index].Name)
 		xlsx.SetCellValue("Sheet1", "B"+strconv.Itoa(index+2), teachingClasses[index].StudentId)
 		xlsx.SetCellValue("Sheet1", "C"+strconv.Itoa(index+2), course.Name)

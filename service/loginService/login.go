@@ -25,6 +25,23 @@ func Registered(studentId string, password string, permissions int) int64 {
 	return student.Insert()
 }
 
+func FirstAdmin(name string, studentId string, password string, permissions int) int64 {
+	student := model.Student{
+		Id:          uuid.NewV4().String(),
+		StudentId:   studentId,
+		Password:    md5.GeneratedMD5(password),
+		Permissions: permissions}
+
+	teacherInformation := model.TeacherInformation{
+		Id:          uuid.NewV4().String(),
+		Name:        name,
+		StudentId:   studentId,
+		Permissions: permissions}
+
+	teacherInformation.Insert()
+	return student.Insert()
+}
+
 //删除一条记录
 func Delete(studentId string) int64 {
 	student := model.Student{StudentId: studentId}

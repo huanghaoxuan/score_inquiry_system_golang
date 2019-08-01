@@ -50,9 +50,18 @@ func ScoreCount(studentId string) interface{} {
 	teachingClass := model.TeachingClass{StudentId: studentId}
 	teachingClasses := teachingClass.SelectAll()
 	data := make([]map[string]int, 0, len(teachingClasses))
+	course := model.Course{}
+	courses := course.SelectAll()
 	for index := 0; index < len(teachingClasses); index++ {
-		course := model.Course{Id: teachingClasses[index].CourseId}
-		course.SelectById()
+		//设置姓名、学号、课程名、学年、学期、期末成绩、总成绩
+		for _, v := range courses {
+			if v.Id == teachingClasses[index].CourseId {
+				course = v
+				break
+			}
+		}
+		//course := model.Course{Id: teachingClasses[index].CourseId}
+		//course.SelectById()
 		if len(data) == 0 {
 			data = append(data, make(map[string]int))
 			data[len(data)-1]["count"] = 1
@@ -86,9 +95,17 @@ func TeachingclassCount(name string) interface{} {
 	teachingClassInformation := model.TeachingClassInformation{CourseTeacherName: name}
 	teachingClassInformations := teachingClassInformation.Select()
 	data := make([]map[string]int, 0, len(teachingClassInformations))
+	course := model.Course{}
+	courses := course.SelectAll()
 	for index := 0; index < len(teachingClassInformations); index++ {
-		course := model.Course{Id: teachingClassInformations[index].CourseId}
-		course.SelectById()
+		for _, v := range courses {
+			if v.Id == teachingClassInformations[index].CourseId {
+				course = v
+				break
+			}
+		}
+		//course := model.Course{Id: teachingClassInformations[index].CourseId}
+		//course.SelectById()
 		if len(data) == 0 {
 			data = append(data, make(map[string]int))
 			data[len(data)-1]["count"] = 1

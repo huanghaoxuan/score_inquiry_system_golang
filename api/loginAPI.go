@@ -31,7 +31,6 @@ import (
 func Login(c *gin.Context) {
 	var student model.Student
 	_ = c.ShouldBind(&student)
-	fmt.Println(student)
 	status, permissions := loginService.Login(&student)
 	if status == 0 {
 		c.JSON(http.StatusForbidden, gin.H{"status": status})

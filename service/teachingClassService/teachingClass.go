@@ -86,9 +86,17 @@ func SelectByPage(pageNum int, pageSize int, teachingClass *model.TeachingClass)
 func ShowFinal(pageNum int, pageSize int, teachingClass *model.TeachingClass) interface{} {
 	teachingClasses := teachingClass.SelectByPage(pageNum, pageSize)
 	data := make([]map[string]interface{}, 0, len(teachingClasses))
+	course := model.Course{}
+	courses := course.SelectAll()
 	for index := 0; index < len(teachingClasses); index++ {
-		course := model.Course{Id: teachingClasses[index].CourseId}
-		course.SelectById()
+		for _, v := range courses {
+			if v.Id == teachingClasses[index].CourseId {
+				course = v
+				break
+			}
+		}
+		//course := model.Course{Id: teachingClasses[index].CourseId}
+		//course.SelectById()
 		//扩容
 		data = append(data, make(map[string]interface{}))
 		data[len(data)-1]["name"] = teachingClasses[index].Name

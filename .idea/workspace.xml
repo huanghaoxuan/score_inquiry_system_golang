@@ -3,8 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="643eb69c-3746-41e6-a2bc-ccda17858c03" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/analysisAPI.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/analysisAPI.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/loginAPI.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/loginAPI.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/course.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/course.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/analysisService/analysis.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/analysisService/analysis.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/loginService/login.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/loginService/login.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/teacherInformationService/teacherInformation.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/teacherInformationService/teacherInformation.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/teachingClassService/download.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/teachingClassService/download.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/teachingClassService/teachingClass.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/teachingClassService/teachingClass.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,19 +38,46 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api/analysisAPI.go">
+        <entry file="file://$PROJECT_DIR$/service/teacherInformationService/teacherInformation.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="62" column="39" selection-start-line="62" selection-start-column="39" selection-end-line="62" selection-end-column="39" />
+            <state relative-caret-position="42">
+              <caret line="30" column="10" selection-start-line="30" selection-start-column="10" selection-end-line="30" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/service/loginService/login.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="357">
+              <caret line="33" selection-start-line="33" selection-end-line="33" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/service/teachingClassService/download.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="406">
+              <caret line="49" column="26" lean-forward="true" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/service/teachingClassService/teachingClass.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="385">
+              <caret line="97" column="45" selection-start-line="97" selection-start-column="45" selection-end-line="97" selection-end-column="45" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/service/analysisService/analysis.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="87" column="59" lean-forward="true" selection-start-line="87" selection-start-column="59" selection-end-line="87" selection-end-column="59" />
+            <state relative-caret-position="280">
+              <caret line="94" column="56" selection-start-line="94" selection-start-column="56" selection-end-line="94" selection-end-column="56" />
               <folding>
                 <element signature="e#25#76#0" expanded="true" />
               </folding>
@@ -53,28 +86,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/service/teachingClassService/teachingClass.go">
+        <entry file="file://$PROJECT_DIR$/model/course.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="92" column="26" selection-start-line="92" selection-start-column="26" selection-end-line="92" selection-end-column="26" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api/loginAPI.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="373">
-              <caret line="47" column="5" lean-forward="true" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/teacherInformation.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="18" column="89" selection-start-line="18" selection-start-column="89" selection-end-line="18" selection-end-column="89" />
+            <state relative-caret-position="407">
+              <caret line="35" column="18" lean-forward="true" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
               <folding>
                 <element signature="e#15#60#0" expanded="true" />
               </folding>
@@ -83,19 +98,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/service/loginService/login.go">
+        <entry file="file://$PROJECT_DIR$/api/loginAPI.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="273">
-              <caret line="17" column="35" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/student.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
+            <state relative-caret-position="756">
+              <caret line="45" column="9" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
             </state>
           </provider>
         </entry>
@@ -103,17 +109,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="76" column="35" lean-forward="true" selection-start-line="76" selection-start-column="35" selection-end-line="76" selection-end-column="35" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api/teachingClassAPI.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5859">
-              <caret line="289" column="20" selection-start-line="289" selection-start-column="20" selection-end-line="289" selection-end-column="20" />
+            <state relative-caret-position="992">
+              <caret line="73" column="29" lean-forward="true" selection-start-line="73" selection-start-column="29" selection-end-line="73" selection-end-column="29" />
             </state>
           </provider>
         </entry>
@@ -121,8 +118,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/service/sourceStageService/sourceStage.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="567">
-              <caret line="30" column="30" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
+            <state relative-caret-position="189">
+              <caret line="27" column="43" lean-forward="true" selection-start-line="27" selection-start-column="43" selection-end-line="27" selection-end-column="43" />
               <folding>
                 <element signature="e#28#102#0" expanded="true" />
               </folding>
@@ -162,6 +159,7 @@
       <find>sourceStage</find>
       <find>sourceFinal</find>
       <find>sourceFinalService</find>
+      <find>course.SelectById()</find>
     </findStrings>
     <replaceStrings>
       <replace>学籍信息</replace>
@@ -206,18 +204,15 @@
         <option value="$PROJECT_DIR$/model/studentInformation/studentInformation.go" />
         <option value="$PROJECT_DIR$/api/sourseAPI.go" />
         <option value="$PROJECT_DIR$/db/db.properties" />
-        <option value="$PROJECT_DIR$/service/loginService/login.go" />
         <option value="$PROJECT_DIR$/model/student.go" />
         <option value="$PROJECT_DIR$/util/page/page.go" />
         <option value="$PROJECT_DIR$/util/SelectPage/page.go" />
         <option value="$PROJECT_DIR$/util/selectPage/page.go" />
-        <option value="$PROJECT_DIR$/service/teacherInformationService/teacherInformation.go" />
         <option value="$PROJECT_DIR$/model/studentInformation.go" />
         <option value="$PROJECT_DIR$/service/studentInformationService/studentInformation.go" />
         <option value="$PROJECT_DIR$/model/teachingClassInformation.go" />
         <option value="$PROJECT_DIR$/service/teachingClassInformationService/teachingClassInformation.go" />
         <option value="$PROJECT_DIR$/service/courseService/course.go" />
-        <option value="$PROJECT_DIR$/model/course.go" />
         <option value="$PROJECT_DIR$/api/courseAPI.go" />
         <option value="$PROJECT_DIR$/util/middleware/jwt.go" />
         <option value="$PROJECT_DIR$/api/studentInformationAPI.go" />
@@ -233,20 +228,23 @@
         <option value="$PROJECT_DIR$/service/sourceStageService/sourceStage.go" />
         <option value="$PROJECT_DIR$/model/sourceStageInformation.go" />
         <option value="$PROJECT_DIR$/model/sourceStage.go" />
-        <option value="$PROJECT_DIR$/service/teachingClassService/teachingClass.go" />
         <option value="$PROJECT_DIR$/api/sourceStageInformationAPI.go" />
         <option value="$PROJECT_DIR$/service/teachingClassService/download_test.go" />
         <option value="$PROJECT_DIR$/db/msserver.go" />
-        <option value="$PROJECT_DIR$/service/teachingClassService/download.go" />
         <option value="$PROJECT_DIR$/api/teachingClassAPI.go" />
         <option value="$PROJECT_DIR$/service/analysis/analysis.go" />
         <option value="$PROJECT_DIR$/api/analysis.go" />
         <option value="$PROJECT_DIR$/model/teachingClass.go" />
-        <option value="$PROJECT_DIR$/api/loginAPI.go" />
         <option value="$PROJECT_DIR$/model/teacherInformation.go" />
-        <option value="$PROJECT_DIR$/main.go" />
         <option value="$PROJECT_DIR$/api/analysisAPI.go" />
+        <option value="$PROJECT_DIR$/api/loginAPI.go" />
+        <option value="$PROJECT_DIR$/service/teacherInformationService/teacherInformation.go" />
+        <option value="$PROJECT_DIR$/main.go" />
+        <option value="$PROJECT_DIR$/service/loginService/login.go" />
+        <option value="$PROJECT_DIR$/model/course.go" />
+        <option value="$PROJECT_DIR$/service/teachingClassService/teachingClass.go" />
         <option value="$PROJECT_DIR$/service/analysisService/analysis.go" />
+        <option value="$PROJECT_DIR$/service/teachingClassService/download.go" />
       </list>
     </option>
   </component>
@@ -354,12 +352,6 @@
               <item name="score_inquiry_system" type="b2602c69:ProjectViewProjectNode" />
               <item name="score_inquiry_system" type="462c0819:PsiDirectoryNode" />
               <item name="util" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="score_inquiry_system" type="b2602c69:ProjectViewProjectNode" />
-              <item name="score_inquiry_system" type="462c0819:PsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
-              <item name="middleware" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -526,7 +518,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" sideWeight="0.50145346" side_tool="true" weight="0.1641791" />
-      <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.4985465" visible="true" weight="0.17217484" />
+      <window_info content_ui="combo" id="Project" order="1" sideWeight="0.4985465" visible="true" weight="0.17377399" />
       <window_info id="Structure" order="2" sideWeight="0.50145346" side_tool="true" weight="0.1641791" />
       <window_info anchor="bottom" id="Terminal" order="0" sideWeight="0.49840087" weight="0.2570499" />
       <window_info anchor="bottom" id="Database Changes" order="1" />
@@ -536,7 +528,7 @@
       <window_info anchor="bottom" id="Message" order="5" />
       <window_info anchor="bottom" id="Find" order="6" weight="0.25813448" />
       <window_info anchor="bottom" id="Run" order="7" sideWeight="0.49840087" weight="0.18872017" />
-      <window_info anchor="bottom" id="Debug" order="8" sideWeight="0.4978678" visible="true" weight="0.12472885" />
+      <window_info active="true" anchor="bottom" id="Debug" order="8" sideWeight="0.4978678" visible="true" weight="0.44034708" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="11" weight="0.329718" />
@@ -592,7 +584,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="教学班分页数据请求方式的swag文档修改" />
     <MESSAGE value="增加教学班基本信息" />
     <MESSAGE value="增加教学班基本信息API" />
     <MESSAGE value="加入查询时用创建时间排序" />
@@ -617,7 +608,8 @@
     <MESSAGE value="生成期末成绩表格，并提供下载" />
     <MESSAGE value="加入图像分析" />
     <MESSAGE value="加入课程统计图像分析" />
-    <option name="LAST_COMMIT_MESSAGE" value="加入课程统计图像分析" />
+    <MESSAGE value="加入教师课程统计图像分析" />
+    <option name="LAST_COMMIT_MESSAGE" value="加入教师课程统计图像分析" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="VgoProject">
@@ -684,13 +676,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/service/teacherInformationService/teacherInformation.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="788">
-          <caret line="59" column="20" selection-start-line="59" selection-start-column="20" selection-end-line="59" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/service/studentInformationService/studentInformation.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="462">
@@ -709,16 +694,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="714">
           <caret line="37" column="22" selection-start-line="37" selection-start-column="22" selection-end-line="37" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/teachingClassInformation.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="39">
-          <caret line="20" column="99" selection-start-line="20" selection-start-column="99" selection-end-line="20" selection-end-column="99" />
-          <folding>
-            <element signature="e#15#60#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -747,16 +722,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="147">
           <caret line="11" column="7" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/course.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="16" column="20" selection-start-line="16" selection-start-column="20" selection-end-line="16" selection-end-column="20" />
-          <folding>
-            <element signature="e#15#60#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -847,13 +812,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/service/teachingClassService/download.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1365">
-          <caret line="70" column="19" selection-start-line="70" selection-start-column="19" selection-end-line="70" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/studentInformation.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
@@ -885,16 +843,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db/msserver.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="945">
-          <caret line="53" column="30" selection-start-line="53" selection-start-column="30" selection-end-line="53" selection-end-column="30" />
-          <folding>
-            <element signature="e#12#130#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/api/courseAPI.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="188">
@@ -912,13 +860,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/service/loginService/login.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="17" column="35" selection-start-line="17" selection-start-column="35" selection-end-line="17" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/student.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
@@ -933,47 +874,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/service/sourceStageService/sourceStage.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="30" column="30" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
-          <folding>
-            <element signature="e#28#102#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/loginAPI.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="47" column="5" lean-forward="true" selection-start-line="47" selection-start-column="5" selection-end-line="47" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/teacherInformation.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="18" column="89" selection-start-line="18" selection-start-column="89" selection-end-line="18" selection-end-column="89" />
-          <folding>
-            <element signature="e#15#60#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="76" column="35" lean-forward="true" selection-start-line="76" selection-start-column="35" selection-end-line="76" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/service/teachingClassService/teachingClass.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="92" column="26" selection-start-line="92" selection-start-column="26" selection-end-line="92" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/api/analysisAPI.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
@@ -981,13 +881,105 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/model/teachingClassInformation.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="301">
+          <caret line="49" column="33" selection-start-line="49" selection-start-column="33" selection-end-line="49" selection-end-column="33" />
+          <folding>
+            <element signature="e#15#60#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/msserver.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="422">
+          <caret line="55" column="19" lean-forward="true" selection-start-line="55" selection-start-column="19" selection-end-line="55" selection-end-column="19" />
+          <folding>
+            <element signature="e#12#130#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/teacherInformation.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="260">
+          <caret line="57" column="30" lean-forward="true" selection-start-line="57" selection-start-column="30" selection-end-line="57" selection-end-column="30" />
+          <folding>
+            <element signature="e#15#60#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/loginAPI.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="756">
+          <caret line="45" column="9" selection-start-line="45" selection-start-column="9" selection-end-line="45" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="992">
+          <caret line="73" column="29" lean-forward="true" selection-start-line="73" selection-start-column="29" selection-end-line="73" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/sourceStageService/sourceStage.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="27" column="43" lean-forward="true" selection-start-line="27" selection-start-column="43" selection-end-line="27" selection-end-column="43" />
+          <folding>
+            <element signature="e#28#102#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/teacherInformationService/teacherInformation.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="30" column="10" selection-start-line="30" selection-start-column="10" selection-end-line="30" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/loginService/login.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="33" selection-start-line="33" selection-end-line="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/course.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="407">
+          <caret line="35" column="18" lean-forward="true" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
+          <folding>
+            <element signature="e#15#60#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/teachingClassService/download.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="49" column="26" lean-forward="true" selection-start-line="49" selection-start-column="26" selection-end-line="49" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/service/analysisService/analysis.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="87" column="59" lean-forward="true" selection-start-line="87" selection-start-column="59" selection-end-line="87" selection-end-column="59" />
+        <state relative-caret-position="280">
+          <caret line="94" column="56" selection-start-line="94" selection-start-column="56" selection-end-line="94" selection-end-column="56" />
           <folding>
             <element signature="e#25#76#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/service/teachingClassService/teachingClass.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="385">
+          <caret line="97" column="45" selection-start-line="97" selection-start-column="45" selection-end-line="97" selection-end-column="45" />
         </state>
       </provider>
     </entry>

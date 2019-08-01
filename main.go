@@ -16,7 +16,7 @@ import (
 	"score_inquiry_system/db"
 	_ "score_inquiry_system/docs"
 	"score_inquiry_system/model"
-	"score_inquiry_system/service/teacherInformationService"
+	"score_inquiry_system/service/loginService"
 	"score_inquiry_system/util/middleware"
 )
 
@@ -74,8 +74,7 @@ func main() {
 		&model.SourceStage{})
 
 	//第一次启动加入管理员账号
-	information := model.TeacherInformation{Name: "管理员", StudentId: "123456", Permissions: 3}
-	teacherInformationService.Insert(&information)
+	loginService.FirstAdmin("管理员", "123456", "123456", 3)
 	_ = r.Run(":5201")
 
 }

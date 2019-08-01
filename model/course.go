@@ -29,6 +29,13 @@ func (course *Course) SelectById() *Course {
 	return course
 }
 
+//查询
+func (course *Course) SelectAll() []Course {
+	courses := make([]Course, 10)
+	db.DB.Where(&course).Order("created_at desc").Find(&courses)
+	return courses
+}
+
 //分页查询
 func (course *Course) SelectByPage(pageNum int, pageSize int) []Course {
 	courses := make([]Course, 10)
