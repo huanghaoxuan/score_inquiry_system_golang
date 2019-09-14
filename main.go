@@ -46,6 +46,8 @@ func main() {
 	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	//用户登录
 	r.POST("/api/user/login", api.Login)
+	//修改密码
+	r.POST("/api/user/UpdatePassWord", api.UpdatePassWord)
 	//用户密码重置
 	r.GET("/api/user/reset/:student_id", api.Reset)
 	//除登录外全部分组全部加入"/api"前缀

@@ -30,6 +30,11 @@ func (student *Student) Insert() int64 {
 	return create.RowsAffected
 }
 
+func (student *Student) Update() int64 {
+	updates := db.DB.Model(&student).Where("student_id = ?", student.StudentId).Updates(student)
+	return updates.RowsAffected
+}
+
 //删除记录
 //通过StudentId删除记录
 func (student *Student) Delete() int64 {

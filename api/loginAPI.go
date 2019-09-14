@@ -61,3 +61,33 @@ func Reset(c *gin.Context) {
 	fmt.Println(studentID)
 	c.JSON(http.StatusOK, gin.H{"status": 1})
 }
+
+// @Summary 更新密码
+// @Description 更新密码
+// @Tags 用户
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Token"
+// @Param studentId formData string true "学生学号"
+// @Param oldPassword formData string true "密码"
+// @Param newPassword formData string true "密码"
+// @Success 200 {string} json "{"status": 1}"
+// @Router /user/UpdatePassWord [post]
+func UpdatePassWord(c *gin.Context) {
+
+	//获取数组形式的数据
+	type UpdatePassWord struct {
+		StudentId   string `form:"studentId" json:"studentId"`
+		NewPassword string `form:"newPassword" json:"newPassword"`
+		OldPassword string `form:"oldPassword" json:"oldPassword"`
+	}
+
+	//模型填充
+	var data UpdatePassWord
+	_ = c.ShouldBindJSON(&data)
+	//状态回调
+	status := loginService.UpdatePassWord(data.StudentId, data.NewPassword, data.OldPassword)
+
+	//回调
+	c.JSON(http.StatusOK, gin.H{"status": status})
+}

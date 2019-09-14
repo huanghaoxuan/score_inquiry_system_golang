@@ -47,3 +47,15 @@ func Delete(studentId string) int64 {
 	student := model.Student{StudentId: studentId}
 	return student.Delete()
 }
+
+//修改密码
+func UpdatePassWord(studentId string, newPassword string, oldPassword string) int64 {
+	student := model.Student{StudentId: studentId, Password: oldPassword}
+	status, _ := student.SelectByStudentIdPassword()
+	if status == 1 {
+		student.Password = newPassword
+		update := student.Update()
+		return update
+	}
+	return 0
+}
