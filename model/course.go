@@ -40,7 +40,8 @@ func (course *Course) SelectAll() []Course {
 func (course *Course) SelectByPage(pageNum int, pageSize int) []Course {
 	courses := make([]Course, 10)
 	if pageNum > 0 && pageSize > 0 {
-		db.DB.Where(&course).Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&courses)
+		db.DB.Where("name LIKE ?", "%"+course.Name+"%").
+			Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&courses)
 	}
 	return courses
 }

@@ -34,7 +34,9 @@ func (teachingClassInformation *TeachingClassInformation) Insert() int64 {
 func (teachingClassInformation *TeachingClassInformation) SelectByPage(pageNum int, pageSize int) []TeachingClassInformation {
 	teachingClassInformationes := make([]TeachingClassInformation, 10)
 	if pageNum > 0 && pageSize > 0 {
-		db.DB.Where(&teachingClassInformation).Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&teachingClassInformationes)
+		db.DB.
+			Where("course_name LIKE ? and teaching_class_id LIKE ?", "%"+teachingClassInformation.CourseName+"%", "%"+teachingClassInformation.TeachingClassId+"%").
+			Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&teachingClassInformationes)
 	}
 	return teachingClassInformationes
 }

@@ -55,7 +55,9 @@ func (teachingClass *TeachingClass) Select() []TeachingClass {
 func (teachingClass *TeachingClass) SelectByPage(pageNum int, pageSize int) []TeachingClass {
 	teachingClasses := make([]TeachingClass, 10)
 	if pageNum > 0 && pageSize > 0 {
-		db.DB.Where(&teachingClass).Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&teachingClasses)
+		db.DB.Where("course_name LIKE ?", "%"+teachingClass.CourseName+"%").
+			Or("teaching_class_id LIKE ?", "%"+teachingClass.TeachingClassId+"%").
+			Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&teachingClasses)
 	}
 	return teachingClasses
 }

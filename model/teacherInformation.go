@@ -40,7 +40,10 @@ func (information *TeacherInformation) SelectById() *TeacherInformation {
 func (information *TeacherInformation) SelectByPage(pageNum int, pageSize int) []TeacherInformation {
 	teacherInformation := make([]TeacherInformation, 10)
 	if pageNum > 0 && pageSize > 0 {
-		db.DB.Where(&information).Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&teacherInformation)
+		db.DB.Where("name LIKE ?", "%"+information.Name+"%").
+			Where("student_id LIKE ?", "%"+information.StudentId+"%").
+			Where("department LIKE ?", "%"+information.Department+"%").
+			Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&teacherInformation)
 	}
 	return teacherInformation
 }
