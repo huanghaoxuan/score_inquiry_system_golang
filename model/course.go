@@ -15,11 +15,12 @@ import (
 
 //课程信息结构体
 type Course struct {
-	Id        string    `form:"id" gorm:"primary_key;column:id" json:"id"`           //主键
-	Name      string    `form:"name" gorm:"column:name;not null;" json:"name"`       //课程名字
-	Year      int       `form:"year" gorm:"column:year" json:"year"`                 //学年
-	Semester  string    `form:"semester" gorm:"column:semester" json:"semester"`     //学期
-	CreatedAt time.Time `form:"createdAt" gorm:"column:created_at" json:"createdAt"` //创建时间
+	Id        string    `form:"id" gorm:"primary_key;column:id" json:"id"`                  //主键
+	Name      string    `form:"name" gorm:"column:name;not null;" json:"name"`              //课程名字
+	CourseId  string    `form:"courseId" gorm:"column:course_id;not null;" json:"courseId"` //课程名字
+	Year      int       `form:"year" gorm:"column:year" json:"year"`                        //学年
+	Semester  string    `form:"semester" gorm:"column:semester" json:"semester"`            //学期
+	CreatedAt time.Time `form:"createdAt" gorm:"column:created_at" json:"createdAt"`        //创建时间
 
 }
 
@@ -40,7 +41,7 @@ func (course *Course) SelectAll() []Course {
 func (course *Course) SelectByPage(pageNum int, pageSize int) []Course {
 	courses := make([]Course, 10)
 	if pageNum > 0 && pageSize > 0 {
-		db.DB.Where("name LIKE ?", "%"+course.Name+"%").
+		db.DB.Where("name LIKE ? AND course_id LIKE ? ", "%"+course.Name+"%", "%"+course.CourseId+"%").
 			Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&courses)
 	}
 	return courses

@@ -35,7 +35,10 @@ func (teachingClassInformation *TeachingClassInformation) SelectByPage(pageNum i
 	teachingClassInformationes := make([]TeachingClassInformation, 10)
 	if pageNum > 0 && pageSize > 0 {
 		db.DB.
-			Where("course_name LIKE ? and teaching_class_id LIKE ?", "%"+teachingClassInformation.CourseName+"%", "%"+teachingClassInformation.TeachingClassId+"%").
+			Where("course_name LIKE ? and teaching_class_id LIKE ? and Course_teacher_name = ?",
+				"%"+teachingClassInformation.CourseName+"%",
+				"%"+teachingClassInformation.TeachingClassId+"%",
+				teachingClassInformation.CourseTeacherName).
 			Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&teachingClassInformationes)
 	}
 	return teachingClassInformationes

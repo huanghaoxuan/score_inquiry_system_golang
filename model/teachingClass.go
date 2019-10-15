@@ -55,8 +55,18 @@ func (teachingClass *TeachingClass) Select() []TeachingClass {
 func (teachingClass *TeachingClass) SelectByPage(pageNum int, pageSize int) []TeachingClass {
 	teachingClasses := make([]TeachingClass, 10)
 	if pageNum > 0 && pageSize > 0 {
-		db.DB.Where("course_name LIKE ?", "%"+teachingClass.CourseName+"%").
-			Or("teaching_class_id LIKE ?", "%"+teachingClass.TeachingClassId+"%").
+		db.DB.Where(&teachingClass).
+			Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&teachingClasses)
+	}
+	return teachingClasses
+}
+
+//分页模糊查询
+func (teachingClass *TeachingClass) SelectLikeByPage(pageNum int, pageSize int) []TeachingClass {
+	teachingClasses := make([]TeachingClass, 10)
+	if pageNum > 0 && pageSize > 0 {
+		db.DB.
+			Where("course_name LIKE ? AND student_id = ?", "%"+teachingClass.CourseName+"%", teachingClass.StudentId).
 			Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&teachingClasses)
 	}
 	return teachingClasses

@@ -78,6 +78,17 @@ func (sourceStage *SourceStage) Update() int64 {
 }
 
 //更新记录
+//更新相关记录权限
+//阶段性成绩更新
+func (sourceStage *SourceStage) UpdateSourceStage() int64 {
+	if sourceStage.SourceStageId != "" {
+		updates := db.DB.Model(&sourceStage).Where("Source_stage_id = ?", sourceStage.SourceStageId).Updates(sourceStage)
+		return updates.RowsAffected
+	}
+	return 0
+}
+
+//更新记录
 //更新全部字段
 func (sourceStage *SourceStage) UpdateAll() int64 {
 	if sourceStage.Id != "" {

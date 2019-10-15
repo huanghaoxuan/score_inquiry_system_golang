@@ -84,7 +84,7 @@ func SelectByPage(pageNum int, pageSize int, teachingClass *model.TeachingClass)
 
 //分页查询
 func ShowFinal(pageNum int, pageSize int, teachingClass *model.TeachingClass) interface{} {
-	teachingClasses := teachingClass.SelectByPage(pageNum, pageSize)
+	teachingClasses := teachingClass.SelectLikeByPage(pageNum, pageSize)
 	data := make([]map[string]interface{}, 0, len(teachingClasses))
 	course := model.Course{}
 	courses := course.SelectAll()
