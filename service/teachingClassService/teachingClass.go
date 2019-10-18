@@ -83,31 +83,31 @@ func SelectByPage(pageNum int, pageSize int, teachingClass *model.TeachingClass)
 }
 
 //分页查询
-func ShowFinal(pageNum int, pageSize int, teachingClass *model.TeachingClass) interface{} {
+func ShowFinal(pageNum int, pageSize int, teachingClass *model.TeachingClassResult) interface{} {
 	teachingClasses := teachingClass.SelectLikeByPage(pageNum, pageSize)
-	data := make([]map[string]interface{}, 0, len(teachingClasses))
-	course := model.Course{}
-	courses := course.SelectAll()
-	for index := 0; index < len(teachingClasses); index++ {
-		for _, v := range courses {
-			if v.Id == teachingClasses[index].CourseId {
-				course = v
-				break
-			}
-		}
-		//course := model.Course{Id: teachingClasses[index].CourseId}
-		//course.SelectById()
-		//扩容
-		data = append(data, make(map[string]interface{}))
-		data[len(data)-1]["name"] = teachingClasses[index].Name
-		data[len(data)-1]["year"] = course.Year
-		data[len(data)-1]["semester"] = course.Semester
-		data[len(data)-1]["courseName"] = teachingClasses[index].CourseName
-		data[len(data)-1]["studentId"] = teachingClasses[index].StudentId
-		data[len(data)-1]["teachingClassId"] = teachingClasses[index].TeachingClassId
-		data[len(data)-1]["result"] = teachingClasses[index].Result
-	}
-	return data
+	//data := make([]map[string]interface{}, 0, len(teachingClasses))
+	//course := model.Course{}
+	//courses := course.SelectAll()
+	//for index := 0; index < len(teachingClasses); index++ {
+	//	for _, v := range courses {
+	//		if v.Id == teachingClasses[index].CourseId {
+	//			course = v
+	//			break
+	//		}
+	//	}
+	//	//course := model.Course{Id: teachingClasses[index].CourseId}
+	//	//course.SelectById()
+	//	//扩容
+	//	data = append(data, make(map[string]interface{}))
+	//	data[len(data)-1]["name"] = teachingClasses[index].Name
+	//	data[len(data)-1]["year"] = course.Year
+	//	data[len(data)-1]["semester"] = course.Semester
+	//	data[len(data)-1]["courseName"] = teachingClasses[index].CourseName
+	//	data[len(data)-1]["studentId"] = teachingClasses[index].StudentId
+	//	data[len(data)-1]["teachingClassId"] = teachingClasses[index].TeachingClassId
+	//	data[len(data)-1]["result"] = teachingClasses[index].Result
+	//}
+	return teachingClasses
 }
 
 //分页所有

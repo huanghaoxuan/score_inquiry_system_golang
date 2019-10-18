@@ -104,7 +104,7 @@ func SelectTeachingClassByPage(c *gin.Context) {
 // @Router /teachingClass/selectByPage [post]
 func ShowFinal(c *gin.Context) {
 	//模型填充
-	var teachingClass model.TeachingClass
+	var teachingClass model.TeachingClassResult
 	_ = c.ShouldBind(&teachingClass)
 	pageNum, _ := strconv.Atoi(c.PostForm("pageNum"))
 	pageSize, _ := strconv.Atoi(c.PostForm("pageSize"))

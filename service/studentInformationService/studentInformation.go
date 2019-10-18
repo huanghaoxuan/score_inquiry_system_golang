@@ -59,12 +59,16 @@ func ProcessingExcelFile(s string) {
 				case 3:
 					studentInformation.DepartmentOld = colCell
 				case 4:
-					studentInformation.ClassOld = colCell
+					studentInformation.ProfesionalOld = colCell
 				case 5:
-					studentInformation.GradeNew = colCell
+					studentInformation.ClassOld = colCell
 				case 6:
-					studentInformation.DepartmentNew = colCell
+					studentInformation.GradeNew = colCell
 				case 7:
+					studentInformation.DepartmentNew = colCell
+				case 8:
+					studentInformation.ProfesionalNew = colCell
+				case 9:
 					studentInformation.ClassNew = colCell
 				}
 			}

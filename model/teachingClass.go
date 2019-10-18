@@ -2,6 +2,7 @@ package model
 
 import (
 	"score_inquiry_system/db"
+	"strconv"
 	"time"
 )
 
@@ -30,6 +31,12 @@ type TeachingClass struct {
 	Result            string    `form:"result" gorm:"column:result" json:"result"`                                         //最终成绩
 	CourseTeacherId   string    `form:"courseTeacherId" gorm:"column:course_teacher_id" json:"courseTeacherId"`            //任课老师id
 	CreatedAt         time.Time `form:"createdAt" gorm:"column:created_at" json:"createdAt"`                               //创建时间
+}
+
+type TeachingClassResult struct {
+	TeachingClass
+	Year     int    `form:"year" json:"year"`
+	Semester string `form:"semester" json:"semester"`
 }
 
 //插入记录
@@ -62,14 +69,29 @@ func (teachingClass *TeachingClass) SelectByPage(pageNum int, pageSize int) []Te
 }
 
 //分页模糊查询
-func (teachingClass *TeachingClass) SelectLikeByPage(pageNum int, pageSize int) []TeachingClass {
-	teachingClasses := make([]TeachingClass, 10)
+func (teachingClass *TeachingClassResult) SelectLikeByPage(pageNum int, pageSize int) []TeachingClassResult {
+
+	result := make([]TeachingClassResult, 10)
+	sql := "t.course_name LIKE ? AND t.student_id = ?"
+	if teachingClass.Year != 0 {
+		sql = sql + " AND c.year = " + strconv.Itoa(teachingClass.Year)
+	}
+	if teachingClass.Semester != "" {
+		sql = sql + " AND c.semester = '" + teachingClass.Semester + "'"
+	}
 	if pageNum > 0 && pageSize > 0 {
 		db.DB.
-			Where("course_name LIKE ? AND student_id = ?", "%"+teachingClass.CourseName+"%", teachingClass.StudentId).
-			Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&teachingClasses)
+			Table("teaching_class t").
+			Select("t.*,c.`year`,c.`semester`").
+			Joins("LEFT JOIN `course` c ON t.course_id = c.id").
+			Where(sql,
+				"%"+teachingClass.CourseName+"%",
+				teachingClass.StudentId).
+			Order("created_at desc").
+			Limit(pageSize).Offset((pageNum - 1) * pageSize).
+			Scan(&result)
 	}
-	return teachingClasses
+	return result
 }
 
 //查询所有
