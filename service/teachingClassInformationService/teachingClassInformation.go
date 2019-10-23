@@ -3,6 +3,7 @@ package teachingClassInformationService
 import (
 	uuid "github.com/satori/go.uuid"
 	"score_inquiry_system/model"
+	"strconv"
 )
 
 /**
@@ -19,7 +20,7 @@ func Count(information *model.TeachingClassInformation) int {
 }
 
 //分页查询
-func SelectByPage(pageNum int, pageSize int, information *model.TeachingClassInformation) []model.TeachingClassInformation {
+func SelectByPage(pageNum int, pageSize int, information *model.TeachingClassInformation) []model.TeachingClassInformationResult {
 	return information.SelectByPage(pageNum, pageSize)
 }
 
@@ -27,6 +28,13 @@ func SelectByPage(pageNum int, pageSize int, information *model.TeachingClassInf
 func Insert(information *model.TeachingClassInformation) int64 {
 	//设置uuid为主键
 	information.Id = uuid.NewV4().String()
+	information.SelectById()
+	course := model.Course{Id: information.CourseId}
+	course.SelectById()
+	information.UniqueSign = course.CourseId + "-" +
+		strconv.Itoa(course.Year) + "-" +
+		course.Semester + "-" +
+		information.TeachingClassId
 	return information.Insert()
 }
 

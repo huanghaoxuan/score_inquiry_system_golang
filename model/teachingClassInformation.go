@@ -16,12 +16,19 @@ import (
 //教学班信息结构体
 type TeachingClassInformation struct {
 	Id                string    `form:"id" gorm:"primary_key;column:id" json:"id"`                                               //主键
+	UniqueSign        string    `form:"uniqueSign" gorm:"column:unique_sign;unique;" json:"uniqueSign"`                          //唯一标志
 	CourseName        string    `form:"courseName" gorm:"column:course_name;index:idx_course_name" json:"courseName"`            //课程名称
 	CourseId          string    `form:"courseId" gorm:"column:course_id" json:"courseId"`                                        //课程id
 	TeachingClassId   string    `form:"teachingClassId" gorm:"column:teaching_class_id;not null;unique;" json:"teachingClassId"` //教学班号
 	CourseTeacherName string    `form:"courseTeacherName" gorm:"column:course_teacher_name" json:"courseTeacherName"`            //任课老师名字
 	CourseTeacherId   string    `form:"courseTeacherId" gorm:"column:course_teacher_id" json:"courseTeacherId"`                  //任课老师id
 	CreatedAt         time.Time `form:"createdAt" gorm:"column:created_at" json:"createdAt"`                                     //创建时间
+}
+
+type TeachingClassInformationResult struct {
+	TeachingClassInformation
+	Year     int    `form:"year" json:"year"`
+	Semester string `form:"semester" json:"semester"`
 }
 
 //插入记录
@@ -31,17 +38,35 @@ func (teachingClassInformation *TeachingClassInformation) Insert() int64 {
 }
 
 //分页查询
-func (teachingClassInformation *TeachingClassInformation) SelectByPage(pageNum int, pageSize int) []TeachingClassInformation {
-	teachingClassInformationes := make([]TeachingClassInformation, 10)
+func (teachingClassInformation *TeachingClassInformation) SelectByPage(pageNum int, pageSize int) []TeachingClassInformationResult {
+	sql := "course_name LIKE ? AND teaching_class_id LIKE ? "
+	if teachingClassInformation.CourseId != "" {
+		sql = sql + "AND t.course_id = '" + teachingClassInformation.CourseId + "' "
+	}
+	if teachingClassInformation.CourseTeacherName != "" {
+		sql = sql + "AND course_teacher_name = '" + teachingClassInformation.CourseTeacherName + "'"
+	}
+	result := make([]TeachingClassInformationResult, 10)
 	if pageNum > 0 && pageSize > 0 {
 		db.DB.
-			Where("course_name LIKE ? and teaching_class_id LIKE ? and Course_teacher_name = ?",
+			Table("teaching_class_information t").
+			Select("	t.`id`,t.`course_name`,t.`teaching_class_id`,t.`course_teacher_name`,t.`created_at`,c.`course_id`,c.`year`,c.`semester`").
+			Joins("LEFT JOIN `course` c ON t.course_id = c.id").
+			Where(sql,
 				"%"+teachingClassInformation.CourseName+"%",
-				"%"+teachingClassInformation.TeachingClassId+"%",
-				teachingClassInformation.CourseTeacherName).
-			Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&teachingClassInformationes)
+				"%"+teachingClassInformation.TeachingClassId+"%").
+			Order("created_at desc").
+			Limit(pageSize).Offset((pageNum - 1) * pageSize).
+			Scan(&result)
+
+		//db.DB.
+		//	Where("course_name LIKE ? AND teaching_class_id LIKE ? AND course_teacher_name = ?",
+		//		"%"+teachingClassInformation.CourseName+"%",
+		//		"%"+teachingClassInformation.TeachingClassId+"%",
+		//		teachingClassInformation.CourseTeacherName).
+		//	Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&teachingClassInformationes)
 	}
-	return teachingClassInformationes
+	return result
 }
 
 //通过id查询
