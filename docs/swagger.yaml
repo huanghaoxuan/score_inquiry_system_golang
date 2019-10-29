@@ -13,6 +13,69 @@ info:
   title: 成绩录入及查询系统标准接口文档
   version: 0.0.1
 paths:
+  /analysis/pass/{studentId}:
+    get:
+      consumes:
+        - application/json
+      description: 分析及格情况，分四等，满分，优秀，及格，不及格
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 学生id
+          in: path
+          name: studentId
+          required: true
+          type: string
+      produces:
+        - application/json
+      summary: 分析及格情况
+      tags:
+        - 首页数据源
+  /analysis/score/{studentId}:
+    get:
+      consumes:
+        - application/json
+      description: 分析每年课程情况
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 学生id
+          in: path
+          name: studentId
+          required: true
+          type: string
+      produces:
+        - application/json
+      summary: 学生分析每年课程情况
+      tags:
+        - 首页数据源
+  /analysis/teachingclass/{name}:
+    get:
+      consumes:
+        - application/json
+      description: 教师分析任课班课程情况
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 教师姓名
+          in: path
+          name: name
+          required: true
+          type: string
+      produces:
+        - application/json
+      summary: 教师分析任课班课程情况
+      tags:
+        - 首页数据源
   /course/delete/{id}:
     get:
       consumes:
@@ -408,6 +471,45 @@ paths:
           schema:
             type: string
       summary: 增加阶段性测验信息
+      tags:
+        - 阶段性测验信息
+  /sourceStageInformation/selectAll:
+    post:
+      consumes:
+        - multipart/form-data
+      description: 分页查询阶段性测验信息
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 查询页码
+          in: formData
+          name: pageNum
+          required: true
+          type: string
+        - description: 每页条数
+          in: formData
+          name: pageSize
+          required: true
+          type: string
+        - description: 课程名字
+          in: formData
+          name: name
+          required: true
+          type: string
+        - description: 教学班号
+          in: formData
+          name: teachingClassId
+          type: string
+        - description: 阶段性测验序号
+          in: formData
+          name: scoresId
+          type: string
+      produces:
+        - application/json
+      summary: 查询阶段性测验信息
       tags:
         - 阶段性测验信息
   /sourceStageInformation/selectByPage:
@@ -836,6 +938,98 @@ paths:
       summary: 删除一条教学班学生信息
       tags:
         - 教学班信息
+  /teachingClass/download/{teachingClassId}:
+    get:
+      consumes:
+        - application/json
+      description: 下载成绩信息
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 主键
+          in: path
+          name: id
+          required: true
+          type: string
+      produces:
+        - application/json
+      summary: 下载成绩信息
+      tags:
+        - 教学班信息
+  /teachingClass/downloadCrossSemester:
+    post:
+      consumes:
+        - multipart/form-data
+      description: 下载跨学期的成绩信息
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 查询页码
+          in: formData
+          name: pageNum
+          required: true
+          type: string
+        - description: 每页条数
+          in: formData
+          name: pageSize
+          required: true
+          type: string
+        - description: 学生学号
+          in: formData
+          name: studentId
+          required: true
+          type: string
+        - description: 姓名
+          in: formData
+          name: name
+          type: string
+        - description: 所在年级
+          in: formData
+          name: grade
+          type: string
+        - description: 所在学院或部门
+          in: formData
+          name: department
+          type: string
+        - description: 所在专业
+          in: formData
+          name: professional
+          type: string
+        - description: 所在班级
+          in: formData
+          name: class
+          type: string
+        - description: 课程名称
+          in: formData
+          name: courseName
+          type: string
+        - description: 课程id
+          in: formData
+          name: courseId
+          type: string
+        - description: 教学班号
+          in: formData
+          name: teachingClassId
+          type: string
+        - description: 任课老师名字
+          in: formData
+          name: courseTeacherName
+          type: string
+        - description: 任课老师id
+          in: formData
+          name: courseTeacherId
+          type: string
+      produces:
+        - application/json
+      summary: 下载跨学期的成绩信息
+      tags:
+        - 教学班信息
   /teachingClass/insert:
     post:
       consumes:
@@ -906,7 +1100,7 @@ paths:
     post:
       consumes:
         - multipart/form-data
-      description: 分页查询教学班信息，如果查询第一页，返回总条数，条件非必需
+      description: 查询期末成绩信息
       parameters:
         - description: Token
           in: header
@@ -970,7 +1164,7 @@ paths:
           type: string
       produces:
         - application/json
-      summary: 分页查询教学班学生信息
+      summary: 查询期末成绩信息
       tags:
         - 教学班信息
   /teachingClass/selectFinal:
@@ -1320,6 +1514,77 @@ paths:
       summary: 分页查询教学班信息
       tags:
         - 教学班基本信息
+  /teachingClassInformation/selectCrossSemester:
+    post:
+      consumes:
+        - multipart/form-data
+      description: 分页查询教学班是否存在跨学期内容
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 查询页码
+          in: formData
+          name: pageNum
+          required: true
+          type: string
+        - description: 每页条数
+          in: formData
+          name: pageSize
+          required: true
+          type: string
+        - description: 学生学号
+          in: formData
+          name: studentId
+          required: true
+          type: string
+        - description: 姓名
+          in: formData
+          name: name
+          type: string
+        - description: 所在年级
+          in: formData
+          name: grade
+          type: string
+        - description: 所在学院或部门
+          in: formData
+          name: department
+          type: string
+        - description: 所在专业
+          in: formData
+          name: professional
+          type: string
+        - description: 所在班级
+          in: formData
+          name: class
+          type: string
+        - description: 课程名称
+          in: formData
+          name: courseName
+          type: string
+        - description: 课程id
+          in: formData
+          name: courseId
+          type: string
+        - description: 教学班号
+          in: formData
+          name: teachingClassId
+          type: string
+        - description: 任课老师名字
+          in: formData
+          name: courseTeacherName
+          type: string
+        - description: 任课老师id
+          in: formData
+          name: courseTeacherId
+          type: string
+      produces:
+        - application/json
+      summary: 分页查询教学班是否存在跨学期内容
+      tags:
+        - 教学班信息
   /teachingClassInformation/update:
     post:
       consumes:
@@ -1361,6 +1626,42 @@ paths:
       summary: 更新教学班信息记录
       tags:
         - 教学班基本信息
+  /user/UpdatePassWord:
+    post:
+      consumes:
+        - application/json
+      description: 更新密码
+      parameters:
+        - description: Token
+          in: header
+          name: Authorization
+          required: true
+          type: string
+        - description: 学生学号
+          in: formData
+          name: studentId
+          required: true
+          type: string
+        - description: 密码
+          in: formData
+          name: oldPassword
+          required: true
+          type: string
+        - description: 密码
+          in: formData
+          name: newPassword
+          required: true
+          type: string
+      produces:
+        - application/json
+      responses:
+        "200":
+          description: '{"status": 1}'
+          schema:
+            type: string
+      summary: 更新密码
+      tags:
+        - 用户
   /user/login:
     post:
       consumes:

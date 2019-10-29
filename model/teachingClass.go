@@ -69,6 +69,22 @@ func (teachingClass *TeachingClass) SelectByPage(pageNum int, pageSize int) []Te
 }
 
 //分页模糊查询
+func (teachingClass *TeachingClassResult) SelectCrossSemester() []TeachingClassResult {
+	result := make([]TeachingClassResult, 10)
+	db.DB.
+		Table("teaching_class t").
+		Select("t.student_id,t.`name`,t.grade,t.department,t.professional,t.class,t.course_name,t.teaching_class_id,t.course_teacher_name,t.result,c.course_id,c.`year`,c.semester").
+		Joins("LEFT JOIN `course` c ON t.course_id = c.id").
+		Where("c.`year` = ? AND c.semester = ? AND t.teaching_class_id = ?",
+			teachingClass.Year,
+			teachingClass.Semester,
+			teachingClass.TeachingClassId).
+		Order("student_id ASC").
+		Scan(&result)
+	return result
+}
+
+//查询跨学期内容
 func (teachingClass *TeachingClassResult) SelectLikeByPage(pageNum int, pageSize int) []TeachingClassResult {
 
 	result := make([]TeachingClassResult, 10)

@@ -24,7 +24,6 @@ func Course(basePath *gin.RouterGroup) {
 	teacher.POST("/course/update", UpdateCourse)
 	//basePath.POST("/course/upload", UploadCourse)
 	basePath.POST("/course/selectByPage", SelectCourseByPage)
-	basePath.POST("/course/outCourseByPage", OutCourseByPage)
 	teacher.GET("/course/delete/:id", DeleteCourse)
 }
 

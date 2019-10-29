@@ -82,6 +82,85 @@ func GeneratedExcel(teachingClassId string) string {
 	return teachingClassId + ".xlsx"
 }
 
+func GeneratedExcelCrossSemester(teachingClasses []model.TeachingClassResult) string {
+	xlsx := excelize.NewFile()
+	// 创建一个工作表
+	index := xlsx.NewSheet("Sheet1")
+	//// 设置单元格的值
+	xlsx.SetCellValue("Sheet1", "A1", "姓名")
+	xlsx.SetCellValue("Sheet1", "B1", "学号")
+	xlsx.SetCellValue("Sheet1", "C1", "课程号")
+	xlsx.SetCellValue("Sheet1", "D1", "课程名")
+	xlsx.SetCellValue("Sheet1", "E1", "教学班号")
+	//---------------------------------------------------------------------------------------------------------------------
+	//组织数据 map的数组
+	data := make([]map[string]interface{}, 0)
+	head := make([]string, 0)
+	for _, v := range teachingClasses {
+		yearSem := strconv.Itoa(v.Year) + "-" + strconv.Itoa(v.Year+1) + " 学年" + "-" + v.Semester
+		head = append(head, yearSem)
+		results := v.SelectCrossSemester()
+		for _, v := range results {
+			if len(data) == 0 {
+				data = append(data, make(map[string]interface{}))
+				data[0][yearSem] = v.Result
+				data[0]["studentId"] = v.StudentId
+				data[0]["Name"] = v.Name
+				data[0]["CourseId"] = v.CourseId
+				data[0]["CourseName"] = v.CourseName
+				data[0]["TeachingClassId"] = v.TeachingClassId
+			}
+			for i := 0; i < len(data); i++ {
+				if data[i]["studentId"] == v.StudentId {
+					data[i][yearSem] = v.Result
+					break
+				}
+				if i == len(data)-1 {
+					data = append(data, make(map[string]interface{}))
+					data[i][yearSem] = v.Result
+					data[i]["studentId"] = v.StudentId
+					data[i]["Name"] = v.Name
+					data[i]["CourseId"] = v.CourseId
+					data[i]["CourseName"] = v.CourseName
+					data[i]["TeachingClassId"] = v.TeachingClassId
+					break
+				}
+			}
+		}
+	}
+
+	//设置分布成绩表头
+	for i, v := range head {
+		xlsx.SetCellValue("Sheet1", getHeader(i+5, 1), v)
+	}
+	//--------------------------------------------------------------------------------------------------------------------
+	//设置姓名、学号、课程名等值
+	for i, v := range data {
+		xlsx.SetCellValue("Sheet1", getHeader(0, i+2), v["Name"])
+		xlsx.SetCellValue("Sheet1", getHeader(1, i+2), v["studentId"])
+		xlsx.SetCellValue("Sheet1", getHeader(2, i+2), v["CourseId"])
+		xlsx.SetCellValue("Sheet1", getHeader(3, i+2), v["CourseName"])
+		xlsx.SetCellValue("Sheet1", getHeader(4, i+2), v["TeachingClassId"])
+		for i1, v2 := range head {
+			xlsx.SetCellValue("Sheet1", getHeader(i1+5, i+2), v[v2])
+		}
+	}
+	//设置边框
+	style, _ := xlsx.NewStyle("{'type':'1'}")
+	xlsx.SetCellStyle("Sheet1", "A3", "D3", style)
+	// 设置工作簿的默认工作表
+	xlsx.SetActiveSheet(index)
+	// 根据指定路径保存文件
+	err := xlsx.SaveAs("public/finalScore/crossSemester.xlsx")
+	if err != nil {
+		fmt.Println(err)
+	}
+	return "crossSemester.xlsx"
+}
+
+/*
+	行列转化为“A1”的格式
+*/
 func getHeader(row int, l int) string {
 	axis := strconv.Itoa(l)
 	for {

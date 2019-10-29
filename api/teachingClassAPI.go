@@ -31,6 +31,7 @@ func TeachingClass(basePath *gin.RouterGroup) {
 	basePath.POST("/teachingClass/selectFinal", SelectFinal)
 	teacher.GET("/teachingClass/delete/:id", DeleteTeachingClass)
 	teacher.POST("/teachingClass/updateFinal", UpdateFinal)
+	teacher.POST("/teachingClass/downloadCrossSemester", DownloadCrossSemester)
 	teacher.GET("/teachingClass/download/:teachingClassId", DownloadFinalScore)
 }
 
@@ -285,6 +286,32 @@ func UpdateFinal(c *gin.Context) {
 func DownloadFinalScore(c *gin.Context) {
 	teachingClassId := c.Param("teachingClassId")
 	filename := teachingClassService.GeneratedExcel(teachingClassId)
+	//fmt.Sprintf("attachment; filename=%s", filename)对下载的文件重命名
+	c.Writer.Header().Add("Content-Disposition", fmt.Sprintf("attachment; filename=%s", filename))
+	c.Writer.Header().Add("Content-Type", "application/octet-stream")
+	c.File("public/finalScore/" + filename)
+	//回调
+	//c.JSON(http.StatusOK, gin.H{"status": 1})
+}
+
+// @Summary 下载跨学期的成绩信息
+// @Description 下载跨学期的成绩信息
+// @Tags 教学班信息
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Token"
+// @Router /teachingClass/downloadCrossSemester [post]
+func DownloadCrossSemester(c *gin.Context) {
+
+	//获取数组形式的数据
+	type teachingClasses struct {
+		Data []model.TeachingClassResult `form:"data[]" json:"data"`
+	}
+	//模型填充
+	var data teachingClasses
+	_ = c.ShouldBindJSON(&data)
+	res := data.Data
+	filename := teachingClassService.GeneratedExcelCrossSemester(res)
 	//fmt.Sprintf("attachment; filename=%s", filename)对下载的文件重命名
 	c.Writer.Header().Add("Content-Disposition", fmt.Sprintf("attachment; filename=%s", filename))
 	c.Writer.Header().Add("Content-Type", "application/octet-stream")

@@ -59,3 +59,8 @@ func Delete(id string) int64 {
 	information := SelectTeachingClassInformationById(id)
 	return information.Delete()
 }
+
+//分页查询跨学期内容
+func SelectCrossSemester(pageNum int, pageSize int, teachingClass *model.TeachingClassInformationResult) ([]model.TeachingClassInformationResult, int) {
+	return teachingClass.SelectCrossSemester(pageNum, pageSize)
+}

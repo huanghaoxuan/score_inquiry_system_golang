@@ -23,6 +23,7 @@ func TeachingClassInformation(basePath *gin.RouterGroup) {
 	teacher.POST("/teachingClassInformation/insert", InsertTeachingClassInformation)
 	teacher.POST("/teachingClassInformation/update", UpdateTeachingClassInformation)
 	basePath.POST("/teachingClassInformation/selectByPage", SelectTeachingClassInformationByPage)
+	teacher.POST("/teachingClassInformation/selectCrossSemester", SelectCrossSemester)
 	teacher.GET("/teachingClassInformation/delete/:id", DeleteTeachingClassInformation)
 }
 
@@ -112,4 +113,36 @@ func InsertTeachingClassInformation(c *gin.Context) {
 	status := teachingClassInformationService.Insert(&teachingClassInformation)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"status": status})
+}
+
+// @Summary 分页查询教学班是否存在跨学期内容
+// @Description 分页查询教学班是否存在跨学期内容
+// @Tags 教学班信息
+// @Accept mpfd
+// @Produce json
+// @Param Authorization header string true "Token"
+// @Param pageNum formData string true "查询页码"
+// @Param pageSize formData string true "每页条数"
+// @Param studentId formData string true "学生学号"
+// @Param name formData string false "姓名"
+// @Param grade formData string false "所在年级"
+// @Param department formData string false "所在学院或部门"
+// @Param professional formData string false "所在专业"
+// @Param class formData string false "所在班级"
+// @Param courseName formData string false "课程名称"
+// @Param courseId formData string false "课程id"
+// @Param teachingClassId formData string false "教学班号"
+// @Param courseTeacherName formData string false "任课老师名字"
+// @Param courseTeacherId formData string false "任课老师id"
+// @Router /teachingClassInformation/selectCrossSemester [post]
+func SelectCrossSemester(c *gin.Context) {
+	//模型填充
+	var teachingClass model.TeachingClassInformationResult
+	_ = c.ShouldBind(&teachingClass)
+	pageNum, _ := strconv.Atoi(c.PostForm("pageNum"))
+	pageSize, _ := strconv.Atoi(c.PostForm("pageSize"))
+	//查询总条数
+	teachingClasses, count := teachingClassInformationService.SelectCrossSemester(pageNum, pageSize, &teachingClass)
+	//回调
+	c.JSON(http.StatusOK, gin.H{"data": teachingClasses, "count": count})
 }

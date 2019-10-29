@@ -38,6 +38,33 @@ func (teachingClassInformation *TeachingClassInformation) Insert() int64 {
 }
 
 //分页查询
+func (teachingClass *TeachingClassInformationResult) SelectCrossSemester(pageNum int, pageSize int) ([]TeachingClassInformationResult, int) {
+	result := make([]TeachingClassInformationResult, 10)
+	count := 0
+	sql := "t.course_id IN ( SELECT c.id FROM `course` c WHERE c.course_id = '" + teachingClass.CourseId + "' )AND t.teaching_class_id = '" +
+		teachingClass.TeachingClassId + "'"
+	if pageNum > 0 && pageSize > 0 {
+		db.DB.
+			Table("teaching_class_information t").
+			Select("	t.`id`,t.`course_name`,t.`teaching_class_id`,t.`course_teacher_name`,t.`created_at`,t.`course_id`,c.`year`,c.`semester`").
+			Joins("LEFT JOIN `course` c ON t.course_id = c.id").
+			Where(sql).
+			Order("created_at desc").
+			Limit(pageSize).Offset((pageNum - 1) * pageSize).
+			Scan(&result)
+
+		db.DB.
+			Table("teaching_class_information t").
+			Joins("LEFT JOIN `course` c ON t.course_id = c.id").
+			Where(sql).
+			Order("created_at desc").
+			Limit(pageSize).Offset((pageNum - 1) * pageSize).
+			Count(&count)
+	}
+	return result, count
+}
+
+//分页查询
 func (teachingClassInformation *TeachingClassInformation) SelectByPage(pageNum int, pageSize int) []TeachingClassInformationResult {
 	sql := "course_name LIKE ? AND teaching_class_id LIKE ? "
 	if teachingClassInformation.CourseId != "" {
