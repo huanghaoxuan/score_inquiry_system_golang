@@ -20,9 +20,10 @@ type SourceStage struct {
 	StudentId       string    `form:"studentId" gorm:"column:student_id;not null;" json:"studentId"`                    //学生学号
 	TeachingClassId string    `form:"teachingClassId" gorm:"column:teaching_class_id;not null;" json:"teachingClassId"` //教学班号
 	SourceStageId   string    `form:"sourceStageId" gorm:"column:source_stage_id;not null;" json:"sourceStageId"`       //阶段性测验id
-	ScoresNote      string    `form:"scoresNote" gorm:"column:scores_note;not null;" json:"scoresNote"`                 //成绩注释
-	Scores          string    `form:"scores" gorm:"column:scores;not null;" json:"scores"`                              //成绩
-	CreatedAt       time.Time `form:"createdAt" gorm:"column:created_at" json:"createdAt"`                              //创建时间
+	CourseId        string    `form:"courseId" gorm:"column:course_id" json:"courseId"`
+	ScoresNote      string    `form:"scoresNote" gorm:"column:scores_note;not null;" json:"scoresNote"` //成绩注释
+	Scores          string    `form:"scores" gorm:"column:scores;not null;" json:"scores"`              //成绩
+	CreatedAt       time.Time `form:"createdAt" gorm:"column:created_at" json:"createdAt"`              //创建时间
 }
 
 //通过id查询
@@ -82,7 +83,7 @@ func (sourceStage *SourceStage) Update() int64 {
 //阶段性成绩更新
 func (sourceStage *SourceStage) UpdateSourceStage() int64 {
 	if sourceStage.SourceStageId != "" {
-		updates := db.DB.Model(&sourceStage).Where("Source_stage_id = ?", sourceStage.SourceStageId).Updates(sourceStage)
+		updates := db.DB.Model(&sourceStage).Where("source_stage_id = ? AND course_id = ?", sourceStage.SourceStageId, sourceStage.CourseId).Updates(sourceStage)
 		return updates.RowsAffected
 	}
 	return 0

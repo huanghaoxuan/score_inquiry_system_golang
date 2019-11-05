@@ -32,7 +32,7 @@ func SelectAll(sourceStageInformation *model.SourceStageInformation) []model.Sou
 func Insert(sourceStageInformation *model.SourceStageInformation) int64 {
 	//设置uuid为主键
 	sourceStageInformation.Id = uuid.NewV4().String()
-	teachingClass := model.TeachingClass{TeachingClassId: sourceStageInformation.TeachingClassId}
+	teachingClass := model.TeachingClass{TeachingClassId: sourceStageInformation.TeachingClassId, CourseId: sourceStageInformation.CourseId}
 	teachingClasses := teachingClass.SelectAll()
 	for _, v := range teachingClasses {
 		sourceStage := model.SourceStage{
@@ -40,6 +40,7 @@ func Insert(sourceStageInformation *model.SourceStageInformation) int64 {
 			StudentId:       v.StudentId,
 			TeachingClassId: v.TeachingClassId,
 			SourceStageId:   sourceStageInformation.Id,
+			CourseId:        v.CourseId,
 		}
 		sourceStage.Id = uuid.NewV4().String()
 		sourceStage.Insert()

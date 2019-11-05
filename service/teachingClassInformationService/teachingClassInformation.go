@@ -20,7 +20,7 @@ func Count(information *model.TeachingClassInformation) int {
 }
 
 //分页查询
-func SelectByPage(pageNum int, pageSize int, information *model.TeachingClassInformation) []model.TeachingClassInformationResult {
+func SelectByPage(pageNum int, pageSize int, information *model.TeachingClassInformationResult) []model.TeachingClassInformationResult {
 	return information.SelectByPage(pageNum, pageSize)
 }
 

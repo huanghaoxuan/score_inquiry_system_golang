@@ -2,6 +2,7 @@ package model
 
 import (
 	"score_inquiry_system/db"
+	"strconv"
 	"time"
 )
 
@@ -45,11 +46,11 @@ func (teachingClass *TeachingClassInformationResult) SelectCrossSemester(pageNum
 		teachingClass.TeachingClassId + "'"
 	if pageNum > 0 && pageSize > 0 {
 		db.DB.
-			Table("teaching_class_information t").
-			Select("	t.`id`,t.`course_name`,t.`teaching_class_id`,t.`course_teacher_name`,t.`created_at`,t.`course_id`,c.`year`,c.`semester`").
-			Joins("LEFT JOIN `course` c ON t.course_id = c.id").
+			Table(" teaching_class_information t ").
+			Select("	t.`id`,t.`course_name`,t.`teaching_class_id`,t.`course_teacher_name`,t.`created_at`,t.`course_id`,c.`year`,c.`semester` ").
+			Joins(" LEFT JOIN `course` c ON t.course_id = c.id ").
 			Where(sql).
-			Order("created_at desc").
+			Order(" created_at desc ").
 			Limit(pageSize).Offset((pageNum - 1) * pageSize).
 			Scan(&result)
 
@@ -65,19 +66,26 @@ func (teachingClass *TeachingClassInformationResult) SelectCrossSemester(pageNum
 }
 
 //分页查询
-func (teachingClassInformation *TeachingClassInformation) SelectByPage(pageNum int, pageSize int) []TeachingClassInformationResult {
+func (teachingClassInformation *TeachingClassInformationResult) SelectByPage(pageNum int, pageSize int) []TeachingClassInformationResult {
 	sql := "course_name LIKE ? AND teaching_class_id LIKE ? "
 	if teachingClassInformation.CourseId != "" {
-		sql = sql + "AND t.course_id = '" + teachingClassInformation.CourseId + "' "
+		sql = sql + " AND t.course_id = '" + teachingClassInformation.CourseId + "' "
 	}
 	if teachingClassInformation.CourseTeacherName != "" {
-		sql = sql + "AND course_teacher_name = '" + teachingClassInformation.CourseTeacherName + "'"
+		sql = sql + " AND t.course_teacher_name = '" + teachingClassInformation.CourseTeacherName + "' "
+	}
+	if teachingClassInformation.Year != 0 {
+		sql = sql + " AND c.year = '" + strconv.Itoa(teachingClassInformation.Year) + "' "
+	}
+	if teachingClassInformation.Semester != "" {
+		sql = sql + " AND c.semester = '" + teachingClassInformation.Semester + "' "
 	}
 	result := make([]TeachingClassInformationResult, 10)
+	//将course_id 设置为id返回
 	if pageNum > 0 && pageSize > 0 {
 		db.DB.
 			Table("teaching_class_information t").
-			Select("	t.`id`,t.`course_name`,t.`teaching_class_id`,t.`course_teacher_name`,t.`created_at`,c.`course_id`,c.`year`,c.`semester`").
+			Select("	t.`course_id` id,t.`course_name`,t.`teaching_class_id`,t.`course_teacher_name`,t.`created_at`,c.`course_id`,c.`year`,c.`semester`").
 			Joins("LEFT JOIN `course` c ON t.course_id = c.id").
 			Where(sql,
 				"%"+teachingClassInformation.CourseName+"%",

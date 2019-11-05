@@ -32,7 +32,7 @@ func TeachingClass(basePath *gin.RouterGroup) {
 	teacher.GET("/teachingClass/delete/:id", DeleteTeachingClass)
 	teacher.POST("/teachingClass/updateFinal", UpdateFinal)
 	teacher.POST("/teachingClass/downloadCrossSemester", DownloadCrossSemester)
-	teacher.GET("/teachingClass/download/:teachingClassId", DownloadFinalScore)
+	teacher.GET("/teachingClass/download/:teachingClassId/:courseId", DownloadFinalScore)
 }
 
 // @Summary 删除一条教学班学生信息
@@ -282,10 +282,11 @@ func UpdateFinal(c *gin.Context) {
 // @Produce json
 // @Param Authorization header string true "Token"
 // @Param id path string true "主键"
-// @Router /teachingClass/download/{teachingClassId} [get]
+// @Router /teachingClass/download/{teachingClassId}/{courseId} [get]
 func DownloadFinalScore(c *gin.Context) {
 	teachingClassId := c.Param("teachingClassId")
-	filename := teachingClassService.GeneratedExcel(teachingClassId)
+	courseId := c.Param("courseId")
+	filename := teachingClassService.GeneratedExcel(teachingClassId, courseId)
 	//fmt.Sprintf("attachment; filename=%s", filename)对下载的文件重命名
 	c.Writer.Header().Add("Content-Disposition", fmt.Sprintf("attachment; filename=%s", filename))
 	c.Writer.Header().Add("Content-Type", "application/octet-stream")

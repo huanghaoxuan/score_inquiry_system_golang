@@ -58,12 +58,13 @@ func DeleteTeachingClassInformation(c *gin.Context) {
 // @Router /teachingClassInformation/selectByPage [post]
 func SelectTeachingClassInformationByPage(c *gin.Context) {
 	//模型填充
-	var teachingClassInformation model.TeachingClassInformation
+	var teachingClassInformation model.TeachingClassInformationResult
 	_ = c.ShouldBind(&teachingClassInformation)
 	pageNum, _ := strconv.Atoi(c.PostForm("pageNum"))
 	pageSize, _ := strconv.Atoi(c.PostForm("pageSize"))
 	//查询总条数
 	count := teachingClassInformation.Count()
+	//将course_id 设置为id返回
 	teachingClasseInformations := teachingClassInformationService.SelectByPage(pageNum, pageSize, &teachingClassInformation)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"data": teachingClasseInformations, "count": count})

@@ -33,6 +33,7 @@ func SelectByPage(pageNum int, pageSize int, sourceStage *model.SourceStage) int
 			data[len(data)-1]["studentId"] = sourceStages[index].StudentId
 			data[len(data)-1]["teachingClassId"] = sourceStages[index].TeachingClassId
 			data[len(data)-1]["createdAt"] = sourceStages[index].CreatedAt
+			data[len(data)-1]["courseId"] = sourceStages[index].CourseId
 			for i := 0; i < len(sourceStages); i++ {
 				if studentId == sourceStages[i].StudentId {
 					if id == sourceStages[i].SourceStageId {
@@ -56,7 +57,7 @@ func Insert(sourceStage *model.SourceStage) int64 {
 }
 
 func InsertStudent(sourceStage *model.SourceStage) int64 {
-	sourceStageInformation := model.SourceStageInformation{TeachingClassId: sourceStage.TeachingClassId}
+	sourceStageInformation := model.SourceStageInformation{TeachingClassId: sourceStage.TeachingClassId, CourseId: sourceStage.CourseId}
 	sourceStageInformations := sourceStageInformation.SelectAll()
 	var status int64 = 1
 	for _, v := range sourceStageInformations {
@@ -65,6 +66,7 @@ func InsertStudent(sourceStage *model.SourceStage) int64 {
 			StudentId:       sourceStage.StudentId,
 			TeachingClassId: v.TeachingClassId,
 			SourceStageId:   v.Id,
+			CourseId:        v.CourseId,
 		}
 		status += Insert(&sourceStage2)
 	}

@@ -15,7 +15,7 @@ import (
  * @Version 1.0
  */
 
-func GeneratedExcel(teachingClassId string) string {
+func GeneratedExcel(teachingClassId string, courseId string) string {
 	xlsx := excelize.NewFile()
 	// 创建一个工作表
 	index := xlsx.NewSheet("Sheet1")
@@ -26,13 +26,13 @@ func GeneratedExcel(teachingClassId string) string {
 	xlsx.SetCellValue("Sheet1", "D1", "学年")
 	xlsx.SetCellValue("Sheet1", "E1", "学期")
 	//期末成绩、总成绩
-	teachingClass := model.TeachingClass{TeachingClassId: teachingClassId}
+	teachingClass := model.TeachingClass{TeachingClassId: teachingClassId, CourseId: courseId}
 	teachingClasses := teachingClass.SelectAll()
 	//阶段成绩表头
-	sourceStageInformation := model.SourceStageInformation{TeachingClassId: teachingClassId}
+	sourceStageInformation := model.SourceStageInformation{TeachingClassId: teachingClassId, CourseId: courseId}
 	sourceStageInformations := sourceStageInformation.SelectAll()
 	//阶段成绩
-	sourceStage := model.SourceStage{TeachingClassId: teachingClassId}
+	sourceStage := model.SourceStage{TeachingClassId: teachingClassId, CourseId: courseId}
 	sourceStages := sourceStage.SelectAll()
 	//设置分布成绩表头
 	for i, v := range sourceStageInformations {
@@ -87,11 +87,12 @@ func GeneratedExcelCrossSemester(teachingClasses []model.TeachingClassResult) st
 	// 创建一个工作表
 	index := xlsx.NewSheet("Sheet1")
 	//// 设置单元格的值
-	xlsx.SetCellValue("Sheet1", "A1", "姓名")
-	xlsx.SetCellValue("Sheet1", "B1", "学号")
-	xlsx.SetCellValue("Sheet1", "C1", "课程号")
-	xlsx.SetCellValue("Sheet1", "D1", "课程名")
-	xlsx.SetCellValue("Sheet1", "E1", "教学班号")
+	xlsx.SetCellValue("Sheet1", "A1", "课程号")
+	xlsx.SetCellValue("Sheet1", "B1", "课程名")
+	xlsx.SetCellValue("Sheet1", "C1", "教学班号")
+	xlsx.SetCellValue("Sheet1", "D1", "姓名")
+	xlsx.SetCellValue("Sheet1", "E1", "学号")
+
 	//---------------------------------------------------------------------------------------------------------------------
 	//组织数据 map的数组
 	data := make([]map[string]interface{}, 0)
@@ -135,15 +136,20 @@ func GeneratedExcelCrossSemester(teachingClasses []model.TeachingClassResult) st
 	}
 	//--------------------------------------------------------------------------------------------------------------------
 	//设置姓名、学号、课程名等值
+
 	for i, v := range data {
-		xlsx.SetCellValue("Sheet1", getHeader(0, i+2), v["Name"])
-		xlsx.SetCellValue("Sheet1", getHeader(1, i+2), v["studentId"])
-		xlsx.SetCellValue("Sheet1", getHeader(2, i+2), v["CourseId"])
-		xlsx.SetCellValue("Sheet1", getHeader(3, i+2), v["CourseName"])
-		xlsx.SetCellValue("Sheet1", getHeader(4, i+2), v["TeachingClassId"])
+		xlsx.SetCellValue("Sheet1", getHeader(0, i+2), v["CourseId"])
+		xlsx.SetCellValue("Sheet1", getHeader(1, i+2), v["CourseName"])
+		xlsx.SetCellValue("Sheet1", getHeader(2, i+2), v["TeachingClassId"])
+		xlsx.SetCellValue("Sheet1", getHeader(3, i+2), v["Name"])
+		xlsx.SetCellValue("Sheet1", getHeader(4, i+2), v["studentId"])
+		var avg int = 0
 		for i1, v2 := range head {
 			xlsx.SetCellValue("Sheet1", getHeader(i1+5, i+2), v[v2])
+			b, _ := v[v2].(int)
+			avg = b + avg
 		}
+		xlsx.SetCellValue("Sheet1", getHeader(5+len(head), i+2), avg/len(head))
 	}
 	//设置边框
 	style, _ := xlsx.NewStyle("{'type':'1'}")

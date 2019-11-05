@@ -131,7 +131,7 @@ func Delete(id string) int64 {
 }
 
 func SelectFinal(pageNum int, pageSize int, teachingClass *model.TeachingClass) interface{} {
-	sourceStage := model.SourceStage{TeachingClassId: teachingClass.TeachingClassId}
+	sourceStage := model.SourceStage{TeachingClassId: teachingClass.TeachingClassId, CourseId: teachingClass.CourseId}
 	sourceStages := sourceStage.SelectAll()
 	teachingClasss := teachingClass.SelectAll()
 	data := make([]map[string]interface{}, 0, len(sourceStages))
@@ -143,6 +143,7 @@ func SelectFinal(pageNum int, pageSize int, teachingClass *model.TeachingClass) 
 		data[len(data)-1]["name"] = teachingClasss[index].Name
 		data[len(data)-1]["studentId"] = teachingClasss[index].StudentId
 		data[len(data)-1]["teachingClassId"] = teachingClasss[index].TeachingClassId
+		data[len(data)-1]["courseId"] = teachingClasss[index].CourseId
 		for i := 0; i < len(sourceStages); i++ {
 			if teachingClasss[index].StudentId == sourceStages[i].StudentId {
 				data[len(data)-1][sourceStages[i].SourceStageId] = sourceStages[i].Scores

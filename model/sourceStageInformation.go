@@ -19,6 +19,7 @@ type SourceStageInformation struct {
 	Name            string    `form:"name" gorm:"column:name;not null;" json:"name"`                                    //课程名字
 	TeachingClassId string    `form:"teachingClassId" gorm:"column:teaching_class_id;not null;" json:"teachingClassId"` //教学班号
 	StageId         string    `form:"stageId" gorm:"column:stage_id;not null;" json:"stageId"`                          //阶段性测验序号
+	CourseId        string    `form:"courseId" gorm:"column:course_id" json:"courseId"`                                 //课程id
 	StageNote       string    `form:"stageNote" gorm:"column:stage_note;not null;" json:"stageNote"`                    //阶段性测验描述
 	Percentage      string    `form:"percentage" gorm:"column:percentage" json:"percentage"`                            //阶段性测验占比
 	CreatedAt       time.Time `form:"createdAt" gorm:"column:created_at" json:"createdAt"`                              //创建时间
