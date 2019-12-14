@@ -28,6 +28,7 @@ func SelectByPage(pageNum int, pageSize int, information *model.TeachingClassInf
 func Insert(information *model.TeachingClassInformation) int64 {
 	//设置uuid为主键
 	information.Id = uuid.NewV4().String()
+	information.Status = 1
 	information.SelectById()
 	course := model.Course{Id: information.CourseId}
 	course.SelectById()

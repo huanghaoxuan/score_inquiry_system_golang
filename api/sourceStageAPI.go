@@ -82,7 +82,7 @@ func UpdateSourceStages(c *gin.Context) {
 	var status int64 = 0
 	for _, v := range data.Data {
 		status += sourceStageService.Update(&v)
-		teachingClass := model.TeachingClass{TeachingClassId: v.TeachingClassId, StudentId: v.StudentId}
+		teachingClass := model.TeachingClass{Id: v.CourseId, TeachingClassId: v.TeachingClassId, StudentId: v.StudentId}
 		go teachingClassService.UpdateResult(&teachingClass)
 	}
 
@@ -112,8 +112,8 @@ func SelectSourceStageByPage(c *gin.Context) {
 	pageNum, _ := strconv.Atoi(c.PostForm("pageNum"))
 	pageSize, _ := strconv.Atoi(c.PostForm("pageSize"))
 	//查询总条数
-	count := sourceStage.Count()
-	sourceStages := sourceStageService.SelectByPage(pageNum, pageSize, &sourceStage)
+
+	sourceStages, count := sourceStageService.SelectByPage(pageNum, pageSize, &sourceStage)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"data": sourceStages, "count": count})
 }

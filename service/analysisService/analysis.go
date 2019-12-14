@@ -15,7 +15,7 @@ import (
 
 //分析成绩通过情况
 func Pass(studentId string) interface{} {
-	teachingClass := model.TeachingClass{StudentId: studentId}
+	teachingClass := model.TeachingClass{StudentId: studentId, Status: 2}
 	teachingClasses := teachingClass.SelectAll()
 	a := 0 //满分
 	b := 0 //优秀

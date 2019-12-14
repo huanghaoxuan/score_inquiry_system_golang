@@ -19,7 +19,7 @@ func Count(sourceStage *model.SourceStage) int {
 }
 
 //分页查询
-func SelectByPage(pageNum int, pageSize int, sourceStage *model.SourceStage) interface{} {
+func SelectByPage(pageNum int, pageSize int, sourceStage *model.SourceStage) (interface{}, int) {
 	id := sourceStage.Id
 	sourceStage.Id = ""
 	sourceStages := sourceStage.SelectAll()
@@ -38,15 +38,18 @@ func SelectByPage(pageNum int, pageSize int, sourceStage *model.SourceStage) int
 				if studentId == sourceStages[i].StudentId {
 					if id == sourceStages[i].SourceStageId {
 						data[len(data)-1]["scores"] = sourceStages[i].Scores
-						//data[len(data)-1]["id"] = sourceStages[i].Id
+						data[len(data)-1]["id"] = sourceStages[i].Id
 					}
 					data[len(data)-1][sourceStages[i].SourceStageId] = sourceStages[i].Scores
 					sourceStages[i].Name = ""
 				}
 			}
 		}
+		//fmt.Println(data)
 	}
-	return data
+
+	count := sourceStage.Count()
+	return data, count
 }
 
 //插入

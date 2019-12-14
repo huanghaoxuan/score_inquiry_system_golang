@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"score_inquiry_system/model"
 	"score_inquiry_system/service/teachingClassInformationService"
+	"score_inquiry_system/service/teachingClassService"
 	"score_inquiry_system/util/middleware"
 	"strconv"
 )
@@ -25,6 +26,7 @@ func TeachingClassInformation(basePath *gin.RouterGroup) {
 	basePath.POST("/teachingClassInformation/selectByPage", SelectTeachingClassInformationByPage)
 	teacher.POST("/teachingClassInformation/selectCrossSemester", SelectCrossSemester)
 	teacher.GET("/teachingClassInformation/delete/:id", DeleteTeachingClassInformation)
+	teacher.POST("/teachingClassInformation/updateStauts", updateStauts)
 }
 
 // @Summary 删除一条教学班信息
@@ -40,6 +42,33 @@ func DeleteTeachingClassInformation(c *gin.Context) {
 	status := teachingClassInformationService.Delete(id)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"status": status})
+}
+
+// @Summary 更改教学班成绩的发布状态
+// @Description 更改教学班成绩的发布状态
+// @Tags 教学班基本信息
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Token"
+// @Param pageNum formData string true "查询页码"
+// @Param pageSize formData string true "每页条数"
+// @Param courseName formData string false "课程名称"
+// @Param courseId formData string false "课程id"
+// @Param teachingClassId formData string false "教学班号"
+// @Param courseTeacherName formData string false "任课老师名字"
+// @Param courseTeacherId formData string false "任课老师id"
+// @Router /teachingClassInformation/updateStauts [post]
+func updateStauts(c *gin.Context) {
+	status, _ := strconv.Atoi(c.PostForm("status"))
+	id := c.PostForm("id")
+	teachingClassId := c.PostForm("teachingClassId")
+	courseId := c.PostForm("courseId")
+	teachingClassInformation := model.TeachingClassInformation{Status: status, Id: id}
+	res := teachingClassInformationService.Update(&teachingClassInformation)
+	teachingClass := model.TeachingClass{Status: status, CourseId: courseId, TeachingClassId: teachingClassId}
+	teachingClassService.UpdateStatus(&teachingClass)
+	//回调
+	c.JSON(http.StatusOK, gin.H{"status": res})
 }
 
 // @Summary 分页查询教学班信息

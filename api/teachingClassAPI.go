@@ -77,7 +77,7 @@ func SelectTeachingClassByPage(c *gin.Context) {
 	pageNum, _ := strconv.Atoi(c.PostForm("pageNum"))
 	pageSize, _ := strconv.Atoi(c.PostForm("pageSize"))
 	//查询总条数
-	count := teachingClass.Count()
+	count := teachingClass.SelectCrossSemesterCount()
 	teachingClasses := teachingClassService.SelectByPage(pageNum, pageSize, &teachingClass)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"data": teachingClasses, "count": count})

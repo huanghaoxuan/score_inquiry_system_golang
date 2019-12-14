@@ -1,6 +1,7 @@
 package teacherInformationService
 
 import (
+	"github.com/360EntSecGroup-Skylar/excelize"
 	uuid "github.com/satori/go.uuid"
 	"score_inquiry_system/model"
 	"score_inquiry_system/service/loginService"
@@ -22,6 +23,30 @@ func Count(information *model.TeacherInformation) int {
 //分页查询
 func SelectByPage(pageNum int, pageSize int, information *model.TeacherInformation) []model.TeacherInformation {
 	return information.SelectByPage(pageNum, pageSize)
+}
+
+//表格处理
+func ProcessingExcelFile(s string) {
+	file, _ := excelize.OpenFile(s)
+	rows := file.GetRows("Sheet1")
+	for i, row := range rows {
+		if i != 0 {
+			teacherInformation := model.TeacherInformation{}
+			for j, colCell := range row {
+				switch j {
+				case 0:
+					teacherInformation.StudentId = colCell
+				case 1:
+					teacherInformation.Name = colCell
+				case 2:
+					teacherInformation.Department = colCell
+				}
+			}
+			//插入基本信息
+			Insert(&teacherInformation)
+		}
+
+	}
 }
 
 //插入

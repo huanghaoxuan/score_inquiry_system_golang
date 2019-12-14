@@ -58,7 +58,7 @@ func (information *StudentInformation) SelectByPage(pageNum int, pageSize int) [
 			Where("student_id LIKE ?", "%"+information.StudentId+"%").
 			Where("department_new LIKE ?", "%"+information.DepartmentNew+"%").
 			Where("grade_new LIKE ?", "%"+information.GradeNew+"%").
-			Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&studentInformations)
+			Order("student_id ASC").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&studentInformations)
 	}
 	return studentInformations
 }

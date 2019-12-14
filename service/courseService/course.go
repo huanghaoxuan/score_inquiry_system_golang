@@ -1,8 +1,10 @@
 package courseService
 
 import (
+	"github.com/360EntSecGroup-Skylar/excelize"
 	uuid "github.com/satori/go.uuid"
 	"score_inquiry_system/model"
+	"strconv"
 )
 
 /**
@@ -20,6 +22,32 @@ func Count(course *model.Course) int {
 //分页查询
 func SelectByPage(pageNum int, pageSize int, course *model.Course) []model.Course {
 	return course.SelectByPage(pageNum, pageSize)
+}
+
+//表格处理
+func ProcessingExcelFile(s string) {
+	file, _ := excelize.OpenFile(s)
+	rows := file.GetRows("Sheet1")
+	for i, row := range rows {
+		if i != 0 {
+			course := model.Course{}
+			for j, colCell := range row {
+				switch j {
+				case 0:
+					course.CourseId = colCell
+				case 1:
+					course.Name = colCell
+				case 2:
+					course.Year, _ = strconv.Atoi(colCell)
+				case 3:
+					course.Semester = colCell
+				}
+			}
+			//插入基本信息
+			Insert(&course)
+		}
+
+	}
 }
 
 //插入

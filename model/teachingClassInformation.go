@@ -16,14 +16,15 @@ import (
 
 //教学班信息结构体
 type TeachingClassInformation struct {
-	Id                string    `form:"id" gorm:"primary_key;column:id" json:"id"`                                               //主键
-	UniqueSign        string    `form:"uniqueSign" gorm:"column:unique_sign;unique;" json:"uniqueSign"`                          //唯一标志
-	CourseName        string    `form:"courseName" gorm:"column:course_name;index:idx_course_name" json:"courseName"`            //课程名称
-	CourseId          string    `form:"courseId" gorm:"column:course_id" json:"courseId"`                                        //课程id
-	TeachingClassId   string    `form:"teachingClassId" gorm:"column:teaching_class_id;not null;unique;" json:"teachingClassId"` //教学班号
-	CourseTeacherName string    `form:"courseTeacherName" gorm:"column:course_teacher_name" json:"courseTeacherName"`            //任课老师名字
-	CourseTeacherId   string    `form:"courseTeacherId" gorm:"column:course_teacher_id" json:"courseTeacherId"`                  //任课老师id
-	CreatedAt         time.Time `form:"createdAt" gorm:"column:created_at" json:"createdAt"`                                     //创建时间
+	Id                string    `form:"id" gorm:"primary_key;column:id" json:"id"`                                        //主键
+	Status            int       `form:"status" gorm:"column:status" json:"status"`                                        //成绩状态（1、可查，2、不可查）
+	UniqueSign        string    `form:"uniqueSign" gorm:"column:unique_sign;unique;" json:"uniqueSign"`                   //唯一标志
+	CourseName        string    `form:"courseName" gorm:"column:course_name;index:idx_course_name" json:"courseName"`     //课程名称
+	CourseId          string    `form:"courseId" gorm:"column:course_id" json:"courseId"`                                 //课程id
+	TeachingClassId   string    `form:"teachingClassId" gorm:"column:teaching_class_id;not null;" json:"teachingClassId"` //教学班号
+	CourseTeacherName string    `form:"courseTeacherName" gorm:"column:course_teacher_name" json:"courseTeacherName"`     //任课老师名字
+	CourseTeacherId   string    `form:"courseTeacherId" gorm:"column:course_teacher_id" json:"courseTeacherId"`           //任课老师id
+	CreatedAt         time.Time `form:"createdAt" gorm:"column:created_at" json:"createdAt"`                              //创建时间
 }
 
 type TeachingClassInformationResult struct {
@@ -47,7 +48,7 @@ func (teachingClass *TeachingClassInformationResult) SelectCrossSemester(pageNum
 	if pageNum > 0 && pageSize > 0 {
 		db.DB.
 			Table(" teaching_class_information t ").
-			Select("	t.`id`,t.`course_name`,t.`teaching_class_id`,t.`course_teacher_name`,t.`created_at`,t.`course_id`,c.`year`,c.`semester` ").
+			Select("	t.`status`,t.`id`,t.`course_name`,t.`teaching_class_id`,t.`course_teacher_name`,t.`created_at`,t.`course_id`,c.`year`,c.`semester` ").
 			Joins(" LEFT JOIN `course` c ON t.course_id = c.id ").
 			Where(sql).
 			Order(" created_at desc ").
@@ -85,12 +86,12 @@ func (teachingClassInformation *TeachingClassInformationResult) SelectByPage(pag
 	if pageNum > 0 && pageSize > 0 {
 		db.DB.
 			Table("teaching_class_information t").
-			Select("	t.`course_id` id,t.`course_name`,t.`teaching_class_id`,t.`course_teacher_name`,t.`created_at`,c.`course_id`,c.`year`,c.`semester`").
+			Select(" t.`status`,t.`id` unique_sign,t.`course_id` id,t.`course_name`,t.`teaching_class_id`,t.`course_teacher_name`,t.`created_at`,c.`course_id`,c.`year`,c.`semester`").
 			Joins("LEFT JOIN `course` c ON t.course_id = c.id").
 			Where(sql,
 				"%"+teachingClassInformation.CourseName+"%",
 				"%"+teachingClassInformation.TeachingClassId+"%").
-			Order("created_at desc").
+			Order("teaching_class_id ASC").
 			Limit(pageSize).Offset((pageNum - 1) * pageSize).
 			Scan(&result)
 
@@ -144,9 +145,9 @@ func (teachingClassInformation *TeachingClassInformation) UpdateAll() int64 {
 func (teachingClassInformation *TeachingClassInformation) Delete() int64 {
 	//防止记录被全部删除
 	if teachingClassInformation.Id != "" {
-		db.DB.Where("course_id = ?", teachingClassInformation.CourseId).Delete(TeachingClass{})
-		db.DB.Where("teaching_class_id = ?", teachingClassInformation.TeachingClassId).Delete(SourceStageInformation{})
-		db.DB.Where("teaching_class_id = ?", teachingClassInformation.TeachingClassId).Delete(SourceStage{})
+		db.DB.Where("teaching_class_id = ? and course_id = ?", teachingClassInformation.TeachingClassId, teachingClassInformation.CourseId).Delete(TeachingClass{})
+		db.DB.Where("teaching_class_id = ? and course_id = ?", teachingClassInformation.TeachingClassId, teachingClassInformation.CourseId).Delete(SourceStageInformation{})
+		db.DB.Where("teaching_class_id = ? and course_id = ?", teachingClassInformation.TeachingClassId, teachingClassInformation.CourseId).Delete(SourceStage{})
 		i := db.DB.Delete(&teachingClassInformation)
 		return i.RowsAffected
 	}

@@ -50,7 +50,7 @@ func (sourceStage *SourceStage) SelectByPage(pageNum int, pageSize int) []Source
 //全部查询
 func (sourceStage *SourceStage) SelectAll() []SourceStage {
 	sourceStages := make([]SourceStage, 15)
-	db.DB.Where(&sourceStage).Order("created_at desc").Find(&sourceStages)
+	db.DB.Where(&sourceStage).Order("student_id ASC").Find(&sourceStages)
 
 	return sourceStages
 }
@@ -82,8 +82,18 @@ func (sourceStage *SourceStage) Update() int64 {
 //更新相关记录权限
 //阶段性成绩更新
 func (sourceStage *SourceStage) UpdateSourceStage() int64 {
-	if sourceStage.SourceStageId != "" {
-		updates := db.DB.Model(&sourceStage).Where("source_stage_id = ? AND course_id = ?", sourceStage.SourceStageId, sourceStage.CourseId).Updates(sourceStage)
+	if sourceStage.SourceStageId != "" && sourceStage.Id == "" {
+		updates := db.DB.Model(&sourceStage).Where("source_stage_id = ? AND course_id = ? AND teaching_class_id = ?",
+			sourceStage.SourceStageId,
+			sourceStage.CourseId,
+			sourceStage.TeachingClassId).Updates(sourceStage)
+		return updates.RowsAffected
+	} else if sourceStage.SourceStageId != "" {
+		updates := db.DB.Model(&sourceStage).Where("id = ? and source_stage_id = ? AND course_id = ? AND teaching_class_id = ?",
+			sourceStage.Id,
+			sourceStage.SourceStageId,
+			sourceStage.CourseId,
+			sourceStage.TeachingClassId).Updates(sourceStage)
 		return updates.RowsAffected
 	}
 	return 0

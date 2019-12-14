@@ -76,7 +76,7 @@ func main() {
 		&model.SourceStage{})
 
 	//第一次启动加入管理员账号
-	loginService.FirstAdmin("管理员", "123456", "123456", 3)
+	loginService.FirstAdmin("管理员", "admin", "admin", 3)
 	_ = r.Run(":5201")
 
 }

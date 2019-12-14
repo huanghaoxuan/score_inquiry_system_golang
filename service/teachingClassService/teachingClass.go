@@ -19,6 +19,7 @@ import (
 func Insert(teachingClass *model.TeachingClass) int64 {
 	//设置uuid为主键
 	teachingClass.Id = uuid.NewV4().String()
+	teachingClass.Status = 1
 	return teachingClass.Insert()
 }
 
@@ -49,13 +50,13 @@ func ProcessingExcelFile(s string, courseId string, courseName string) {
 					teachingClass.Professional = colCell
 				case 5:
 					teachingClass.Class = colCell
-				case 6:
+				case 7:
 					teachingClass.CourseName = colCell
 					teachingClassInformation.CourseName = colCell
-				case 7:
+				case 8:
 					teachingClass.TeachingClassId = colCell
 					teachingClassInformation.TeachingClassId = colCell
-				case 8:
+				case 9:
 					teachingClass.CourseTeacherName = colCell
 					teachingClassInformation.CourseTeacherName = colCell
 				}
@@ -120,6 +121,11 @@ func Update(teachingClass *model.TeachingClass) int64 {
 	return teachingClass.Update()
 }
 
+//更新成绩状态
+func UpdateStatus(teachingClass *model.TeachingClass) {
+	teachingClass.UpdateStatus()
+}
+
 func UpdateAll(teachingClass *model.TeachingClass) int64 {
 	return teachingClass.UpdateAll()
 }
@@ -154,5 +160,5 @@ func SelectFinal(pageNum int, pageSize int, teachingClass *model.TeachingClass) 
 }
 
 func UpdateResult(teachingClass *model.TeachingClass) {
-
+	//teachingClass.Update()
 }

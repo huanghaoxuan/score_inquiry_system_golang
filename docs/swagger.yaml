@@ -938,7 +938,7 @@ paths:
       summary: 删除一条教学班学生信息
       tags:
         - 教学班信息
-  /teachingClass/download/{teachingClassId}:
+  /teachingClass/download/{teachingClassId}/{courseId}:
     get:
       consumes:
         - application/json
@@ -962,68 +962,13 @@ paths:
   /teachingClass/downloadCrossSemester:
     post:
       consumes:
-        - multipart/form-data
+        - application/json
       description: 下载跨学期的成绩信息
       parameters:
         - description: Token
           in: header
           name: Authorization
           required: true
-          type: string
-        - description: 查询页码
-          in: formData
-          name: pageNum
-          required: true
-          type: string
-        - description: 每页条数
-          in: formData
-          name: pageSize
-          required: true
-          type: string
-        - description: 学生学号
-          in: formData
-          name: studentId
-          required: true
-          type: string
-        - description: 姓名
-          in: formData
-          name: name
-          type: string
-        - description: 所在年级
-          in: formData
-          name: grade
-          type: string
-        - description: 所在学院或部门
-          in: formData
-          name: department
-          type: string
-        - description: 所在专业
-          in: formData
-          name: professional
-          type: string
-        - description: 所在班级
-          in: formData
-          name: class
-          type: string
-        - description: 课程名称
-          in: formData
-          name: courseName
-          type: string
-        - description: 课程id
-          in: formData
-          name: courseId
-          type: string
-        - description: 教学班号
-          in: formData
-          name: teachingClassId
-          type: string
-        - description: 任课老师名字
-          in: formData
-          name: courseTeacherName
-          type: string
-        - description: 任课老师id
-          in: formData
-          name: courseTeacherId
           type: string
       produces:
         - application/json

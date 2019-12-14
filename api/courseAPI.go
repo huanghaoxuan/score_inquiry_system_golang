@@ -1,7 +1,9 @@
 package api
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
+	uuid "github.com/satori/go.uuid"
 	"net/http"
 	"score_inquiry_system/model"
 	"score_inquiry_system/service/courseService"
@@ -22,9 +24,29 @@ func Course(basePath *gin.RouterGroup) {
 	teacher.Use(middleware.ValidateTeacherPermissions)
 	teacher.POST("/course/insert", InsertCourse)
 	teacher.POST("/course/update", UpdateCourse)
-	//basePath.POST("/course/upload", UploadCourse)
+	basePath.POST("/course/upload", UploadCourse)
 	basePath.POST("/course/selectByPage", SelectCourseByPage)
 	teacher.GET("/course/delete/:id", DeleteCourse)
+}
+
+// @Summary 上传课程信息表格文件
+// @Description 上传课程信息表格文件，批量添加学生信息
+// @Tags 课程信息
+// @Accept mpfd
+// @Produce json
+// @Param Authorization header string true "Token"
+// @Param file formData file true "文件"
+// @Success 200 {string} json "{"status": 1}"
+// @Router /course/upload [post]
+func UploadCourse(c *gin.Context) {
+	// 单文件
+	fileHeader, _ := c.FormFile("file")
+	fmt.Println("./../public/studentInformation" + fileHeader.Filename)
+	s := "public/studentInformation/" + uuid.NewV4().String() + fileHeader.Filename
+	_ = c.SaveUploadedFile(fileHeader, s)
+
+	courseService.ProcessingExcelFile(s)
+
 }
 
 // @Summary 增加课程信息记录

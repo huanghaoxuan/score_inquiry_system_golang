@@ -1,7 +1,9 @@
 package api
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
+	uuid "github.com/satori/go.uuid"
 	"net/http"
 	"score_inquiry_system/model"
 	"score_inquiry_system/service/teacherInformationService"
@@ -22,9 +24,29 @@ func TeacherInformation(basePath *gin.RouterGroup) {
 	teacher.Use(middleware.ValidateTeacherPermissions)
 	teacher.POST("/teacherInformation/insert", InsertTeacherInformation)
 	teacher.POST("/teacherInformation/update", UpdateTeacherInformation)
-	//basePath.POST("/teacherInformation/upload", UploadTeacherInformation)
+	teacher.POST("/teacherInformation/upload", UploadTeacherInformation)
 	teacher.POST("/teacherInformation/selectByPage", SelectTeacherInformationByPage)
 	teacher.GET("/teacherInformation/delete/:id", DeleteTeacherInformation)
+}
+
+// @Summary 上传教师信息表格文件
+// @Description 上传教师信息表格文件，批量添加学生信息
+// @Tags 老师信息
+// @Accept mpfd
+// @Produce json
+// @Param Authorization header string true "Token"
+// @Param file formData file true "文件"
+// @Success 200 {string} json "{"status": 1}"
+// @Router /studentInformation/upload [post]
+func UploadTeacherInformation(c *gin.Context) {
+	// 单文件
+	fileHeader, _ := c.FormFile("file")
+	fmt.Println("./../public/teacherInformation" + fileHeader.Filename)
+	s := "public/studentInformation/" + uuid.NewV4().String() + fileHeader.Filename
+	_ = c.SaveUploadedFile(fileHeader, s)
+
+	teacherInformationService.ProcessingExcelFile(s)
+
 }
 
 // @Summary 增加老师信息记录

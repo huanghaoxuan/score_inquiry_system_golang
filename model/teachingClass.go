@@ -17,6 +17,7 @@ import (
 //教学班学生信息结构体
 type TeachingClass struct {
 	Id                string    `form:"id" gorm:"primary_key;column:id" json:"id"`                                         //主键
+	Status            int       `form:"status" gorm:"column:status" json:"status"`                                         //成绩状态（1、可查，2、不可查）
 	Grade             string    `form:"grade" gorm:"column:grade" json:"grade"`                                            //所在年级
 	StudentId         string    `form:"studentId" gorm:"column:student_id;not null;index:idx_student_id" json:"studentId"` //学生学号、老师工号
 	Name              string    `form:"name" gorm:"column:name" json:"name"`                                               //姓名
@@ -60,12 +61,43 @@ func (teachingClass *TeachingClass) Select() []TeachingClass {
 
 //分页查询
 func (teachingClass *TeachingClass) SelectByPage(pageNum int, pageSize int) []TeachingClass {
-	teachingClasses := make([]TeachingClass, 10)
+	result := make([]TeachingClass, 10)
 	if pageNum > 0 && pageSize > 0 {
-		db.DB.Where(&teachingClass).
-			Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&teachingClasses)
+		sql := "t.name LIKE ? AND t.student_id LIKE ? and t.department LIKE ? and professional LIKE ? and course_id = ? and teaching_class_id = ? "
+		if pageNum > 0 && pageSize > 0 {
+			db.DB.
+				Table(" teaching_class t ").
+				Select(" * ").
+				Where(sql,
+					"%"+teachingClass.Name+"%",
+					"%"+teachingClass.StudentId+"%",
+					"%"+teachingClass.Department+"%",
+					"%"+teachingClass.Professional+"%",
+					teachingClass.CourseId,
+					teachingClass.TeachingClassId).
+				Order("student_id ASC").
+				Limit(pageSize).Offset((pageNum - 1) * pageSize).
+				Scan(&result)
+		}
 	}
-	return teachingClasses
+	return result
+}
+
+//查询总记录
+func (teachingClass *TeachingClass) SelectCrossSemesterCount() int {
+	count := 0
+	sql := "t.name LIKE ? AND t.student_id LIKE ? and t.department LIKE ? and professional LIKE ? and course_id = ? and teaching_class_id = ? "
+	db.DB.
+		Table(" teaching_class t ").
+		Select(" * ").
+		Where(sql,
+			"%"+teachingClass.Name+"%",
+			"%"+teachingClass.StudentId+"%",
+			"%"+teachingClass.Department+"%",
+			"%"+teachingClass.Professional+"%",
+			teachingClass.CourseId,
+			teachingClass.TeachingClassId).Count(&count)
+	return count
 }
 
 //分页模糊查询
@@ -88,7 +120,7 @@ func (teachingClass *TeachingClassResult) SelectCrossSemester() []TeachingClassR
 func (teachingClass *TeachingClassResult) SelectLikeByPage(pageNum int, pageSize int) []TeachingClassResult {
 
 	result := make([]TeachingClassResult, 10)
-	sql := "t.course_name LIKE ? AND t.student_id = ?"
+	sql := "t.course_name LIKE ? AND t.student_id = ? and status = '2' "
 	if teachingClass.Year != 0 {
 		sql = sql + " AND c.year = " + strconv.Itoa(teachingClass.Year)
 	}
@@ -98,7 +130,7 @@ func (teachingClass *TeachingClassResult) SelectLikeByPage(pageNum int, pageSize
 	if pageNum > 0 && pageSize > 0 {
 		db.DB.
 			Table("teaching_class t").
-			Select("t.*,c.`year`,c.`semester`").
+			Select("t.`result`,t.`created_at`,t.`course_name`,c.`year`,c.`semester`,c.`course_id`").
 			Joins("LEFT JOIN `course` c ON t.course_id = c.id").
 			Where(sql,
 				"%"+teachingClass.CourseName+"%",
@@ -113,8 +145,23 @@ func (teachingClass *TeachingClassResult) SelectLikeByPage(pageNum int, pageSize
 //查询所有
 func (teachingClass *TeachingClass) SelectAll() []TeachingClass {
 	teachingClasses := make([]TeachingClass, 10)
-	db.DB.Where(&teachingClass).Order("created_at desc").Find(&teachingClasses)
+	db.DB.Where(&teachingClass).Order("student_id ASC").Find(&teachingClasses)
 	return teachingClasses
+}
+
+//查询所有
+func (teachingClass *TeachingClass) SelectDownload() []TeachingClassResult {
+	result := make([]TeachingClassResult, 10)
+	db.DB.
+		Table("teaching_class t").
+		Select("t.student_id,t.`name`,t.grade,t.department,t.professional,t.class,t.course_name,t.teaching_class_id,t.course_teacher_name,t.final,t.result,c.course_id,c.`year`,c.semester").
+		Joins("LEFT JOIN `course` c ON t.course_id = c.id").
+		Where("t.teaching_class_id = ? AND t.course_id = ?",
+			teachingClass.TeachingClassId,
+			teachingClass.CourseId).
+		Order("student_id ASC").
+		Scan(&result)
+	return result
 }
 
 //查询总记录
@@ -131,6 +178,11 @@ func (teachingClass *TeachingClass) Update() int64 {
 		return updates.RowsAffected
 	}
 	return 0
+}
+
+//更新记录
+func (teachingClass *TeachingClass) UpdateStatus() {
+	db.DB.Exec("UPDATE teaching_class SET status = ? WHERE course_id = ? and teaching_class_id = ?", teachingClass.Status, teachingClass.CourseId, teachingClass.TeachingClassId)
 }
 
 func (teachingClass *TeachingClass) UpdateAll() int64 {

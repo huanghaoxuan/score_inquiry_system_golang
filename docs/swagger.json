@@ -1393,7 +1393,7 @@
           ]
         }
       },
-      "/teachingClass/download/{teachingClassId}": {
+      "/teachingClass/download/{teachingClassId}/{courseId}": {
         "get": {
           "description": "下载成绩信息",
           "consumes": [
@@ -1428,7 +1428,7 @@
         "post": {
           "description": "下载跨学期的成绩信息",
           "consumes": [
-            "multipart/form-data"
+            "application/json"
           ],
           "produces": [
             "application/json"
@@ -1444,87 +1444,6 @@
               "name": "Authorization",
               "in": "header",
               "required": true
-            },
-            {
-              "type": "string",
-              "description": "查询页码",
-              "name": "pageNum",
-              "in": "formData",
-              "required": true
-            },
-            {
-              "type": "string",
-              "description": "每页条数",
-              "name": "pageSize",
-              "in": "formData",
-              "required": true
-            },
-            {
-              "type": "string",
-              "description": "学生学号",
-              "name": "studentId",
-              "in": "formData",
-              "required": true
-            },
-            {
-              "type": "string",
-              "description": "姓名",
-              "name": "name",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "所在年级",
-              "name": "grade",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "所在学院或部门",
-              "name": "department",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "所在专业",
-              "name": "professional",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "所在班级",
-              "name": "class",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "课程名称",
-              "name": "courseName",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "课程id",
-              "name": "courseId",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "教学班号",
-              "name": "teachingClassId",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "任课老师名字",
-              "name": "courseTeacherName",
-              "in": "formData"
-            },
-            {
-              "type": "string",
-              "description": "任课老师id",
-              "name": "courseTeacherId",
-              "in": "formData"
             }
           ]
         }
