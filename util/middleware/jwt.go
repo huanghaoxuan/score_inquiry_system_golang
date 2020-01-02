@@ -57,9 +57,9 @@ func ValidateToken(c *gin.Context) {
 			//验证通过继续往下走
 			//finToken := token.Claims.(jwt.MapClaims)
 			//校验下token是否过期
-			//succ := finToken.VerifyExpiresAt(time.Now().Unix(),true)
+			//succ := finToken.VerifyExpiresAt(time.Now().Unix(), true)
 			//获取token中保存的用户信息
-			//fmt.Println(finToken["iss"])
+			//fmt.Println(succ)
 			c.Next()
 		} else {
 			//验证不通过
@@ -79,7 +79,8 @@ func ValidateTeacherPermissions(c *gin.Context) {
 		})
 	finToken := token.Claims.(jwt.MapClaims)
 	//校验下token是否过期
-	//succ := finToken.VerifyExpiresAt(time.Now().Unix(),true)
+	//succ := finToken.VerifyExpiresAt(time.Now().Unix(), true)
+	//fmt.Println(succ)
 	//获取token中保存的用户信息
 	if (int)(finToken["permissions"].(float64)) == 1 {
 		c.AbortWithStatusJSON(http.StatusForbidden, gin.H{"msg": "该账号权限不允许使用该方法或该请求"})

@@ -62,6 +62,10 @@ func Insert(information *model.TeacherInformation) int64 {
 
 //更新相关记录权限
 func Update(information *model.TeacherInformation) int64 {
+	student := model.Student{
+		StudentId:   information.StudentId,
+		Permissions: information.Permissions}
+	student.Update()
 	return information.Update()
 }
 

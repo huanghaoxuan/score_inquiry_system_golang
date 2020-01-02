@@ -83,17 +83,19 @@ func (sourceStage *SourceStage) Update() int64 {
 //阶段性成绩更新
 func (sourceStage *SourceStage) UpdateSourceStage() int64 {
 	if sourceStage.SourceStageId != "" && sourceStage.Id == "" {
-		updates := db.DB.Model(&sourceStage).Where("source_stage_id = ? AND course_id = ? AND teaching_class_id = ?",
+		updates := db.DB.Model(&sourceStage).Where("source_stage_id = ? AND course_id = ? AND teaching_class_id = ? AND student_id = ?",
 			sourceStage.SourceStageId,
 			sourceStage.CourseId,
-			sourceStage.TeachingClassId).Updates(sourceStage)
+			sourceStage.TeachingClassId,
+			sourceStage.StudentId).Updates(sourceStage)
 		return updates.RowsAffected
 	} else if sourceStage.SourceStageId != "" {
-		updates := db.DB.Model(&sourceStage).Where("id = ? and source_stage_id = ? AND course_id = ? AND teaching_class_id = ?",
+		updates := db.DB.Model(&sourceStage).Where("id = ? and source_stage_id = ? AND course_id = ? AND teaching_class_id = ? AND student_id = ?",
 			sourceStage.Id,
 			sourceStage.SourceStageId,
 			sourceStage.CourseId,
-			sourceStage.TeachingClassId).Updates(sourceStage)
+			sourceStage.TeachingClassId,
+			sourceStage.StudentId).Updates(sourceStage)
 		return updates.RowsAffected
 	}
 	return 0

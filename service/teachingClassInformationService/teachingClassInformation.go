@@ -20,8 +20,20 @@ func Count(information *model.TeachingClassInformation) int {
 }
 
 //分页查询
-func SelectByPage(pageNum int, pageSize int, information *model.TeachingClassInformationResult) []model.TeachingClassInformationResult {
-	return information.SelectByPage(pageNum, pageSize)
+func SelectByPage(pageNum int, pageSize int, information *model.TeachingClassInformationResult) interface{} {
+	classInformationResults := information.SelectByPage(pageNum, pageSize)
+	type result struct {
+		model.TeachingClassInformationResult
+		StudentCount int `json:"studentCount"`
+	}
+	res := make([]result, len(classInformationResults))
+	for i := 0; i < len(res); i++ {
+		res[i].TeachingClassInformationResult = classInformationResults[i]
+		//此处的id为CourseId，遗留问题，字段不够，请仔细辨认
+		teachingClass := model.TeachingClass{CourseId: classInformationResults[i].Id, TeachingClassId: classInformationResults[i].TeachingClassId}
+		res[i].StudentCount = teachingClass.Count()
+	}
+	return res
 }
 
 //插入

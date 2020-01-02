@@ -2,29 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="643eb69c-3746-41e6-a2bc-ccda17858c03" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/teachingClass/fdc3d0db-0a96-4bdc-8610-316a945eca0f1教学班导入信息.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/finalScore/crossSemester.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/teachingClass/1c73e930-d8ea-46c3-a605-67897ecf6ea51教学班导入信息.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/courseAPI.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/courseAPI.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/sourceStageAPI.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/sourceStageAPI.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/teacherInformationAPI.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/teacherInformationAPI.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/teachingClassAPI.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/teachingClassAPI.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/teachingClassInformationAPI.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/teachingClassInformationAPI.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/docs.go" beforeDir="false" afterPath="$PROJECT_DIR$/docs/docs.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/swagger.json" beforeDir="false" afterPath="$PROJECT_DIR$/docs/swagger.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/swagger.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/docs/swagger.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/sourceStage.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/sourceStage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/studentInformation.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/studentInformation.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/sourceStageInformation.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/sourceStageInformation.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/teachingClass.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/teachingClass.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/teachingClassInformation.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/teachingClassInformation.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/analysisService/analysis.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/analysisService/analysis.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/courseService/course.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/courseService/course.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/sourceStageService/sourceStage.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/sourceStageService/sourceStage.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/teacherInformationService/teacherInformation.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/teacherInformationService/teacherInformation.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/teachingClassInformationService/teachingClassInformation.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/teachingClassInformationService/teachingClassInformation.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/teachingClassService/download.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/teachingClassService/download.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/teachingClassService/teachingClass.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/teachingClassService/teachingClass.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/middleware/jwt.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/middleware/jwt.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -96,7 +85,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="com.goide.configuration.GoLibrariesConfigurableProvider" />
+    <property name="settings.editor.selected.configurable" value="project.propDebugger" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -250,7 +239,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="添加阶段性测验成绩" />
     <MESSAGE value="录入阶段性成绩细节修复" />
     <MESSAGE value="阶段性成绩录入基本完成" />
     <MESSAGE value="阶段性成绩录入细节修复" />
@@ -275,7 +263,8 @@
     <MESSAGE value="学生添加筛选" />
     <MESSAGE value="增每学期导出功能" />
     <MESSAGE value="增跨学期导出功能" />
-    <option name="LAST_COMMIT_MESSAGE" value="增跨学期导出功能" />
+    <MESSAGE value="相关bug优化" />
+    <option name="LAST_COMMIT_MESSAGE" value="相关bug优化" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="VgoProject">

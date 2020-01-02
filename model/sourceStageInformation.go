@@ -22,6 +22,7 @@ type SourceStageInformation struct {
 	CourseId        string    `form:"courseId" gorm:"column:course_id" json:"courseId"`                                 //课程id
 	StageNote       string    `form:"stageNote" gorm:"column:stage_note;not null;" json:"stageNote"`                    //阶段性测验描述
 	Percentage      string    `form:"percentage" gorm:"column:percentage" json:"percentage"`                            //阶段性测验占比
+	Type            string    `form:"type" gorm:"column:type" json:"type"`                                              //课程类型
 	CreatedAt       time.Time `form:"createdAt" gorm:"column:created_at" json:"createdAt"`                              //创建时间
 }
 
@@ -35,7 +36,7 @@ func (sourceStageInformation *SourceStageInformation) SelectById() *SourceStageI
 func (sourceStageInformation *SourceStageInformation) SelectByPage(pageNum int, pageSize int) []SourceStageInformation {
 	sourceStageInformations := make([]SourceStageInformation, 10)
 	if pageNum > 0 && pageSize > 0 {
-		db.DB.Where(&sourceStageInformation).Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&sourceStageInformations)
+		db.DB.Where(&sourceStageInformation).Order("created_at ASC").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&sourceStageInformations)
 	}
 	return sourceStageInformations
 }

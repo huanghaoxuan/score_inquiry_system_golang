@@ -48,8 +48,8 @@ func SelectByPage(pageNum int, pageSize int, sourceStage *model.SourceStage) (in
 		//fmt.Println(data)
 	}
 
-	count := sourceStage.Count()
-	return data, count
+	//count := sourceStage.Count()
+	return data, len(data)
 }
 
 //插入

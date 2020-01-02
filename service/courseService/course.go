@@ -20,8 +20,22 @@ func Count(course *model.Course) int {
 }
 
 //分页查询
-func SelectByPage(pageNum int, pageSize int, course *model.Course) []model.Course {
-	return course.SelectByPage(pageNum, pageSize)
+func SelectByPage(pageNum int, pageSize int, course *model.Course) interface{} {
+	courses := course.SelectByPage(pageNum, pageSize)
+	type courseResult struct {
+		model.Course
+		ClassCount   int `json:"classCount"`
+		StudentCount int `json:"studentCount"`
+	}
+	courseRes := make([]courseResult, len(courses))
+	for i := 0; i < len(courseRes); i++ {
+		courseRes[i].Course = courses[i]
+		teachingClassInformation := model.TeachingClassInformation{CourseId: courseRes[i].Id}
+		courseRes[i].ClassCount = teachingClassInformation.Count()
+		teachingClass := model.TeachingClass{CourseId: courseRes[i].Id}
+		courseRes[i].StudentCount = teachingClass.Count()
+	}
+	return courseRes
 }
 
 //表格处理
