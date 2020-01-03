@@ -3,7 +3,10 @@ package teachingClassService
 import (
 	"fmt"
 	"github.com/360EntSecGroup-Skylar/excelize"
+	uuid "github.com/satori/go.uuid"
 	"score_inquiry_system/model"
+	"score_inquiry_system/util/common"
+	"sort"
 	"strconv"
 )
 
@@ -14,6 +17,131 @@ import (
  * @Date: 2019/7/29 15:25
  * @Version 1.0
  */
+
+func GeneratedExcel2(teachingClassId string, courseId string) string {
+	xlsx := excelize.NewFile()
+	// 创建一个工作表
+	index := xlsx.NewSheet("Sheet1")
+	// 设置工作簿的默认工作表
+	xlsx.SetActiveSheet(index)
+	//阶段成绩表头信息
+	sourceStageInformation := model.SourceStageInformation{TeachingClassId: teachingClassId, CourseId: courseId}
+	sourceStageInformations := sourceStageInformation.SelectAll()
+
+	xlsx.MergeCell("Sheet1", "A1", getHeader(len(sourceStageInformations)+5, 1))
+	xlsx.SetCellValue("Sheet1", "A1", "东南大学成贤学院过程成绩记录表")
+	//查询课程信息
+	teachingClassInformat := model.TeachingClassInformation{TeachingClassId: teachingClassId, CourseId: courseId}
+	teachingClassInformationResult := teachingClassInformat.SelectByTeachingClassIdAndCourseId()
+	teacher := model.TeacherInformation{Name: teachingClassInformationResult.CourseTeacherName}
+	//期末成绩、总成绩
+	teachingClass := model.TeachingClass{TeachingClassId: teachingClassId, CourseId: courseId}
+	teachingClasses := teachingClass.SelectDownload()
+	teacher.SelectByName()
+	xlsx.MergeCell("Sheet1", "A2", getHeader(len(sourceStageInformations)+5, 2))
+	xlsx.SetCellValue("Sheet1", "A2", strconv.Itoa(teachingClassInformationResult.Year)+"-"+strconv.Itoa(teachingClassInformationResult.Year+1)+" "+teachingClassInformationResult.Semester)
+	xlsx.MergeCell("Sheet1", "A3", getHeader((len(sourceStageInformations)+5)/3-1, 3))
+	xlsx.SetCellValue("Sheet1", "A3", "承担单位："+teacher.Department)
+	xlsx.MergeCell("Sheet1", getHeader((len(sourceStageInformations)+5)/3, 3), getHeader((len(sourceStageInformations)+5)/3*2-1, 3))
+	xlsx.SetCellValue("Sheet1", getHeader((len(sourceStageInformations)+5)/3, 3), "课程："+teachingClassInformationResult.CourseName)
+	xlsx.MergeCell("Sheet1", getHeader((len(sourceStageInformations)+5)/3*2, 3), getHeader(len(sourceStageInformations)+5, 3))
+	xlsx.SetCellValue("Sheet1", getHeader((len(sourceStageInformations)+5)/3*2, 3), "人数："+strconv.Itoa(len(teachingClasses)))
+
+	xlsx.MergeCell("Sheet1", "A4", getHeader((len(sourceStageInformations)+5)/3-1, 4))
+	xlsx.SetCellValue("Sheet1", "A4", "任课教师："+teacher.Name)
+	classes := make([]string, len(teachingClasses))
+	for _, v := range teachingClasses {
+		classes = append(classes, v.Class)
+	}
+	sort.Strings(classes)
+	classes = common.RemoveRepByLoop(classes)
+	class := ""
+	for i, v := range classes {
+		if v != "" {
+			class += v
+			if i+1 != len(classes) {
+				class += "，"
+			}
+		}
+
+	}
+	xlsx.MergeCell("Sheet1", getHeader((len(sourceStageInformations)+5)/3, 4), getHeader((len(sourceStageInformations)+5)/3*2-1, 4))
+	xlsx.SetCellValue("Sheet1", getHeader((len(sourceStageInformations)+5)/3, 4), "上课班级："+class)
+	xlsx.MergeCell("Sheet1", getHeader((len(sourceStageInformations)+5)/3*2, 4), getHeader(len(sourceStageInformations)+5, 4))
+	xlsx.SetCellValue("Sheet1", getHeader((len(sourceStageInformations)+5)/3*2, 4), "课序号："+teachingClassId)
+	xlsx.MergeCell("Sheet1", "A5", getHeader(len(sourceStageInformations)+5, 5))
+	//设置成绩的组成公式
+	composition := "总评成绩 = "
+	finalPercentage := 100.0
+	for _, v := range sourceStageInformations {
+		composition += v.StageNote + " * " + v.Percentage + " % + "
+		percentage, _ := strconv.ParseFloat(v.Percentage, 64)
+		finalPercentage = finalPercentage - percentage
+	}
+	composition += "期末成绩 * " + fmt.Sprintf("%.1f", finalPercentage) + " % "
+	xlsx.SetCellValue("Sheet1", "A5", composition)
+	/*表格文件总览数据填写完成*/
+
+	//设置成绩的表头
+	xlsx.MergeCell("Sheet1", "A6", "A7")
+	xlsx.SetCellValue("Sheet1", "A6", "序号")
+	xlsx.MergeCell("Sheet1", "B6", "B7")
+	xlsx.SetCellValue("Sheet1", "B6", "班级")
+	xlsx.MergeCell("Sheet1", "C6", "C7")
+	xlsx.SetCellValue("Sheet1", "C6", "学号")
+	xlsx.MergeCell("Sheet1", "D6", "D7")
+	xlsx.SetCellValue("Sheet1", "D6", "姓名")
+	xlsx.MergeCell("Sheet1", "E6", getHeader(len(sourceStageInformations)+4, 6))
+	xlsx.SetCellValue("Sheet1", "E6", "考核项目")
+
+	//设置分布成绩表头
+	//阶段成绩
+	sourceStage := model.SourceStage{TeachingClassId: teachingClassId, CourseId: courseId}
+	sourceStages := sourceStage.SelectAll()
+	for i, v := range sourceStageInformations {
+		xlsx.SetCellValue("Sheet1", getHeader(i+4, 7), v.StageNote)
+	}
+	xlsx.SetCellValue("Sheet1", getHeader(len(sourceStageInformations)+4, 7), "期末成绩")
+	xlsx.MergeCell("Sheet1", getHeader(len(sourceStageInformations)+5, 6), getHeader(len(sourceStageInformations)+5, 7))
+	xlsx.SetCellValue("Sheet1", getHeader(len(sourceStageInformations)+5, 6), "总评成绩")
+
+	//设置姓名、学号、课程名、学年、学期、期末成绩、总成绩
+	for index := 0; index < len(teachingClasses); index++ {
+		xlsx.SetCellValue("Sheet1", "A"+strconv.Itoa(index+8), index+1)
+		xlsx.SetCellValue("Sheet1", "B"+strconv.Itoa(index+8), teachingClasses[index].Class)
+		xlsx.SetCellValue("Sheet1", "C"+strconv.Itoa(index+8), teachingClasses[index].StudentId)
+		xlsx.SetCellValue("Sheet1", "D"+strconv.Itoa(index+8), teachingClasses[index].Name)
+
+		for i, v := range sourceStageInformations {
+			for _, v2 := range sourceStages {
+				if v.Id == v2.SourceStageId && v2.StudentId == teachingClasses[index].StudentId {
+					xlsx.SetCellValue("Sheet1", getHeader(i+4, index+8), v2.Scores)
+				}
+			}
+		}
+
+		xlsx.SetCellValue("Sheet1", getHeader(len(sourceStageInformations)+4, index+8), teachingClasses[index].Final)
+		xlsx.SetCellValue("Sheet1", getHeader(len(sourceStageInformations)+5, index+8), teachingClasses[index].Result)
+	}
+
+	//设置表格样式
+	alignmentStyle, _ := xlsx.NewStyle(`{"alignment":{"horizontal":"center","vertical":"center"}}`)
+	xlsx.SetCellStyle("Sheet1", "A1", getHeader(len(sourceStageInformations)+5, 5), alignmentStyle)
+
+	style, _ := xlsx.NewStyle(`{"alignment":{"horizontal":"center","vertical":"center"},"border":[{"type":"left","color":"000000","style":1},{"type":"right","color":"000000","style":1},{"type":"top","color":"000000","style":1},{"type":"bottom","color":"000000","style":1}]}`)
+	xlsx.SetCellStyle("Sheet1", "A6", getHeader(len(sourceStageInformations)+5, len(teachingClasses)+7), style)
+
+	xlsx.ProtectSheet("Sheet1", &excelize.FormatSheetProtection{
+		Password:      "admin",
+		EditScenarios: false,
+	})
+
+	// 根据指定路径保存文件
+	if err := xlsx.SaveAs("public/finalScore/" + courseId + "-" + teachingClassId + ".xlsx"); err != nil {
+		println(err.Error())
+	}
+	return courseId + "-" + teachingClassId + ".xlsx"
+}
 
 func GeneratedExcel(teachingClassId string, courseId string) string {
 	xlsx := excelize.NewFile()
@@ -77,11 +205,11 @@ func GeneratedExcel(teachingClassId string, courseId string) string {
 	// 设置工作簿的默认工作表
 	xlsx.SetActiveSheet(index)
 	// 根据指定路径保存文件
-	err := xlsx.SaveAs("public/finalScore/" + teachingClassId + ".xlsx")
+	err := xlsx.SaveAs("public/finalScore/" + courseId + "-" + teachingClassId + ".xlsx")
 	if err != nil {
 		fmt.Println(err)
 	}
-	return teachingClassId + ".xlsx"
+	return courseId + "-" + teachingClassId + ".xlsx"
 }
 
 func GeneratedExcelCrossSemester(teachingClasses []model.TeachingClassResult) string {
@@ -154,15 +282,15 @@ func GeneratedExcelCrossSemester(teachingClasses []model.TeachingClassResult) st
 	// 设置工作簿的默认工作表
 	xlsx.SetActiveSheet(index)
 	// 根据指定路径保存文件
-	err := xlsx.SaveAs("public/finalScore/crossSemester.xlsx")
+	err := xlsx.SaveAs("public/finalScore/crossSemester" + uuid.NewV4().String() + ".xlsx")
 	if err != nil {
 		fmt.Println(err)
 	}
-	return "crossSemester.xlsx"
+	return "crossSemester" + uuid.NewV4().String() + ".xlsx"
 }
 
 /*
-	行列转化为“A1”的格式
+	（0，1）行列转化为“A1”的格式
 */
 func getHeader(row int, l int) string {
 	axis := strconv.Itoa(l)

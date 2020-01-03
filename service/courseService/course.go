@@ -24,14 +24,19 @@ func SelectByPage(pageNum int, pageSize int, course *model.Course) interface{} {
 	courses := course.SelectByPage(pageNum, pageSize)
 	type courseResult struct {
 		model.Course
-		ClassCount   int `json:"classCount"`
-		StudentCount int `json:"studentCount"`
+		ClassCount      int `json:"classCount"`
+		StudentCount    int `json:"studentCount"`
+		CompleteInput   int `json:"completeInput"`
+		UnCompleteInput int `json:"unCompleteInput"`
 	}
 	courseRes := make([]courseResult, len(courses))
 	for i := 0; i < len(courseRes); i++ {
 		courseRes[i].Course = courses[i]
 		teachingClassInformation := model.TeachingClassInformation{CourseId: courseRes[i].Id}
 		courseRes[i].ClassCount = teachingClassInformation.Count()
+		teachingClassInformation.Status = 2
+		courseRes[i].CompleteInput = teachingClassInformation.CompleteInputCount()
+		courseRes[i].UnCompleteInput = courseRes[i].ClassCount - courseRes[i].CompleteInput
 		teachingClass := model.TeachingClass{CourseId: courseRes[i].Id}
 		courseRes[i].StudentCount = teachingClass.Count()
 	}
@@ -57,6 +62,7 @@ func ProcessingExcelFile(s string) {
 					course.Semester = colCell
 				}
 			}
+			course.Status = 1
 			//插入基本信息
 			Insert(&course)
 		}

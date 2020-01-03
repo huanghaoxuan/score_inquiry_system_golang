@@ -286,7 +286,7 @@ func UpdateFinal(c *gin.Context) {
 func DownloadFinalScore(c *gin.Context) {
 	teachingClassId := c.Param("teachingClassId")
 	courseId := c.Param("courseId")
-	filename := teachingClassService.GeneratedExcel(teachingClassId, courseId)
+	filename := teachingClassService.GeneratedExcel2(teachingClassId, courseId)
 	//fmt.Sprintf("attachment; filename=%s", filename)对下载的文件重命名
 	c.Writer.Header().Add("Content-Disposition", fmt.Sprintf("attachment; filename=%s", filename))
 	c.Writer.Header().Add("Content-Type", "application/octet-stream")

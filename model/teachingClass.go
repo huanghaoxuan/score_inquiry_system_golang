@@ -17,7 +17,7 @@ import (
 //教学班学生信息结构体
 type TeachingClass struct {
 	Id                string    `form:"id" gorm:"primary_key;column:id" json:"id"`                                         //主键
-	Status            int       `form:"status" gorm:"column:status" json:"status"`                                         //成绩状态（1、可查，2、不可查）
+	Status            int       `form:"status" gorm:"column:status" json:"status"`                                         //成绩状态（1、教师录入中，2、教师已确认，3、成绩已发布）
 	Grade             string    `form:"grade" gorm:"column:grade" json:"grade"`                                            //所在年级
 	StudentId         string    `form:"studentId" gorm:"column:student_id;not null;index:idx_student_id" json:"studentId"` //学生学号、老师工号
 	Name              string    `form:"name" gorm:"column:name" json:"name"`                                               //姓名
@@ -121,7 +121,7 @@ func (teachingClass *TeachingClassResult) SelectCrossSemester() []TeachingClassR
 func (teachingClass *TeachingClassResult) SelectLikeByPage(pageNum int, pageSize int) []TeachingClassResult {
 
 	result := make([]TeachingClassResult, 10)
-	sql := "t.course_name LIKE ? AND t.student_id = ? and status = '2' "
+	sql := "t.course_name LIKE ? AND t.student_id = ? and status = '3' "
 	if teachingClass.Year != 0 {
 		sql = sql + " AND c.year = " + strconv.Itoa(teachingClass.Year)
 	}

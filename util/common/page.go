@@ -1,4 +1,4 @@
-package selectPage
+package common
 
 /**
  * @Author: HuangHaoXuan

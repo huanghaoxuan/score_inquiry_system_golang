@@ -2,18 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="643eb69c-3746-41e6-a2bc-ccda17858c03" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/finalScore/crossSemester.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/teachingClass/1c73e930-d8ea-46c3-a605-67897ecf6ea51教学班导入信息.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/finalScore/b3fb6d6b-0c06-45a5-a44e-c80475e6569c-1550.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/util/common/loop.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/sourceStage.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/sourceStage.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/teachingClassAPI.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/teachingClassAPI.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/teachingClassInformationAPI.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/teachingClassInformationAPI.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/msserver.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/msserver.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/course.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/course.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/sourceStageInformation.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/sourceStageInformation.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/teacherInformation.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/teacherInformation.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/teachingClass.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/teachingClass.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/teachingClassInformation.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/teachingClassInformation.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/finalScore/crossSemester.xlsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/service/courseService/course.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/courseService/course.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/sourceStageService/sourceStage.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/sourceStageService/sourceStage.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/teacherInformationService/teacherInformation.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/teacherInformationService/teacherInformation.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/teachingClassInformationService/teachingClassInformation.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/teachingClassInformationService/teachingClassInformation.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/service/teachingClassService/download.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/teachingClassService/download.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/middleware/jwt.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/middleware/jwt.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/teachingClassService/download_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/teachingClassService/download_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/selectPage/page.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/common/page.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -85,7 +89,7 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="project.propDebugger" />
+    <property name="settings.editor.selected.configurable" value="go.vgo" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -125,15 +129,6 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
-    <configuration name="go build md5.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
-      <module name="score_inquiry_system" />
-      <working_directory value="$PROJECT_DIR$" />
-      <kind value="FILE" />
-      <filePath value="$PROJECT_DIR$/util/md5/md5.go" />
-      <package value="score_inquiry_system" />
-      <directory value="$PROJECT_DIR$/" />
-      <method v="2" />
-    </configuration>
     <configuration name="go build score_inquiry_system" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="score_inquiry_system" />
       <working_directory value="$PROJECT_DIR$" />
@@ -141,6 +136,17 @@
       <filePath value="$PROJECT_DIR$/" />
       <package value="score_inquiry_system" />
       <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestGeneratedExcel in score_inquiry_system/service/teachingClassService (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="score_inquiry_system" />
+      <working_directory value="$PROJECT_DIR$/service/teachingClassService" />
+      <framework value="gotest" />
+      <kind value="PACKAGE" />
+      <package value="score_inquiry_system/service/teachingClassService" />
+      <directory value="$PROJECT_DIR$/" />
+      <filePath value="$PROJECT_DIR$/" />
+      <pattern value="^TestGeneratedExcel$" />
       <method v="2" />
     </configuration>
     <configuration name="TestGeneratedExcel in score_inquiry_system/service/teachingClassService" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
@@ -168,44 +174,12 @@
     <recent_temporary>
       <list>
         <item itemvalue="Go Build.go build main.go" />
+        <item itemvalue="Go Test.TestGeneratedExcel in score_inquiry_system/service/teachingClassService (1)" />
         <item itemvalue="Go Test.TestGeneratedExcel in score_inquiry_system/service/teachingClassService" />
         <item itemvalue="Go Test.Test_GeneratedExcel in score_inquiry_system/service/teachingClassService" />
         <item itemvalue="Go Build.go build score_inquiry_system" />
-        <item itemvalue="Go Build.go build md5.go" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="TestHistory">
-    <history-entry file="TestGeneratedExcel_in_score_inquiry_system_service_teachingClassService - 2019.07.29 at 19h 36m 48s.xml">
-      <configuration name="TestGeneratedExcel in score_inquiry_system/service/teachingClassService" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestGeneratedExcel_in_score_inquiry_system_service_teachingClassService - 2019.07.29 at 19h 41m 52s.xml">
-      <configuration name="TestGeneratedExcel in score_inquiry_system/service/teachingClassService" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestGeneratedExcel_in_score_inquiry_system_service_teachingClassService - 2019.07.29 at 19h 44m 30s.xml">
-      <configuration name="TestGeneratedExcel in score_inquiry_system/service/teachingClassService" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestGeneratedExcel_in_score_inquiry_system_service_teachingClassService - 2019.07.29 at 19h 45m 47s.xml">
-      <configuration name="TestGeneratedExcel in score_inquiry_system/service/teachingClassService" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestGeneratedExcel_in_score_inquiry_system_service_teachingClassService - 2019.07.29 at 19h 46m 23s.xml">
-      <configuration name="TestGeneratedExcel in score_inquiry_system/service/teachingClassService" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestGeneratedExcel_in_score_inquiry_system_service_teachingClassService - 2019.07.29 at 19h 46m 36s.xml">
-      <configuration name="TestGeneratedExcel in score_inquiry_system/service/teachingClassService" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestGeneratedExcel_in_score_inquiry_system_service_teachingClassService - 2019.07.29 at 19h 47m 08s.xml">
-      <configuration name="TestGeneratedExcel in score_inquiry_system/service/teachingClassService" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestGeneratedExcel_in_score_inquiry_system_service_teachingClassService - 2019.07.29 at 19h 51m 24s.xml">
-      <configuration name="TestGeneratedExcel in score_inquiry_system/service/teachingClassService" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestGeneratedExcel_in_score_inquiry_system_service_teachingClassService - 2019.07.29 at 19h 54m 59s.xml">
-      <configuration name="TestGeneratedExcel in score_inquiry_system/service/teachingClassService" configurationId="GoTestRunConfiguration" />
-    </history-entry>
-    <history-entry file="TestGeneratedExcel_in_score_inquiry_system_service_teachingClassService - 2019.07.29 at 19h 56m 14s.xml">
-      <configuration name="TestGeneratedExcel in score_inquiry_system/service/teachingClassService" configurationId="GoTestRunConfiguration" />
-    </history-entry>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -239,7 +213,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="录入阶段性成绩细节修复" />
     <MESSAGE value="阶段性成绩录入基本完成" />
     <MESSAGE value="阶段性成绩录入细节修复" />
     <MESSAGE value="期末成绩结构体创建" />
@@ -264,7 +237,8 @@
     <MESSAGE value="增每学期导出功能" />
     <MESSAGE value="增跨学期导出功能" />
     <MESSAGE value="相关bug优化" />
-    <option name="LAST_COMMIT_MESSAGE" value="相关bug优化" />
+    <MESSAGE value="增加阶段性成绩类型" />
+    <option name="LAST_COMMIT_MESSAGE" value="增加阶段性成绩类型" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="VgoProject">

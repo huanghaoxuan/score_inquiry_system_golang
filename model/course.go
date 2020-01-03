@@ -16,6 +16,7 @@ import (
 //课程信息结构体
 type Course struct {
 	Id        string    `form:"id" gorm:"primary_key;column:id" json:"id"`                  //主键
+	Status    int       `form:"status" gorm:"column:status" json:"status"`                  //成绩状态（1、教师录入中，2、教师已确认，3、成绩已发布）
 	Name      string    `form:"name" gorm:"column:name;not null;" json:"name"`              //课程名字
 	CourseId  string    `form:"courseId" gorm:"column:course_id;not null;" json:"courseId"` //课程名字
 	Year      int       `form:"year" gorm:"column:year" json:"year"`                        //学年

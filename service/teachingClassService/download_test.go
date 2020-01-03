@@ -11,5 +11,5 @@ import "testing"
  */
 
 func TestGeneratedExcel(t *testing.T) {
-	GeneratedExcel("1555")
+	GeneratedExcel2("1550", "b3fb6d6b-0c06-45a5-a44e-c80475e6569c")
 }

@@ -17,7 +17,7 @@ import (
 //教学班信息结构体
 type TeachingClassInformation struct {
 	Id                string    `form:"id" gorm:"primary_key;column:id" json:"id"`                                        //主键
-	Status            int       `form:"status" gorm:"column:status" json:"status"`                                        //成绩状态（1、可查，2、不可查）
+	Status            int       `form:"status" gorm:"column:status" json:"status"`                                        //成绩状态（1、教师录入中，2、教师已确认，3、成绩已发布）
 	UniqueSign        string    `form:"uniqueSign" gorm:"column:unique_sign;unique;" json:"uniqueSign"`                   //唯一标志
 	CourseName        string    `form:"courseName" gorm:"column:course_name;index:idx_course_name" json:"courseName"`     //课程名称
 	CourseId          string    `form:"courseId" gorm:"column:course_id" json:"courseId"`                                 //课程id
@@ -105,6 +105,16 @@ func (teachingClassInformation *TeachingClassInformationResult) SelectByPage(pag
 	return result
 }
 
+//通过教学班号和课程号进行查询
+func (teachingClassInformation *TeachingClassInformation) SelectByTeachingClassIdAndCourseId() *TeachingClassInformationResult {
+	teachingClassInformationResult := TeachingClassInformationResult{}
+	db.DB.Table("teaching_class_information t").
+		Select(" t.*,c.`year`,c.`semester`").
+		Joins("LEFT JOIN `course` c ON t.course_id = c.id").
+		Where("t.teaching_class_id = ? AND t.course_id = ?", teachingClassInformation.TeachingClassId, teachingClassInformation.CourseId).Scan(&teachingClassInformationResult)
+	return &teachingClassInformationResult
+}
+
 //通过id查询
 func (teachingClassInformation *TeachingClassInformation) SelectById() *TeachingClassInformation {
 	db.DB.Where("id = ?", teachingClassInformation.Id).First(&teachingClassInformation)
@@ -119,6 +129,13 @@ func (teachingClassInformation *TeachingClassInformation) Select() []TeachingCla
 
 //查询总记录
 func (teachingClassInformation *TeachingClassInformation) Count() int {
+	count := 0
+	db.DB.Model(&teachingClassInformation).Where(&teachingClassInformation).Count(&count)
+	return count
+}
+
+//查询已完成录入的个数
+func (teachingClassInformation *TeachingClassInformation) CompleteInputCount() int {
 	count := 0
 	db.DB.Model(&teachingClassInformation).Where(&teachingClassInformation).Count(&count)
 	return count

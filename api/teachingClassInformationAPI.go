@@ -67,6 +67,8 @@ func updateStauts(c *gin.Context) {
 	res := teachingClassInformationService.Update(&teachingClassInformation)
 	teachingClass := model.TeachingClass{Status: status, CourseId: courseId, TeachingClassId: teachingClassId}
 	teachingClassService.UpdateStatus(&teachingClass)
+	course := model.Course{Id: courseId, Status: status}
+	course.Update()
 	//回调
 	c.JSON(http.StatusOK, gin.H{"status": res})
 }
