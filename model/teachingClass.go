@@ -2,6 +2,7 @@ package model
 
 import (
 	"score_inquiry_system/db"
+	"score_inquiry_system/util/common"
 	"strconv"
 	"time"
 )
@@ -57,6 +58,20 @@ func (teachingClass *TeachingClass) Select() []TeachingClass {
 	teachingClasses := make([]TeachingClass, 10)
 	db.DB.Where(&teachingClass).Order("created_at desc").Find(&teachingClasses)
 	return teachingClasses
+}
+
+func (teachingClass *TeachingClass) ScoreCount() []common.CountRes {
+	result := make([]common.CountRes, 10)
+	sql := " t.student_id = ? and t.`status` = '3' "
+	db.DB.
+		Table(" teaching_class t ").
+		Select(" c.`year`,c.`semester`,count(*) count ").
+		Joins(" LEFT JOIN `course` c ON t.course_id = c.id ").
+		Where(sql,
+			teachingClass.StudentId).
+		Group(" t.course_id ").
+		Scan(&result)
+	return result
 }
 
 //分页查询
@@ -117,11 +132,10 @@ func (teachingClass *TeachingClassResult) SelectCrossSemester() []TeachingClassR
 	return result
 }
 
-//查询跨学期内容
 func (teachingClass *TeachingClassResult) SelectLikeByPage(pageNum int, pageSize int) []TeachingClassResult {
 
 	result := make([]TeachingClassResult, 10)
-	sql := "t.course_name LIKE ? AND t.student_id = ? and status = '3' "
+	sql := "t.course_name LIKE ? AND t.student_id = ? and t.status = '3' "
 	if teachingClass.Year != 0 {
 		sql = sql + " AND c.year = " + strconv.Itoa(teachingClass.Year)
 	}
@@ -181,6 +195,12 @@ func (teachingClass *TeachingClass) Update() int64 {
 	return 0
 }
 
+//更新发布状态
+func (teachingClass *TeachingClass) ReleaseCourse() int64 {
+	updates := db.DB.Model(&teachingClass).Where("course_id = ?", teachingClass.CourseId).Updates(teachingClass)
+	return updates.RowsAffected
+}
+
 //更新记录
 func (teachingClass *TeachingClass) UpdateStatus() {
 	db.DB.Exec("UPDATE teaching_class SET status = ? WHERE course_id = ? and teaching_class_id = ?", teachingClass.Status, teachingClass.CourseId, teachingClass.TeachingClassId)
@@ -199,7 +219,7 @@ func (teachingClass *TeachingClass) Delete() int64 {
 	//防止记录被全部删除
 	if teachingClass.Id != "" {
 		teachingClass.SelectById()
-		db.DB.Where("teaching_class_id = ? and student_id = ?", teachingClass.TeachingClassId, teachingClass.StudentId).Delete(SourceStage{})
+		db.DB.Where("teaching_class_id = ? and student_id = ? and course_id = ?", teachingClass.TeachingClassId, teachingClass.StudentId, teachingClass.CourseId).Delete(SourceStage{})
 		i := db.DB.Delete(&teachingClass)
 		return i.RowsAffected
 	}

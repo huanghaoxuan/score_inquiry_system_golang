@@ -2,6 +2,7 @@ package model
 
 import (
 	"score_inquiry_system/db"
+	"strconv"
 	"time"
 )
 
@@ -45,10 +46,15 @@ func (information *TeacherInformation) SelectById() *TeacherInformation {
 //分页查询
 func (information *TeacherInformation) SelectByPage(pageNum int, pageSize int) []TeacherInformation {
 	teacherInformation := make([]TeacherInformation, 10)
+	sql := ""
+	if information.Permissions != 0 {
+		sql = "permissions = '" + strconv.Itoa(information.Permissions) + "' "
+	}
 	if pageNum > 0 && pageSize > 0 {
 		db.DB.Where("name LIKE ?", "%"+information.Name+"%").
 			Where("student_id LIKE ?", "%"+information.StudentId+"%").
 			Where("department LIKE ?", "%"+information.Department+"%").
+			Where(sql).
 			Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&teacherInformation)
 	}
 	return teacherInformation

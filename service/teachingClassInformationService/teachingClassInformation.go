@@ -56,6 +56,11 @@ func Update(information *model.TeachingClassInformation) int64 {
 	return information.Update()
 }
 
+//更新发布状态
+func ReleaseCourse(information *model.TeachingClassInformation) int64 {
+	return information.ReleaseCourse()
+}
+
 func UpdateAll(information *model.TeachingClassInformation) int64 {
 	return information.UpdateAll()
 }

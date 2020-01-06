@@ -3,8 +3,10 @@ package teachingClassService
 import (
 	"github.com/360EntSecGroup-Skylar/excelize"
 	uuid "github.com/satori/go.uuid"
+	"math"
 	"score_inquiry_system/model"
 	"score_inquiry_system/service/teachingClassInformationService"
+	"strconv"
 )
 
 /**
@@ -62,6 +64,7 @@ func ProcessingExcelFile(s string, courseId string, courseName string) {
 				}
 			}
 			if courseName == teachingClass.CourseName {
+				teachingClass.Status = 1
 				//插入基本信息
 				teachingClass.CourseId = courseId
 				teachingClassInformation.CourseId = courseId
@@ -71,6 +74,39 @@ func ProcessingExcelFile(s string, courseId string, courseName string) {
 		}
 
 	}
+}
+
+//计算总评成绩
+func CalculationResult(teachingClassId string, courseId string) int64 {
+	sourceStage := model.SourceStageResult{}
+	sourceStage.TeachingClassId = teachingClassId
+	sourceStage.CourseId = courseId
+	sourceStages := sourceStage.SelectAll()
+	teachingClass := model.TeachingClass{TeachingClassId: teachingClassId, CourseId: courseId}
+	teachingClasses := teachingClass.SelectAll()
+	var status int64 = 0
+	for i, v := range teachingClasses {
+		finalPercentage := 100.0
+		resultScores := 0.0
+		for _, v2 := range sourceStages {
+			if v.StudentId == v2.StudentId {
+				scores := 0.0
+				if v2.Scores != "" {
+					scores, _ = strconv.ParseFloat(v2.Scores, 64)
+				}
+				percentage, _ := strconv.ParseFloat(v2.Percentage, 64)
+				finalPercentage = finalPercentage - percentage
+				resultScores += scores * (percentage / 100)
+			}
+		}
+		final := 0.0
+		if v.Final != "" {
+			final, _ = strconv.ParseFloat(v.Final, 64)
+		}
+		teachingClasses[i].Result = strconv.Itoa(int(math.Floor(finalPercentage*(final/100) + resultScores + 0.5)))
+		status += teachingClasses[i].Update()
+	}
+	return status
 }
 
 //获取页数
@@ -124,6 +160,11 @@ func Update(teachingClass *model.TeachingClass) int64 {
 //更新成绩状态
 func UpdateStatus(teachingClass *model.TeachingClass) {
 	teachingClass.UpdateStatus()
+}
+
+//更新成绩状态
+func ReleaseCourse(teachingClass *model.TeachingClass) {
+	teachingClass.ReleaseCourse()
 }
 
 func UpdateAll(teachingClass *model.TeachingClass) int64 {

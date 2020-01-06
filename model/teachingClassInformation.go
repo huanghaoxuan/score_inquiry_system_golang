@@ -2,6 +2,7 @@ package model
 
 import (
 	"score_inquiry_system/db"
+	"score_inquiry_system/util/common"
 	"strconv"
 	"time"
 )
@@ -64,6 +65,21 @@ func (teachingClass *TeachingClassInformationResult) SelectCrossSemester(pageNum
 			Count(&count)
 	}
 	return result, count
+}
+
+func (teachingClassInformation *TeachingClassInformation) ScoreCount() []common.CountRes {
+
+	result := make([]common.CountRes, 10)
+	sql := " t.course_teacher_name = ? "
+	db.DB.
+		Table(" teaching_class_information t ").
+		Select(" c.`year`,c.`semester`,count(*) count ").
+		Joins(" LEFT JOIN `course` c ON t.course_id = c.id ").
+		Where(sql,
+			teachingClassInformation.CourseTeacherName).
+		Group(" t.course_id ").
+		Scan(&result)
+	return result
 }
 
 //分页查询
@@ -156,6 +172,11 @@ func (teachingClassInformation *TeachingClassInformation) UpdateAll() int64 {
 		return updates.RowsAffected
 	}
 	return 0
+}
+
+func (teachingClassInformation *TeachingClassInformation) ReleaseCourse() int64 {
+	updates := db.DB.Model(&teachingClassInformation).Where("course_id = ?", teachingClassInformation.CourseId).Updates(teachingClassInformation)
+	return updates.RowsAffected
 }
 
 //删除记录

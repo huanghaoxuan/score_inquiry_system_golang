@@ -19,6 +19,7 @@ import (
  */
 
 func GeneratedExcel2(teachingClassId string, courseId string) string {
+	CalculationResult(teachingClassId, courseId)
 	xlsx := excelize.NewFile()
 	// 创建一个工作表
 	index := xlsx.NewSheet("Sheet1")
@@ -99,7 +100,8 @@ func GeneratedExcel2(teachingClassId string, courseId string) string {
 	sourceStage := model.SourceStage{TeachingClassId: teachingClassId, CourseId: courseId}
 	sourceStages := sourceStage.SelectAll()
 	for i, v := range sourceStageInformations {
-		xlsx.SetCellValue("Sheet1", getHeader(i+4, 7), v.StageNote)
+		percentage, _ := strconv.ParseFloat(v.Percentage, 64)
+		xlsx.SetCellValue("Sheet1", getHeader(i+4, 7), v.StageNote+fmt.Sprintf("%.1f", percentage)+" % ")
 	}
 	xlsx.SetCellValue("Sheet1", getHeader(len(sourceStageInformations)+4, 7), "期末成绩")
 	xlsx.MergeCell("Sheet1", getHeader(len(sourceStageInformations)+5, 6), getHeader(len(sourceStageInformations)+5, 7))

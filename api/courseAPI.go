@@ -7,6 +7,8 @@ import (
 	"net/http"
 	"score_inquiry_system/model"
 	"score_inquiry_system/service/courseService"
+	"score_inquiry_system/service/teachingClassInformationService"
+	"score_inquiry_system/service/teachingClassService"
 	"score_inquiry_system/util/middleware"
 	"strconv"
 )
@@ -24,6 +26,7 @@ func Course(basePath *gin.RouterGroup) {
 	teacher.Use(middleware.ValidateTeacherPermissions)
 	teacher.POST("/course/insert", InsertCourse)
 	teacher.POST("/course/update", UpdateCourse)
+	teacher.POST("/course/releaseCourse", ReleaseCourse)
 	basePath.POST("/course/upload", UploadCourse)
 	basePath.POST("/course/selectByPage", SelectCourseByPage)
 	teacher.GET("/course/delete/:id", DeleteCourse)
@@ -47,6 +50,27 @@ func UploadCourse(c *gin.Context) {
 
 	courseService.ProcessingExcelFile(s)
 
+}
+
+// @Summary 更改课程成绩的发布状态
+// @Description 更改教学班成绩的发布状态
+// @Tags 教学班基本信息
+// @Accept json
+// @Produce json
+// @Router /course/releaseCourse [post]
+func ReleaseCourse(c *gin.Context) {
+	status, _ := strconv.Atoi(c.PostForm("status"))
+	id := c.PostForm("id")
+	teachingClassInformation := model.TeachingClassInformation{Status: status, CourseId: id}
+	res := teachingClassInformationService.ReleaseCourse(&teachingClassInformation)
+
+	teachingClass := model.TeachingClass{Status: status, CourseId: id}
+	teachingClassService.ReleaseCourse(&teachingClass)
+
+	course := model.Course{Id: id, Status: status}
+	course.Update()
+	//回调
+	c.JSON(http.StatusOK, gin.H{"status": res})
 }
 
 // @Summary 增加课程信息记录

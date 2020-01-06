@@ -74,6 +74,7 @@ func ProcessingExcelFile(s string) {
 func Insert(course *model.Course) int64 {
 	//设置uuid为主键
 	course.Id = uuid.NewV4().String()
+	course.Status = 1
 	return course.Insert()
 }
 

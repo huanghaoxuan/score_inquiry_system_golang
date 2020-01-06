@@ -26,6 +26,11 @@ type SourceStage struct {
 	CreatedAt       time.Time `form:"createdAt" gorm:"column:created_at" json:"createdAt"`              //创建时间
 }
 
+type SourceStageResult struct {
+	SourceStage
+	Percentage string `json:"percentage"`
+}
+
 //通过id查询
 func (sourceStage *SourceStage) SelectById() *SourceStage {
 	db.DB.Where("id = ?", sourceStage.Id).First(&sourceStage)
@@ -51,7 +56,18 @@ func (sourceStage *SourceStage) SelectByPage(pageNum int, pageSize int) []Source
 func (sourceStage *SourceStage) SelectAll() []SourceStage {
 	sourceStages := make([]SourceStage, 15)
 	db.DB.Where(&sourceStage).Order("student_id ASC").Find(&sourceStages)
+	return sourceStages
+}
 
+//全部查询
+func (sourceStage *SourceStageResult) SelectAll() []SourceStageResult {
+	sourceStages := make([]SourceStageResult, 15)
+	db.DB.Table(" source_stage ss ").
+		Select(" ss.*,ssi.percentage ").
+		Where(" ss.course_id = ? and ss.teaching_class_id = ?", sourceStage.CourseId, sourceStage.TeachingClassId).
+		Joins(" left join source_stage_information ssi on ssi.id = ss.source_stage_id ").
+		Order("ss.student_id ASC").
+		Find(&sourceStages)
 	return sourceStages
 }
 

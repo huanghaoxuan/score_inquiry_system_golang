@@ -15,7 +15,7 @@ import (
 
 //分析成绩通过情况
 func Pass(studentId string) interface{} {
-	teachingClass := model.TeachingClass{StudentId: studentId, Status: 2}
+	teachingClass := model.TeachingClass{StudentId: studentId, Status: 3}
 	teachingClasses := teachingClass.SelectAll()
 	a := 0 //满分
 	b := 0 //优秀
@@ -48,88 +48,21 @@ func Pass(studentId string) interface{} {
 //分析每年课程情况
 func ScoreCount(studentId string) interface{} {
 	teachingClass := model.TeachingClass{StudentId: studentId}
-	teachingClasses := teachingClass.SelectAll()
-	data := make([]map[string]int, 0, len(teachingClasses))
-	course := model.Course{}
-	courses := course.SelectAll()
-	for index := 0; index < len(teachingClasses); index++ {
-		//设置姓名、学号、课程名、学年、学期、期末成绩、总成绩
-		for _, v := range courses {
-			if v.Id == teachingClasses[index].CourseId {
-				course = v
-				break
-			}
-		}
-		//course := model.Course{Id: teachingClasses[index].CourseId}
-		//course.SelectById()
-		if len(data) == 0 {
-			data = append(data, make(map[string]int))
-			data[len(data)-1]["count"] = 1
-			data[len(data)-1]["year"] = course.Year
-		} else {
-			for index := 0; index < len(data); index++ {
-				if data[index]["year"] == course.Year {
-					data[len(data)-1]["count"] = data[len(data)-1]["count"] + 1
-					break
-				} else if index == len(data)-1 {
-					data = append(data, make(map[string]int))
-					data[len(data)-1]["count"] = 1
-					data[len(data)-1]["year"] = course.Year
-				}
-			}
-		}
+	scoreCountRes := teachingClass.ScoreCount()
+	for i, v := range scoreCountRes {
+		year, _ := strconv.Atoi(v.Year)
+		scoreCountRes[i].Year = v.Year + " - " + strconv.Itoa(year+1) + " 学年" + v.Semester
 	}
-
-	//格式化数据源
-	fData := make([]map[string]interface{}, 0, len(data))
-	for index := 0; index < len(data); index++ {
-		fData = append(fData, make(map[string]interface{}))
-		fData[index]["count"] = data[index]["count"]
-		fData[index]["year"] = strconv.Itoa(data[index]["year"]) + " 学年"
-	}
-	return fData
+	return scoreCountRes
 }
 
 //教师分析任课班课程情况
 func TeachingclassCount(name string) interface{} {
 	teachingClassInformation := model.TeachingClassInformation{CourseTeacherName: name}
-	teachingClassInformations := teachingClassInformation.Select()
-	data := make([]map[string]int, 0, len(teachingClassInformations))
-	course := model.Course{}
-	courses := course.SelectAll()
-	for index := 0; index < len(teachingClassInformations); index++ {
-		for _, v := range courses {
-			if v.Id == teachingClassInformations[index].CourseId {
-				course = v
-				break
-			}
-		}
-		//course := model.Course{Id: teachingClassInformations[index].CourseId}
-		//course.SelectById()
-		if len(data) == 0 {
-			data = append(data, make(map[string]int))
-			data[len(data)-1]["count"] = 1
-			data[len(data)-1]["year"] = course.Year
-		} else {
-			for index := 0; index < len(data); index++ {
-				if data[index]["year"] == course.Year {
-					data[len(data)-1]["count"] = data[len(data)-1]["count"] + 1
-					break
-				} else if index == len(data)-1 {
-					data = append(data, make(map[string]int))
-					data[len(data)-1]["count"] = 1
-					data[len(data)-1]["year"] = course.Year
-				}
-			}
-		}
+	teachingclassCountRes := teachingClassInformation.ScoreCount()
+	for i, v := range teachingclassCountRes {
+		year, _ := strconv.Atoi(v.Year)
+		teachingclassCountRes[i].Year = v.Year + " - " + strconv.Itoa(year+1) + " 学年 - " + v.Semester
 	}
-
-	//格式化数据源
-	fData := make([]map[string]interface{}, 0, len(data))
-	for index := 0; index < len(data); index++ {
-		fData = append(fData, make(map[string]interface{}))
-		fData[index]["count"] = data[index]["count"]
-		fData[index]["year"] = strconv.Itoa(data[index]["year"]) + " 学年"
-	}
-	return fData
+	return teachingclassCountRes
 }

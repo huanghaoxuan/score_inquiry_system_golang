@@ -80,12 +80,14 @@ func UpdateSourceStages(c *gin.Context) {
 	_ = c.ShouldBindJSON(&data)
 	//状态回调
 	var status int64 = 0
+	teachingClassId := ""
+	courseId := ""
 	for _, v := range data.Data {
-		status += sourceStageService.Update(&v)
-		teachingClass := model.TeachingClass{Id: v.CourseId, TeachingClassId: v.TeachingClassId, StudentId: v.StudentId}
-		go teachingClassService.UpdateResult(&teachingClass)
+		sourceStageService.Update(&v)
+		courseId = v.CourseId
+		teachingClassId = v.TeachingClassId
 	}
-
+	status = teachingClassService.CalculationResult(teachingClassId, courseId)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"status": status})
 }

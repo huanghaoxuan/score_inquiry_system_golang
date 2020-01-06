@@ -89,8 +89,8 @@ func (course *Course) Delete() int64 {
 		teachingClassInformation := TeachingClassInformation{CourseId: course.Id}
 		teachingClassInformations := teachingClassInformation.Select()
 		for _, v := range teachingClassInformations {
-			db.DB.Where("teaching_class_id = ?", v.TeachingClassId).Delete(SourceStageInformation{})
-			db.DB.Where("teaching_class_id = ?", v.TeachingClassId).Delete(SourceStage{})
+			db.DB.Where("teaching_class_id = ? and course_id = ?", v.TeachingClassId, course.Id).Delete(SourceStageInformation{})
+			db.DB.Where("teaching_class_id = ? and course_id = ?", v.TeachingClassId, course.Id).Delete(SourceStage{})
 		}
 		db.DB.Where("course_id = ?", course.Id).Delete(TeachingClassInformation{})
 		db.DB.Where("course_id = ?", course.Id).Delete(TeachingClass{})
