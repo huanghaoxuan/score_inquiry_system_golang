@@ -20,11 +20,14 @@ import (
 
 func GeneratedExcel2(teachingClassId string, courseId string) string {
 	CalculationResult(teachingClassId, courseId)
-	xlsx := excelize.NewFile()
-	// 创建一个工作表
-	index := xlsx.NewSheet("Sheet1")
-	// 设置工作簿的默认工作表
-	xlsx.SetActiveSheet(index)
+	//xlsx := excelize.NewFile()
+	//// 创建一个工作表
+	//index := xlsx.NewSheet("Sheet1")
+	//// 设置工作簿的默认工作表
+	//xlsx.SetActiveSheet(index)
+	xlsx, _ := excelize.OpenFile("./default.xlsx")
+	alignmentStyle := xlsx.GetCellStyle("Sheet1", "A1")
+	borderStyle := xlsx.GetCellStyle("Sheet1", "B1")
 	//阶段成绩表头信息
 	sourceStageInformation := model.SourceStageInformation{TeachingClassId: teachingClassId, CourseId: courseId}
 	sourceStageInformations := sourceStageInformation.SelectAll()
@@ -42,7 +45,10 @@ func GeneratedExcel2(teachingClassId string, courseId string) string {
 	xlsx.MergeCell("Sheet1", "A2", getHeader(len(sourceStageInformations)+5, 2))
 	xlsx.SetCellValue("Sheet1", "A2", strconv.Itoa(teachingClassInformationResult.Year)+"-"+strconv.Itoa(teachingClassInformationResult.Year+1)+" "+teachingClassInformationResult.Semester)
 	xlsx.MergeCell("Sheet1", "A3", getHeader((len(sourceStageInformations)+5)/3-1, 3))
+
+	xlsx.SetRowHeight("Sheet1", 3, 40)
 	xlsx.SetCellValue("Sheet1", "A3", "承担单位："+teacher.Department)
+
 	xlsx.MergeCell("Sheet1", getHeader((len(sourceStageInformations)+5)/3, 3), getHeader((len(sourceStageInformations)+5)/3*2-1, 3))
 	xlsx.SetCellValue("Sheet1", getHeader((len(sourceStageInformations)+5)/3, 3), "课程："+teachingClassInformationResult.CourseName)
 	xlsx.MergeCell("Sheet1", getHeader((len(sourceStageInformations)+5)/3*2, 3), getHeader(len(sourceStageInformations)+5, 3))
@@ -56,7 +62,7 @@ func GeneratedExcel2(teachingClassId string, courseId string) string {
 	}
 	sort.Strings(classes)
 	classes = common.RemoveRepByLoop(classes)
-	class := ""
+	class := "上课班级："
 	for i, v := range classes {
 		if v != "" {
 			class += v
@@ -66,8 +72,10 @@ func GeneratedExcel2(teachingClassId string, courseId string) string {
 		}
 
 	}
+
 	xlsx.MergeCell("Sheet1", getHeader((len(sourceStageInformations)+5)/3, 4), getHeader((len(sourceStageInformations)+5)/3*2-1, 4))
-	xlsx.SetCellValue("Sheet1", getHeader((len(sourceStageInformations)+5)/3, 4), "上课班级："+class)
+	xlsx.SetRowHeight("Sheet1", 4, float64(len([]rune(class))/12+1)*15)
+	xlsx.SetCellValue("Sheet1", getHeader((len(sourceStageInformations)+5)/3, 4), class)
 	xlsx.MergeCell("Sheet1", getHeader((len(sourceStageInformations)+5)/3*2, 4), getHeader(len(sourceStageInformations)+5, 4))
 	xlsx.SetCellValue("Sheet1", getHeader((len(sourceStageInformations)+5)/3*2, 4), "课序号："+teachingClassId)
 	xlsx.MergeCell("Sheet1", "A5", getHeader(len(sourceStageInformations)+5, 5))
@@ -80,6 +88,7 @@ func GeneratedExcel2(teachingClassId string, courseId string) string {
 		finalPercentage = finalPercentage - percentage
 	}
 	composition += "期末成绩 * " + fmt.Sprintf("%.1f", finalPercentage) + " % "
+	xlsx.SetRowHeight("Sheet1", 5, float64(60))
 	xlsx.SetCellValue("Sheet1", "A5", composition)
 	/*表格文件总览数据填写完成*/
 
@@ -87,6 +96,7 @@ func GeneratedExcel2(teachingClassId string, courseId string) string {
 	xlsx.MergeCell("Sheet1", "A6", "A7")
 	xlsx.SetCellValue("Sheet1", "A6", "序号")
 	xlsx.MergeCell("Sheet1", "B6", "B7")
+	xlsx.SetColWidth("Sheet1", "B", "B", 20)
 	xlsx.SetCellValue("Sheet1", "B6", "班级")
 	xlsx.MergeCell("Sheet1", "C6", "C7")
 	xlsx.SetCellValue("Sheet1", "C6", "学号")
@@ -127,11 +137,11 @@ func GeneratedExcel2(teachingClassId string, courseId string) string {
 	}
 
 	//设置表格样式
-	alignmentStyle, _ := xlsx.NewStyle(`{"alignment":{"horizontal":"center","vertical":"center"}}`)
+	//alignmentStyle, _ := xlsx.NewStyle(`{"alignment":{"horizontal":"center","vertical":"center"}}`)
 	xlsx.SetCellStyle("Sheet1", "A1", getHeader(len(sourceStageInformations)+5, 5), alignmentStyle)
 
-	style, _ := xlsx.NewStyle(`{"alignment":{"horizontal":"center","vertical":"center"},"border":[{"type":"left","color":"000000","style":1},{"type":"right","color":"000000","style":1},{"type":"top","color":"000000","style":1},{"type":"bottom","color":"000000","style":1}]}`)
-	xlsx.SetCellStyle("Sheet1", "A6", getHeader(len(sourceStageInformations)+5, len(teachingClasses)+7), style)
+	//style, _ := xlsx.NewStyle(`{"border":[{"type":"left","color":"000000","style":1},{"type":"right","color":"000000","style":1},{"type":"top","color":"000000","style":1},{"type":"bottom","color":"000000","style":1}]}`)
+	xlsx.SetCellStyle("Sheet1", "A6", getHeader(len(sourceStageInformations)+5, len(teachingClasses)+7), borderStyle)
 
 	xlsx.ProtectSheet("Sheet1", &excelize.FormatSheetProtection{
 		Password:      "admin",
@@ -304,4 +314,27 @@ func getHeader(row int, l int) string {
 		row = row/26 - 1
 	}
 	return axis
+}
+
+func getRow(row int) string {
+	axis := ""
+	for {
+		axis = string(row%26+65) + axis
+		if row/26 == 0 {
+			break
+		}
+		row = row/26 - 1
+	}
+	return axis
+}
+
+func subString(str string, length int) (string, int) {
+	count := 1
+	result := ""
+	for count*length < len([]rune(str)) {
+		result += string([]rune(str)[(count-1)*length:count*length]) + "\r\n"
+		count++
+	}
+	result += string([]rune(str)[(count-1)*length:])
+	return result, count
 }
