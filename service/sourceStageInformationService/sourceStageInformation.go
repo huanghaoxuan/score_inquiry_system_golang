@@ -28,12 +28,39 @@ func SelectAll(sourceStageInformation *model.SourceStageInformation) []model.Sou
 	return sourceStageInformation.SelectAll()
 }
 
+func InsertSourceStageInformationByCourseAdministrator(sourceStageInformation *model.SourceStageInformation) int64 {
+	teachingClassInformation := model.TeachingClassInformation{
+		CourseId: sourceStageInformation.CourseId,
+	}
+	teachingClasses := teachingClassInformation.Select()
+	result := int64(0)
+	for _, v := range teachingClasses {
+		sourceStageInformationTemp := model.SourceStageInformation{
+			Id:              uuid.NewV4().String(),
+			Name:            sourceStageInformation.Name,
+			TeachingClassId: v.TeachingClassId,
+			StageId:         sourceStageInformation.StageId,
+			AddPeople:       sourceStageInformation.AddPeople,
+			Batch:           sourceStageInformation.Batch,
+			CourseId:        sourceStageInformation.CourseId,
+			StageNote:       sourceStageInformation.StageNote,
+			Percentage:      sourceStageInformation.Percentage,
+			Type:            sourceStageInformation.Type,
+		}
+		result += Insert(&sourceStageInformationTemp)
+	}
+	return result
+}
+
 //插入
 func Insert(sourceStageInformation *model.SourceStageInformation) int64 {
 	//设置uuid为主键
 	sourceStageInformation.Id = uuid.NewV4().String()
-	teachingClass := model.TeachingClass{TeachingClassId: sourceStageInformation.TeachingClassId, CourseId: sourceStageInformation.CourseId}
-	teachingClasses := teachingClass.SelectAll()
+	teachingClass := model.TeachingClass{
+		TeachingClassId: sourceStageInformation.TeachingClassId,
+		CourseId:        sourceStageInformation.CourseId,
+	}
+	teachingClasses := teachingClass.Select()
 	for _, v := range teachingClasses {
 		sourceStage := model.SourceStage{
 			Name:            v.Name,
@@ -58,6 +85,11 @@ func UpdateAll(sourceStageInformation *model.SourceStageInformation) int64 {
 	return sourceStageInformation.UpdateAll()
 }
 
+//更新全部字段通过
+func UpdateByBatch(sourceStageInformation *model.SourceStageInformation) int64 {
+	return sourceStageInformation.UpdateByBatch()
+}
+
 //通过id查询
 func SelectSourceStageInformationById(id string) *model.SourceStageInformation {
 	sourceStageInformation := model.SourceStageInformation{Id: id}
@@ -69,4 +101,16 @@ func Delete(id string) int64 {
 	//获取相关记录，获取学号
 	sourceStageInformation := model.SourceStageInformation{Id: id}
 	return sourceStageInformation.Delete()
+}
+
+//删除一条记录
+func DeleteByCourseAdministrator(batch string) int64 {
+	//获取相关记录，获取学号
+	sourceStageInformation := model.SourceStageInformation{Batch: batch}
+	sourceStageInformations := sourceStageInformation.SelectAll()
+	result := int64(0)
+	for _, v := range sourceStageInformations {
+		result += v.Delete()
+	}
+	return result
 }

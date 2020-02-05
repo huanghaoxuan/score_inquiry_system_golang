@@ -24,13 +24,17 @@ func SelectByPage(pageNum int, pageSize int, course *model.Course) interface{} {
 	courses := course.SelectByPage(pageNum, pageSize)
 	type courseResult struct {
 		model.Course
-		ClassCount      int `json:"classCount"`
-		StudentCount    int `json:"studentCount"`
-		CompleteInput   int `json:"completeInput"`
-		UnCompleteInput int `json:"unCompleteInput"`
+		CourseAdministratorName string `json:"courseAdministratorName"`
+		ClassCount              int    `json:"classCount"`
+		StudentCount            int    `json:"studentCount"`
+		CompleteInput           int    `json:"completeInput"`
+		UnCompleteInput         int    `json:"unCompleteInput"`
 	}
 	courseRes := make([]courseResult, len(courses))
 	for i := 0; i < len(courseRes); i++ {
+		teacherInformation := model.TeacherInformation{Id: courses[i].CourseAdministrator}
+		teacherInformation.SelectById()
+		courseRes[i].CourseAdministratorName = teacherInformation.Name
 		courseRes[i].Course = courses[i]
 		teachingClassInformation := model.TeachingClassInformation{CourseId: courseRes[i].Id}
 		courseRes[i].ClassCount = teachingClassInformation.Count()

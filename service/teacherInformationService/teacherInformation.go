@@ -20,6 +20,11 @@ func Count(information *model.TeacherInformation) int {
 	return information.Count()
 }
 
+func SelectTeacherInformationByName(name string) []model.TeacherInformation {
+	teacherInformation := model.TeacherInformation{Name: name}
+	return teacherInformation.SelectByNameMore()
+}
+
 //分页查询
 func SelectByPage(pageNum int, pageSize int, information *model.TeacherInformation) []model.TeacherInformation {
 	return information.SelectByPage(pageNum, pageSize)

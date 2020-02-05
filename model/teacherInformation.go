@@ -37,6 +37,13 @@ func (information *TeacherInformation) SelectByName() *TeacherInformation {
 	return information
 }
 
+//通过Name模糊查询
+func (information *TeacherInformation) SelectByNameMore() []TeacherInformation {
+	teacherInformations := make([]TeacherInformation, 10)
+	db.DB.Where("name LIKE ?", "%"+information.Name+"%").Find(&teacherInformations)
+	return teacherInformations
+}
+
 //通过id查询
 func (information *TeacherInformation) SelectById() *TeacherInformation {
 	db.DB.Where("id = ?", information.Id).First(&information)

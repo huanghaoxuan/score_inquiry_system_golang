@@ -2,6 +2,7 @@ package api
 
 import (
 	"github.com/gin-gonic/gin"
+	uuid "github.com/satori/go.uuid"
 	"net/http"
 	"score_inquiry_system/model"
 	"score_inquiry_system/service/sourceStageInformationService"
@@ -21,11 +22,14 @@ func SourceStageInformation(basePath *gin.RouterGroup) {
 	teacher := basePath.Group("")
 	teacher.Use(middleware.ValidateTeacherPermissions)
 	teacher.POST("/sourceStageInformation/insert", InsertSourceStageInformation)
+	teacher.POST("/sourceStageInformation/insertByCourseAdministrator", InsertSourceStageInformationByCourseAdministrator)
 	teacher.POST("/sourceStageInformation/update", UpdateSourceStageInformation)
+	teacher.POST("/sourceStageInformation/updateByCourseAdministrator", UpdateSourceStageInformationByCourseAdministrator)
 	//basePath.POST("/sourceStageInformation/upload", UploadSourceStageInformation)
 	basePath.POST("/sourceStageInformation/selectByPage", SelectSourceStageInformationByPage)
 	basePath.POST("/sourceStageInformation/selectAll", SelectSourceStageInformationAll)
 	teacher.GET("/sourceStageInformation/delete/:id", DeleteSourceStageInformation)
+	teacher.GET("/sourceStageInformation/ByCourseAdministrator/:batch", DeleteSourceStageInformationByCourseAdministrator)
 }
 
 // @Summary 增加阶段性测验信息
@@ -45,7 +49,33 @@ func InsertSourceStageInformation(c *gin.Context) {
 	var sourceStageInformation model.SourceStageInformation
 	_ = c.ShouldBind(&sourceStageInformation)
 	//状态回调
+	sourceStageInformation.Batch = uuid.NewV4().String()
+	sourceStageInformation.AddPeople = 1
 	status := sourceStageInformationService.Insert(&sourceStageInformation)
+	//回调
+	c.JSON(http.StatusOK, gin.H{"status": status})
+}
+
+// @Summary 由课程管理员增加阶段性测验信息
+// @Description 增加阶段性测验信息
+// @Tags 阶段性测验信息
+// @Accept mpfd
+// @Produce json
+// @Param Authorization header string true "Token"
+// @Param name formData string true "课程名字"
+// @Param teachingClassId formData string false "教学班号"
+// @Param scoresId formData string false "阶段性测验序号"
+// @Param scoresNote formData string false "阶段性测验描述"
+// @Success 200 {string} json "{"status": 1}"
+// @Router /sourceStageInformation/InsertByCourseAdministrator [post]
+func InsertSourceStageInformationByCourseAdministrator(c *gin.Context) {
+	//模型填充
+	var sourceStageInformation model.SourceStageInformation
+	_ = c.ShouldBind(&sourceStageInformation)
+	//状态回调
+	sourceStageInformation.Batch = uuid.NewV4().String()
+	sourceStageInformation.AddPeople = 2
+	status := sourceStageInformationService.InsertSourceStageInformationByCourseAdministrator(&sourceStageInformation)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"status": status})
 }
@@ -68,6 +98,28 @@ func UpdateSourceStageInformation(c *gin.Context) {
 	_ = c.ShouldBind(&sourceStageInformation)
 	//状态回调
 	status := sourceStageInformationService.UpdateAll(&sourceStageInformation)
+	//回调
+	c.JSON(http.StatusOK, gin.H{"status": status})
+}
+
+// @Summary 更新阶段性测验信息
+// @Description 更新阶段性测验信息
+// @Tags 阶段性测验信息
+// @Accept mpfd
+// @Produce json
+// @Param Authorization header string true "Token"
+// @Param name formData string true "课程名字"
+// @Param teachingClassId formData string false "教学班号"
+// @Param scoresId formData string false "阶段性测验序号"
+// @Param scoresNote formData string false "阶段性测验描述"
+// @Success 200 {string} json "{"status": 1}"
+// @Router /sourceStageInformation/updateByCourseAdministrator [post]
+func UpdateSourceStageInformationByCourseAdministrator(c *gin.Context) {
+	//模型填充
+	var sourceStageInformation model.SourceStageInformation
+	_ = c.ShouldBind(&sourceStageInformation)
+	//状态回调
+	status := sourceStageInformationService.UpdateByBatch(&sourceStageInformation)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"status": status})
 }
@@ -131,6 +183,21 @@ func SelectSourceStageInformationAll(c *gin.Context) {
 func DeleteSourceStageInformation(c *gin.Context) {
 	id := c.Param("id")
 	status := sourceStageInformationService.Delete(id)
+	//回调
+	c.JSON(http.StatusOK, gin.H{"status": status})
+}
+
+// @Summary 删除阶段性测验信息
+// @Description 删除阶段性测验信息
+// @Tags 阶段性测验信息
+// @Accept json
+// @Produce json
+// @Param Authorization header string true "Token"
+// @Param id path string true "主键"
+// @Router /sourceStageInformation/ByCourseAdministrator/{batch} [get]
+func DeleteSourceStageInformationByCourseAdministrator(c *gin.Context) {
+	batch := c.Param("batch")
+	status := sourceStageInformationService.DeleteByCourseAdministrator(batch)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"status": status})
 }

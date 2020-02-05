@@ -27,6 +27,7 @@ func TeacherInformation(basePath *gin.RouterGroup) {
 	teacher.POST("/teacherInformation/upload", UploadTeacherInformation)
 	teacher.POST("/teacherInformation/selectByPage", SelectTeacherInformationByPage)
 	teacher.GET("/teacherInformation/delete/:id", DeleteTeacherInformation)
+	teacher.GET("/teacherInformation/selectByName/:name", SelectTeacherInformationByName)
 }
 
 // @Summary 上传教师信息表格文件
@@ -115,6 +116,21 @@ func SelectTeacherInformationByPage(c *gin.Context) {
 	teacherInformations := teacherInformationService.SelectByPage(pageNum, pageSize, &teacherInformation)
 	//回调
 	c.JSON(http.StatusOK, gin.H{"data": teacherInformations, "count": count})
+}
+
+// @Summary 通过名字查询老师信息
+// @Description
+// @Tags 老师信息
+// @Accept json
+// @Produce json
+// @Param name formData string false "姓名"
+// @Router /teacherInformation/SelectTeacherInformationByName/{name} [get]
+func SelectTeacherInformationByName(c *gin.Context) {
+	//模型填充
+	name := c.Param("name")
+	teacherInformations := teacherInformationService.SelectTeacherInformationByName(name)
+	//回调
+	c.JSON(http.StatusOK, gin.H{"data": teacherInformations})
 }
 
 // @Summary 删除一条老师信息

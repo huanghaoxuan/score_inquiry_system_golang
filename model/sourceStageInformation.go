@@ -19,6 +19,8 @@ type SourceStageInformation struct {
 	Name            string    `form:"name" gorm:"column:name;not null;" json:"name"`                                    //课程名字
 	TeachingClassId string    `form:"teachingClassId" gorm:"column:teaching_class_id;not null;" json:"teachingClassId"` //教学班号
 	StageId         string    `form:"stageId" gorm:"column:stage_id;not null;" json:"stageId"`                          //阶段性测验序号
+	AddPeople       int       `form:"addPeople" gorm:"column:add_people;" json:"addPeople"`                             //添加该条记录的人 1：本人添加 2：课程管理员添加
+	Batch           string    `form:"batch" gorm:"column:batch;" json:"batch"`                                          //添加该条记录的批次
 	CourseId        string    `form:"courseId" gorm:"column:course_id" json:"courseId"`                                 //课程id
 	StageNote       string    `form:"stageNote" gorm:"column:stage_note;not null;" json:"stageNote"`                    //阶段性测验名称
 	Percentage      string    `form:"percentage" gorm:"column:percentage" json:"percentage"`                            //阶段性测验占比
@@ -36,7 +38,7 @@ func (sourceStageInformation *SourceStageInformation) SelectById() *SourceStageI
 func (sourceStageInformation *SourceStageInformation) SelectByPage(pageNum int, pageSize int) []SourceStageInformation {
 	sourceStageInformations := make([]SourceStageInformation, 10)
 	if pageNum > 0 && pageSize > 0 {
-		db.DB.Where(&sourceStageInformation).Order("created_at ASC").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&sourceStageInformations)
+		db.DB.Where(&sourceStageInformation).Group("batch").Order("created_at ASC").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&sourceStageInformations)
 	}
 	return sourceStageInformations
 }
@@ -44,7 +46,7 @@ func (sourceStageInformation *SourceStageInformation) SelectByPage(pageNum int, 
 //查询全部
 func (sourceStageInformation *SourceStageInformation) SelectAll() []SourceStageInformation {
 	sourceStageInformations := make([]SourceStageInformation, 10)
-	db.DB.Where(&sourceStageInformation).Order("created_at desc").Find(&sourceStageInformations)
+	db.DB.Where(&sourceStageInformation).Order("created_at ASC").Find(&sourceStageInformations)
 	return sourceStageInformations
 }
 
@@ -76,6 +78,26 @@ func (sourceStageInformation *SourceStageInformation) Update() int64 {
 func (sourceStageInformation *SourceStageInformation) UpdateAll() int64 {
 	if sourceStageInformation.Id != "" {
 		updates := db.DB.Model(&sourceStageInformation).Where("id = ?", sourceStageInformation.Id).Save(sourceStageInformation)
+		return updates.RowsAffected
+	}
+	return 0
+}
+
+//更新记录
+//全部字段更新
+func (sourceStageInformation *SourceStageInformation) UpdateByBatch() int64 {
+	if sourceStageInformation.Id != "" {
+		updates := db.DB.Exec("UPDATE source_stage_information SET "+
+			"stage_id = ? "+
+			", stage_note = ? "+
+			", percentage = ? "+
+			", type = ? "+
+			"WHERE batch = ? ",
+			sourceStageInformation.StageId,
+			sourceStageInformation.StageNote,
+			sourceStageInformation.Percentage,
+			sourceStageInformation.Type,
+			sourceStageInformation.Batch)
 		return updates.RowsAffected
 	}
 	return 0

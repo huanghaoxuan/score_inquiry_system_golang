@@ -2,10 +2,18 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="643eb69c-3746-41e6-a2bc-ccda17858c03" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/default.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/finalScore/9fc4bfad-7cdd-4b0b-866d-680629d2f1c0-01.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/finalScore/f46e9258-e559-44a7-8f0e-6d096b8d56b6-01.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/teachingClassService/download.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/teachingClassService/download.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/sourceStageInformationAPI.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/sourceStageInformationAPI.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/teacherInformationAPI.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/teacherInformationAPI.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/course.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/course.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/sourceStageInformation.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/sourceStageInformation.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/teacherInformation.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/teacherInformation.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/teachingClass.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/teachingClass.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/finalScore/9fc4bfad-7cdd-4b0b-866d-680629d2f1c0-01.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/public/finalScore/9fc4bfad-7cdd-4b0b-866d-680629d2f1c0-01.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/courseService/course.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/courseService/course.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/sourceStageInformationService/sourceStageInformation.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/sourceStageInformationService/sourceStageInformation.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/teacherInformationService/teacherInformation.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/teacherInformationService/teacherInformation.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,6 +129,15 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
+    <configuration name="go build sourceStageInformation.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="score_inquiry_system" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/model/sourceStageInformation.go" />
+      <package value="score_inquiry_system" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
     <configuration name="TestGeneratedExcel in score_inquiry_system/service/teachingClassService (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="score_inquiry_system" />
       <working_directory value="$PROJECT_DIR$/service/teachingClassService" />
@@ -143,24 +160,13 @@
       <pattern value="^TestGeneratedExcel$" />
       <method v="2" />
     </configuration>
-    <configuration name="Test_GeneratedExcel in score_inquiry_system/service/teachingClassService" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="score_inquiry_system" />
-      <working_directory value="$PROJECT_DIR$/service/teachingClassService" />
-      <framework value="gotest" />
-      <kind value="PACKAGE" />
-      <package value="score_inquiry_system/service/teachingClassService" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^Test_GeneratedExcel$" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="Go Build.go build main.go" />
+        <item itemvalue="Go Build.go build sourceStageInformation.go" />
         <item itemvalue="Go Build.go build download.go" />
         <item itemvalue="Go Test.TestGeneratedExcel in score_inquiry_system/service/teachingClassService (1)" />
         <item itemvalue="Go Test.TestGeneratedExcel in score_inquiry_system/service/teachingClassService" />
-        <item itemvalue="Go Test.Test_GeneratedExcel in score_inquiry_system/service/teachingClassService" />
       </list>
     </recent_temporary>
   </component>
@@ -208,7 +214,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="期末成绩结构体创建" />
     <MESSAGE value="加入权限验证中间件，学生权限只能进行查询操作" />
     <MESSAGE value="加入期末成绩api" />
     <MESSAGE value="录入期末成绩" />
@@ -233,7 +238,8 @@
     <MESSAGE value="增加阶段性成绩类型" />
     <MESSAGE value="修改导出表格格式" />
     <MESSAGE value="修改成绩发布流程" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改成绩发布流程" />
+    <MESSAGE value="调整导出表格的样式" />
+    <option name="LAST_COMMIT_MESSAGE" value="调整导出表格的样式" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="VgoProject">
@@ -265,50 +271,66 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="668" y="155" key="#go_build_download.go/0.0.1920.1040@0.0.1920.1040" timestamp="1580806471438" />
-    <state width="761" height="466" key="DebuggerActiveHint" timestamp="1580812005041">
+    <state x="668" y="155" key="#go_build_sourceStageInformation.go" timestamp="1580890022537">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="761" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1580812005041" />
-    <state x="740" y="264" key="FileChooserDialogImpl" timestamp="1580403436161">
+    <state x="668" y="155" key="#go_build_sourceStageInformation.go/0.0.1920.1040@0.0.1920.1040" timestamp="1580890022537" />
+    <state x="560" y="110" key="CommitChangelistDialog2" timestamp="1580813896367">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="740" y="264" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1580403436161" />
-    <state width="1877" height="187" key="GridCell.Tab.0.bottom" timestamp="1580813827493">
+    <state x="560" y="110" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1580813896367" />
+    <state width="863" height="466" key="DebuggerActiveHint" timestamp="1580896732346">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="187" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1580813827493" />
-    <state width="1877" height="187" key="GridCell.Tab.0.center" timestamp="1580813827493">
+    <state width="863" height="466" key="DebuggerActiveHint/0.0.1920.1040@0.0.1920.1040" timestamp="1580896732346" />
+    <state x="740" y="264" key="FileChooserDialogImpl" timestamp="1580886066173">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="187" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1580813827493" />
-    <state width="1877" height="187" key="GridCell.Tab.0.left" timestamp="1580813827493">
+    <state x="740" y="264" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1580886066173" />
+    <state width="1877" height="449" key="GridCell.Tab.0.bottom" timestamp="1580901940580">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="187" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1580813827493" />
-    <state width="1877" height="187" key="GridCell.Tab.0.right" timestamp="1580813827493">
+    <state width="1877" height="449" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1580901940580" />
+    <state width="1877" height="449" key="GridCell.Tab.0.center" timestamp="1580901940579">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="187" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1580813827493" />
-    <state width="1877" height="187" key="GridCell.Tab.1.bottom" timestamp="1580813827437">
+    <state width="1877" height="449" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1580901940579" />
+    <state width="1877" height="449" key="GridCell.Tab.0.left" timestamp="1580901940579">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="187" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1580813827437" />
-    <state width="1877" height="187" key="GridCell.Tab.1.center" timestamp="1580813827437">
+    <state width="1877" height="449" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1580901940579" />
+    <state width="1877" height="449" key="GridCell.Tab.0.right" timestamp="1580901940579">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="187" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1580813827437" />
-    <state width="1877" height="187" key="GridCell.Tab.1.left" timestamp="1580813827437">
+    <state width="1877" height="449" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1580901940579" />
+    <state width="1877" height="449" key="GridCell.Tab.1.bottom" timestamp="1580901940537">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="187" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1580813827437" />
-    <state width="1877" height="187" key="GridCell.Tab.1.right" timestamp="1580813827437">
+    <state width="1877" height="449" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1580901940537" />
+    <state width="1877" height="449" key="GridCell.Tab.1.center" timestamp="1580901940537">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="187" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1580813827437" />
+    <state width="1877" height="449" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1580901940537" />
+    <state width="1877" height="449" key="GridCell.Tab.1.left" timestamp="1580901940537">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="449" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1580901940537" />
+    <state width="1877" height="449" key="GridCell.Tab.1.right" timestamp="1580901940537">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="449" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1580901940537" />
     <state x="463" y="165" key="SettingsEditor" timestamp="1580811829680">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="463" y="165" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1580811829680" />
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2" timestamp="1580813899353">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="552" y="253" key="Vcs.Push.Dialog.v2/0.0.1920.1040@0.0.1920.1040" timestamp="1580813899353" />
+    <state x="636" y="119" width="647" height="801" key="find.popup" timestamp="1580893613778">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="636" y="119" width="647" height="801" key="find.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1580893613778" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/score_inquiry_system$TestGeneratedExcel_in_score_inquiry_system_service_teachingClassService.out" NAME="TestGeneratedExcel in score_inquiry_system/service/teachingClassService Coverage Results" MODIFIED="1564388049744" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

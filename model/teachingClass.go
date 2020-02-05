@@ -160,7 +160,12 @@ func (teachingClass *TeachingClassResult) SelectLikeByPage(pageNum int, pageSize
 //查询所有
 func (teachingClass *TeachingClass) SelectAll() []TeachingClass {
 	teachingClasses := make([]TeachingClass, 10)
-	db.DB.Where(&teachingClass).Order("student_id ASC").Find(&teachingClasses)
+	//db.DB.Where(&teachingClass).Order("student_id ASC").Find(&teachingClasses)
+	db.DB.Where("name LIKE ? AND student_id LIKE ? AND course_id = ? AND teaching_class_id = ?",
+		"%"+teachingClass.Name+"%",
+		"%"+teachingClass.StudentId+"%",
+		teachingClass.CourseId,
+		teachingClass.TeachingClassId).Order("student_id ASC").Find(&teachingClasses)
 	return teachingClasses
 }
 
