@@ -96,7 +96,18 @@ func SelectTeachingClassInformationByPage(c *gin.Context) {
 	pageNum, _ := strconv.Atoi(c.PostForm("pageNum"))
 	pageSize, _ := strconv.Atoi(c.PostForm("pageSize"))
 	//查询总条数
-	count := teachingClassInformation.Count()
+	if teachingClassInformation.Year != 0 {
+		teachingClassInformation.UniqueSign += "%" + strconv.Itoa(teachingClassInformation.Year)
+	}
+	if teachingClassInformation.Semester != "" {
+		teachingClassInformation.UniqueSign += "-" + teachingClassInformation.Semester + "%"
+	}
+	count := 0
+	if teachingClassInformation.CourseId != "" {
+		count = teachingClassInformation.Count()
+	} else {
+		count = teachingClassInformation.CountUniqueSign()
+	}
 	//将course_id 设置为id返回
 	teachingClasseInformations := teachingClassInformationService.SelectByPage(pageNum, pageSize, &teachingClassInformation)
 	//回调

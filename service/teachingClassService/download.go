@@ -225,9 +225,12 @@ func GeneratedExcel(teachingClassId string, courseId string) string {
 }
 
 func GeneratedExcelCrossSemester(teachingClasses []model.TeachingClassResult) string {
-	xlsx := excelize.NewFile()
+	xlsx, _ := excelize.OpenFile("./default.xlsx")
+	alignmentStyle := xlsx.GetCellStyle("Sheet1", "A1")
+	borderStyle := xlsx.GetCellStyle("Sheet1", "B1")
+	//xlsx := excelize.NewFile()
 	// 创建一个工作表
-	index := xlsx.NewSheet("Sheet1")
+	//index := xlsx.NewSheet("Sheet1")
 	//// 设置单元格的值
 	xlsx.SetCellValue("Sheet1", "A1", "任课教师")
 	xlsx.SetCellValue("Sheet1", "B1", "课程号")
@@ -269,6 +272,7 @@ func GeneratedExcelCrossSemester(teachingClasses []model.TeachingClassResult) st
 		xlsx.SetCellValue("Sheet1", getHeader(i+6, 1), v)
 	}
 	xlsx.SetCellValue("Sheet1", getHeader(len(head)+6, 1), "总评成绩")
+	xlsx.SetCellStyle("Sheet1", "A1", getHeader(len(head)+6, 1), alignmentStyle)
 	//--------------------------------------------------------------------------------------------------------------------
 	//设置姓名、学号、课程名等值
 
@@ -289,16 +293,16 @@ func GeneratedExcelCrossSemester(teachingClasses []model.TeachingClassResult) st
 		xlsx.SetCellValue("Sheet1", getHeader(len(head)+6, i+2), avg/len(head))
 	}
 	//设置边框
-	style, _ := xlsx.NewStyle("{'type':'1'}")
-	xlsx.SetCellStyle("Sheet1", "A3", "D3", style)
+	xlsx.SetCellStyle("Sheet1", "A2", getHeader(len(head)+6, len(data)+1), borderStyle)
 	// 设置工作簿的默认工作表
-	xlsx.SetActiveSheet(index)
+	//xlsx.SetActiveSheet(index)
 	// 根据指定路径保存文件
-	err := xlsx.SaveAs("public/finalScore/crossSemester" + uuid.NewV4().String() + ".xlsx")
+	fileName := "crossSemester-" + uuid.NewV4().String() + ".xlsx"
+	err := xlsx.SaveAs("public/finalScore/" + fileName)
 	if err != nil {
 		fmt.Println(err)
 	}
-	return "crossSemester" + uuid.NewV4().String() + ".xlsx"
+	return fileName
 }
 
 /*

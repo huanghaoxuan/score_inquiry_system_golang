@@ -146,7 +146,20 @@ func (teachingClassInformation *TeachingClassInformation) Select() []TeachingCla
 //查询总记录
 func (teachingClassInformation *TeachingClassInformation) Count() int {
 	count := 0
-	db.DB.Model(&teachingClassInformation).Where(&teachingClassInformation).Count(&count)
+	db.DB.Model(&teachingClassInformation).
+		Where(&teachingClassInformation).
+		Count(&count)
+	return count
+}
+
+func (teachingClassInformation *TeachingClassInformation) CountUniqueSign() int {
+	count := 0
+	db.DB.Model(&teachingClassInformation).
+		Where("course_name like ? and teaching_class_id like ? and unique_sign like ?",
+			"%"+teachingClassInformation.CourseName+"%",
+			"%"+teachingClassInformation.TeachingClassId+"%",
+			"%"+teachingClassInformation.UniqueSign+"%").
+		Count(&count)
 	return count
 }
 
