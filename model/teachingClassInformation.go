@@ -155,8 +155,9 @@ func (teachingClassInformation *TeachingClassInformation) Count() int {
 func (teachingClassInformation *TeachingClassInformation) CountUniqueSign() int {
 	count := 0
 	db.DB.Model(&teachingClassInformation).
-		Where("course_name like ? and teaching_class_id like ? and unique_sign like ?",
+		Where("course_name like ? and teaching_class_id like ? and course_teacher_name like ? and unique_sign like ?",
 			"%"+teachingClassInformation.CourseName+"%",
+			"%"+teachingClassInformation.CourseTeacherName+"%",
 			"%"+teachingClassInformation.TeachingClassId+"%",
 			"%"+teachingClassInformation.UniqueSign+"%").
 		Count(&count)

@@ -100,10 +100,15 @@ func CalculationResult(teachingClassId string, courseId string) int64 {
 			}
 		}
 		final := 0.0
-		if v.Final != "" {
-			final, _ = strconv.ParseFloat(v.Final, 64)
+		finalTemp := v.Final
+		if finalTemp == "缺考" {
+			finalTemp = "0"
+		}
+		if finalTemp != "" {
+			final, _ = strconv.ParseFloat(finalTemp, 64)
 		}
 		teachingClasses[i].Result = strconv.Itoa(int(math.Floor(finalPercentage*(final/100) + resultScores + 0.5)))
+
 		status += teachingClasses[i].Update()
 	}
 	return status

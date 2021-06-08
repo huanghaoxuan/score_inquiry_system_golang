@@ -44,8 +44,8 @@ func Course(basePath *gin.RouterGroup) {
 func UploadCourse(c *gin.Context) {
 	// 单文件
 	fileHeader, _ := c.FormFile("file")
-	fmt.Println("./../public/studentInformation" + fileHeader.Filename)
-	s := "public/studentInformation/" + uuid.NewV4().String() + fileHeader.Filename
+	fmt.Println("./../public/course/" + fileHeader.Filename)
+	s := "public/course/" + uuid.NewV4().String() + fileHeader.Filename
 	_ = c.SaveUploadedFile(fileHeader, s)
 
 	courseService.ProcessingExcelFile(s)

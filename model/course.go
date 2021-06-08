@@ -2,6 +2,7 @@ package model
 
 import (
 	"score_inquiry_system/db"
+	"strconv"
 	"time"
 )
 
@@ -18,7 +19,7 @@ type Course struct {
 	Id                  string    `form:"id" gorm:"primary_key;column:id" json:"id"`                                          //主键
 	Status              int       `form:"status" gorm:"column:status" json:"status"`                                          //成绩状态（1、教师录入中，2、教师已确认，3、成绩已发布）
 	Name                string    `form:"name" gorm:"column:name;not null;" json:"name"`                                      //课程名字
-	CourseId            string    `form:"courseId" gorm:"column:course_id;not null;" json:"courseId"`                         //课程名字
+	CourseId            string    `form:"courseId" gorm:"column:course_id;not null;" json:"courseId"`                         //课程号
 	CourseAdministrator string    `form:"courseAdministrator" gorm:"column:course_administrator;" json:"courseAdministrator"` //课程管理员
 	Year                int       `form:"year" gorm:"column:year" json:"year"`                                                //学年
 	Semester            string    `form:"semester" gorm:"column:semester" json:"semester"`                                    //学期
@@ -42,15 +43,22 @@ func (course *Course) SelectAll() []Course {
 //分页查询
 func (course *Course) SelectByPage(pageNum int, pageSize int) []Course {
 	courses := make([]Course, 10)
+	extSql := ""
+	if course.Year != 0 {
+		extSql += " AND year = " + strconv.Itoa(course.Year) + " "
+	}
+	if course.Semester != "" {
+		extSql += " AND semester = '" + course.Semester + "' "
+	}
 	if pageNum > 0 && pageSize > 0 {
 		if course.CourseAdministrator != "" {
-			db.DB.Where("name LIKE ? AND course_id LIKE ? AND course_administrator = ?",
+			db.DB.Where("name LIKE ? AND course_id LIKE ? AND course_administrator = ?"+extSql,
 				"%"+course.Name+"%",
 				"%"+course.CourseId+"%",
 				course.CourseAdministrator).
 				Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&courses)
 		} else {
-			db.DB.Where("name LIKE ? AND course_id LIKE ? ", "%"+course.Name+"%", "%"+course.CourseId+"%").
+			db.DB.Where("name LIKE ? AND course_id LIKE ? "+extSql, "%"+course.Name+"%", "%"+course.CourseId+"%").
 				Order("created_at desc").Limit(pageSize).Offset((pageNum - 1) * pageSize).Find(&courses)
 		}
 	}

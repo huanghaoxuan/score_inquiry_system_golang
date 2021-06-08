@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="643eb69c-3746-41e6-a2bc-ccda17858c03" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/finalScore/crossSemester-0f1d53f0-9372-41e0-b233-c9c6692f0a28.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/finalScore/crossSemester-75f1eaef-2598-436f-8346-1f67fd1ad3dd.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/finalScore/crossSemester-7aea565a-37a1-4581-b24a-2448e052f0a1.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/finalScore/crossSemester561a2c27-4c10-4841-a397-483025d14bdb.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="643eb69c-3746-41e6-a2bc-ccda17858c03" name="Default Changelist" comment="2020/2/5 修订版本 课程管理员可统一添加阶段性信息">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/finalScore/9e5ba8fb-7385-408b-bc8d-ba650a057924-01.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/public/finalScore/crossSemester-8eb589a4-cb3e-4c2f-9654-2bdd0403e6ec.xlsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/courseAPI.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/courseAPI.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/teachingClassInformationAPI.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/teachingClassInformationAPI.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db/msserver.go" beforeDir="false" afterPath="$PROJECT_DIR$/db/msserver.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/course.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/course.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/studentInformation.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/studentInformation.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model/teachingClass.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/teachingClass.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/model/teachingClassInformation.go" beforeDir="false" afterPath="$PROJECT_DIR$/model/teachingClassInformation.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/service/teachingClassService/download.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/teachingClassService/download.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service/teachingClassService/teachingClass.go" beforeDir="false" afterPath="$PROJECT_DIR$/service/teachingClassService/teachingClass.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -245,54 +247,54 @@
     <proxy>https://goproxy.io</proxy>
   </component>
   <component name="WindowStateProjectService">
-    <state width="910" height="466" key="DebuggerActiveHint" timestamp="1601787916082">
+    <state x="844" y="290" key="CommitChangelistDialog2" timestamp="1623151320485">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="910" height="466" key="DebuggerActiveHint/0.0.2560.1400@0.0.2560.1400" timestamp="1601787916082" />
-    <state width="2517" height="249" key="GridCell.Tab.0.bottom" timestamp="1602123407690">
+    <state x="844" y="290" key="CommitChangelistDialog2/0.0.2560.1400@0.0.2560.1400" timestamp="1623151320485" />
+    <state width="793" height="466" key="DebuggerActiveHint" timestamp="1622724069459">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="249" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1602123407690" />
-    <state width="2517" height="249" key="GridCell.Tab.0.center" timestamp="1602123407690">
+    <state width="793" height="466" key="DebuggerActiveHint/0.0.2560.1400@0.0.2560.1400" timestamp="1622724069459" />
+    <state width="2517" height="356" key="GridCell.Tab.0.bottom" timestamp="1622724511071">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="249" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1602123407690" />
-    <state width="2517" height="249" key="GridCell.Tab.0.left" timestamp="1602123407690">
+    <state width="2517" height="356" key="GridCell.Tab.0.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1622724511071" />
+    <state width="2517" height="356" key="GridCell.Tab.0.center" timestamp="1622724511071">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="249" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1602123407690" />
-    <state width="2517" height="249" key="GridCell.Tab.0.right" timestamp="1602123407690">
+    <state width="2517" height="356" key="GridCell.Tab.0.center/0.0.2560.1400@0.0.2560.1400" timestamp="1622724511071" />
+    <state width="2517" height="356" key="GridCell.Tab.0.left" timestamp="1622724511071">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="249" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1602123407690" />
-    <state width="2517" height="475" key="GridCell.Tab.1.bottom" timestamp="1601997714444">
+    <state width="2517" height="356" key="GridCell.Tab.0.left/0.0.2560.1400@0.0.2560.1400" timestamp="1622724511071" />
+    <state width="2517" height="356" key="GridCell.Tab.0.right" timestamp="1622724511071">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="475" key="GridCell.Tab.1.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1601997714444" />
-    <state width="2517" height="475" key="GridCell.Tab.1.center" timestamp="1601997714444">
+    <state width="2517" height="356" key="GridCell.Tab.0.right/0.0.2560.1400@0.0.2560.1400" timestamp="1622724511071" />
+    <state width="2517" height="356" key="GridCell.Tab.1.bottom" timestamp="1622724511072">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="475" key="GridCell.Tab.1.center/0.0.2560.1400@0.0.2560.1400" timestamp="1601997714444" />
-    <state width="2517" height="475" key="GridCell.Tab.1.left" timestamp="1601997714444">
+    <state width="2517" height="356" key="GridCell.Tab.1.bottom/0.0.2560.1400@0.0.2560.1400" timestamp="1622724511072" />
+    <state width="2517" height="356" key="GridCell.Tab.1.center" timestamp="1622724511071">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="475" key="GridCell.Tab.1.left/0.0.2560.1400@0.0.2560.1400" timestamp="1601997714444" />
-    <state width="2517" height="475" key="GridCell.Tab.1.right" timestamp="1601997714444">
+    <state width="2517" height="356" key="GridCell.Tab.1.center/0.0.2560.1400@0.0.2560.1400" timestamp="1622724511071" />
+    <state width="2517" height="356" key="GridCell.Tab.1.left" timestamp="1622724511071">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="2517" height="475" key="GridCell.Tab.1.right/0.0.2560.1400@0.0.2560.1400" timestamp="1601997714444" />
-    <state width="1288" height="708" key="XDebugger.FullValuePopup" timestamp="1601784003776">
+    <state width="2517" height="356" key="GridCell.Tab.1.left/0.0.2560.1400@0.0.2560.1400" timestamp="1622724511071" />
+    <state width="2517" height="356" key="GridCell.Tab.1.right" timestamp="1622724511072">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state width="1288" height="708" key="XDebugger.FullValuePopup/0.0.2560.1400@0.0.2560.1400" timestamp="1601784003776" />
-    <state x="887" y="250" width="786" height="900" key="find.popup" timestamp="1601784679186">
+    <state width="2517" height="356" key="GridCell.Tab.1.right/0.0.2560.1400@0.0.2560.1400" timestamp="1622724511072" />
+    <state x="956" y="433" width="647" height="534" key="find.popup" timestamp="1622723741379">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="887" y="250" width="786" height="900" key="find.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1601784679186" />
-    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup" timestamp="1601997314848">
+    <state x="956" y="433" width="647" height="534" key="find.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1622723741379" />
+    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup" timestamp="1622723736023">
       <screen x="0" y="0" width="2560" height="1400" />
     </state>
-    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1601997314848" />
+    <state x="943" y="315" width="672" height="678" key="search.everywhere.popup/0.0.2560.1400@0.0.2560.1400" timestamp="1622723736023" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/score_inquiry_system$TestGeneratedExcel_in_score_inquiry_system_service_teachingClassService.out" NAME="TestGeneratedExcel in score_inquiry_system/service/teachingClassService Coverage Results" MODIFIED="1564388049744" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="GoCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />

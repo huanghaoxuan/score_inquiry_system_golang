@@ -90,7 +90,8 @@ func (teachingClass *TeachingClass) SelectByPage(pageNum int, pageSize int) []Te
 					"%"+teachingClass.Professional+"%",
 					teachingClass.CourseId,
 					teachingClass.TeachingClassId).
-				Order("student_id ASC").
+				Order("t.class,t.student_id ASC").
+				//Order("t.created_at DESC").
 				Limit(pageSize).Offset((pageNum - 1) * pageSize).
 				Scan(&result)
 		}
@@ -127,7 +128,8 @@ func (teachingClass *TeachingClassResult) SelectCrossSemester() []TeachingClassR
 			teachingClass.Semester,
 			teachingClass.TeachingClassId,
 			teachingClass.CourseId).
-		Order("student_id ASC").
+		Order("t.student_id ASC").
+		//Order("t.created_at DESC").
 		Scan(&result)
 	return result
 }
@@ -150,7 +152,7 @@ func (teachingClass *TeachingClassResult) SelectLikeByPage(pageNum int, pageSize
 			Where(sql,
 				"%"+teachingClass.CourseName+"%",
 				teachingClass.StudentId).
-			Order("created_at desc").
+			Order("t.created_at desc").
 			Limit(pageSize).Offset((pageNum - 1) * pageSize).
 			Scan(&result)
 	}
@@ -165,7 +167,10 @@ func (teachingClass *TeachingClass) SelectAll() []TeachingClass {
 		"%"+teachingClass.Name+"%",
 		"%"+teachingClass.StudentId+"%",
 		teachingClass.CourseId,
-		teachingClass.TeachingClassId).Order("student_id ASC").Find(&teachingClasses)
+		teachingClass.TeachingClassId).
+		Order("student_id ASC").
+		//Order("created_at DESC").
+		Find(&teachingClasses)
 	return teachingClasses
 }
 
@@ -179,7 +184,8 @@ func (teachingClass *TeachingClass) SelectDownload() []TeachingClassResult {
 		Where("t.teaching_class_id = ? AND t.course_id = ?",
 			teachingClass.TeachingClassId,
 			teachingClass.CourseId).
-		Order("student_id ASC").
+		Order("t.student_id ASC").
+		//Order("t.created_at DESC").
 		Scan(&result)
 	return result
 }
